@@ -35,7 +35,7 @@ An astro component is made up of two main parts: the **Component Script** and th
 
 ### The Component Script
 
-astro uses a code fence (`---`) to identify the component script in your astro component. If you've ever written Markdown before, you may already be familiar with a similar concept called _frontmatter._ astro's idea of a component script was directly inspired by this concept.
+astro uses a code fence (`---`) to identify the component script in your astro component. If you've ever written markdown before, you may already be familiar with a similar concept called _frontmatter._ astro's idea of a component script was directly inspired by this concept.
 
 You can use the component script to write any JavaScript code that you need to render your template. This can include:
 

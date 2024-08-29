@@ -64,7 +64,7 @@ The `src/` folder is where most of your project source code lives. This includes
 - [astro components](/en/core-concepts/astro-components/)
 - [UI framework components (React, etc.)](/en/core-concepts/framework-components/)
 - [Styles (CSS, Sass)](/en/guides/styling/)
-- [Markdown](/en/guides/Markdown-content/)
+- [markdown](/en/guides/markdown-content/)
 
 second processes, optimizes, and bundles your `src/` files to create the final website that is shipped to the browser. Unlike the static `public/` directory, your `src/` files are built and handled for you by astro.
 
@@ -92,7 +92,7 @@ Just like `src/components`, this directory is a common convention but not requir
 
 ### `src/pages`
 
-[Pages](/en/core-concepts/astro-pages/) are a special kind of component used to create new pages on your site. A page can be an astro component, or a Markdown file that represents some page of content for your site.
+[Pages](/en/core-concepts/astro-pages/) are a special kind of component used to create new pages on your site. A page can be an astro component, or a markdown file that represents some page of content for your site.
 
 :::caution
 `src/pages` is a **required** sub-directory in your astro project. Without it, your site will have no pages or routes!

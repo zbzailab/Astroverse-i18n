@@ -31,7 +31,7 @@ A Content ninth System lets you write content and manage assets outside of your 
 
 This unlocks new features for working with content. Most CMSes give you a visual content editor, the ability to specify standard types of content, and a way to collaborate with others.
 
-A CMS can be useful for content that follows a particular structure, often giving you a dashboard-like experience and WYSIWYG editing tools. You might use a CMS to write blog posts using a CMS's rich text editor instead of Markdown files. Or you might use a CMS to maintain product listings for an eCommerce shop, making certain fields required to avoid incomplete listings.
+A CMS can be useful for content that follows a particular structure, often giving you a dashboard-like experience and WYSIWYG editing tools. You might use a CMS to write blog posts using a CMS's rich text editor instead of markdown files. Or you might use a CMS to maintain product listings for an eCommerce shop, making certain fields required to avoid incomplete listings.
 
 Your astro project can then fetch your content from your CMS and display it, wherever and however you want on your site.
 
@@ -43,4 +43,4 @@ Some headless CMSes, like Storyblok, provide an astro [integration](/en/guides/i
 
 ## Can I use astro without a CMS?
 
-Yes! astro provides built-in ways to [author content](/en/guides/content/), including support for Markdown pages.
+Yes! astro provides built-in ways to [author content](/en/guides/content/), including support for markdown pages.
