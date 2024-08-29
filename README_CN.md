@@ -45,6 +45,8 @@ astroVerse-i18n 特别适合那些希望通过融合生动视觉效果和引人�
 
 分享你用 astroVerse-i18n 构建的项目！请打开一个标题为“Showcase Submission”的Issue，提交你的项目详情，我们将在展示页面中展示你的作品。
 
+- [**续编**](https://xubian.com)
+
 ## 💻 本地运行
 
 **推荐的 VSCode 扩展：**
