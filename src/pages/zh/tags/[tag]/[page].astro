@@ -1,5 +1,5 @@
 ---
-import type { GetStaticPaths } from 'astro';
+import type { GetStaticPaths } from "astro";
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
@@ -8,7 +8,7 @@ import Pagination from "@components/Pagination.astro";
 import { getTagMetadata } from "@consts";
 import { getEnglishTag } from "@utils/tagMapping";
 
-type Post = CollectionEntry<'posts'>;
+type Post = CollectionEntry<"posts">;
 
 interface PageProps {
   data: Post[];
@@ -17,15 +17,16 @@ interface PageProps {
 }
 
 export const getStaticPaths = (async () => {
-  const allPosts = await getCollection("posts", ({ id }) => id.startsWith('cn/'));
-  const uniqueTags = [
-    ...new Set(allPosts.flatMap((post) => post.data.tags)),
-  ];
+  const allPosts = await getCollection("posts", ({ id }) =>
+    id.startsWith("cn/"),
+  );
+  const uniqueTags = [...new Set(allPosts.flatMap((post) => post.data.tags))];
 
   return uniqueTags.flatMap((tag) => {
     const englishTag = getEnglishTag(tag);
-    const filteredPosts = allPosts.filter((post) =>
-      post.data.tags.includes(tag) || post.data.tags.includes(englishTag)
+    const filteredPosts = allPosts.filter(
+      (post) =>
+        post.data.tags.includes(tag) || post.data.tags.includes(englishTag),
     );
 
     const pageSize = 12;
@@ -51,11 +52,11 @@ interface Props {
 const { tag } = Astro.params;
 const { page } = Astro.props as Props;
 
-if (typeof tag !== 'string') {
-  throw new Error('Invalid tag parameter');
+if (typeof tag !== "string") {
+  throw new Error("Invalid tag parameter");
 }
 
-const currentLocale = 'zh';
+const currentLocale = "zh";
 const { title, description } = getTagMetadata(tag, currentLocale);
 ---
 

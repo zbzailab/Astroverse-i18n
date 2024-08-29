@@ -4,7 +4,7 @@ import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 
 const { title, description } = Astro.props;
-const lang = Astro.currentLocale ?? 'zh';
+const lang = Astro.currentLocale ?? "zh";
 ---
 
 <!doctype html>
@@ -15,10 +15,15 @@ const lang = Astro.currentLocale ?? 'zh';
   <body
     class="mx-auto flex min-h-screen max-w-6xl flex-col px-4 dark:prose-invert dark:bg-neutral-900 sm:px-6 lg:px-8"
   >
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TZST2M9B"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-TZST2M9B"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe></noscript
+    >
+    <!-- End Google Tag Manager (noscript) -->
 
     <Header />
     <div class="flex-grow">

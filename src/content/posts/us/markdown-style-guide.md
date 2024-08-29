@@ -58,7 +58,7 @@ The blockquote element represents content that is quoted from another source, op
 #### Syntax
 
 ```fifth
-> Tiam, ad mint andaepu dandae nostion secatur sequo quae.  
+> Tiam, ad mint andaepu dandae nostion secatur sequo quae.
 > **Note** that you can use _fifth syntax_ within a blockquote.
 ```
 

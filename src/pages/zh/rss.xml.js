@@ -3,10 +3,10 @@ import { getCollection } from "astro:content";
 import { getConstants } from "@consts";
 
 export async function GET(context) {
-  const currentLocale = 'zh';
+  const currentLocale = "zh";
   const constants = getConstants(currentLocale);
 
-  let posts = await getCollection("posts", ({ id }) => id.startsWith('cn/'));
+  let posts = await getCollection("posts", ({ id }) => id.startsWith("cn/"));
 
   posts = posts
     .sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate))
@@ -21,7 +21,7 @@ export async function GET(context) {
     items: posts.map((post) => ({
       title: post.data.title,
       description: post.data.description,
-      link: `/zh/posts/${post.slug.split('/').pop()}`,
+      link: `/zh/posts/${post.slug.split("/").pop()}`,
       pubDate: post.data.pubDate,
       content: post.body,
       customData: post.data.customData,

@@ -1,5 +1,5 @@
 ---
-import type { GetStaticPaths } from 'astro';
+import type { GetStaticPaths } from "astro";
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
@@ -7,19 +7,21 @@ import PostCard from "@components/CommonCard.astro";
 import Pagination from "@components/Pagination.astro";
 import { getCategoryMetadata } from "@consts";
 
-
 export const getStaticPaths = (async () => {
-  const allPosts = await getCollection("posts", ({ id }) => id.startsWith('us/'));
+  const allPosts = await getCollection("posts", ({ id }) =>
+    id.startsWith("us/"),
+  );
   const uniqueCategories = [
     ...new Set(allPosts.flatMap((post) => post.data.category)),
   ];
 
   return uniqueCategories.flatMap((category) => {
     const filteredPosts = allPosts.filter((post) =>
-      post.data.category.includes(category)
+      post.data.category.includes(category),
     );
-    filteredPosts.sort((a, b) =>
-      new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
+    filteredPosts.sort(
+      (a, b) =>
+        new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf(),
     );
 
     const pageSize = 12;
@@ -38,7 +40,7 @@ export const getStaticPaths = (async () => {
   });
 }) satisfies GetStaticPaths;
 
-type Post = CollectionEntry<'posts'>;
+type Post = CollectionEntry<"posts">;
 
 interface Props {
   page: {
@@ -51,11 +53,11 @@ interface Props {
 const { category } = Astro.params;
 const { page } = Astro.props as Props;
 
-if (typeof category !== 'string') {
-  throw new Error('Invalid category parameter');
+if (typeof category !== "string") {
+  throw new Error("Invalid category parameter");
 }
 
-const currentLocale = 'en';
+const currentLocale = "en";
 const { title, description } = getCategoryMetadata(category, currentLocale);
 ---
 

@@ -2,79 +2,128 @@
 import { Icon } from "astro-icon/components";
 import FooterLinks from "@components/FooterLinks.astro";
 import FooterLanguageSwitcher from "@components/FooterLanguageSwitcher.astro";
-import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 let navData;
 
-const currentLocale = Astro.currentLocale ?? 'zh';
+const currentLocale = Astro.currentLocale ?? "zh";
 
-if (currentLocale === 'zh') {
-  navData = await import('@utils/footernav');
+if (currentLocale === "zh") {
+  navData = await import("@utils/footernav");
 } else {
-  navData = await import('@utils/en/footernav');
+  navData = await import("@utils/en/footernav");
 }
 
 const { one, two, three, more } = navData;
 
 const today = new Date();
 
-const safeGetRelativeLocaleUrl = (path: string) => getRelativeLocaleUrl(currentLocale, path);
+const safeGetRelativeLocaleUrl = (path: string) =>
+  getRelativeLocaleUrl(currentLocale, path);
 
-const brandName = currentLocale === 'zh' ? '星界' : 'AstroVerse';
+const brandName = currentLocale === "zh" ? "星界" : "AstroVerse";
 ---
 
 <footer class="mt-auto w-full max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8">
-  <div class="mb-10 grid grid-cols-2 gap-6 border-t border-neutral-200 pt-5 dark:border-neutral-700 md:grid-cols-4 lg:grid-cols-5">
+  <div
+    class="mb-10 grid grid-cols-2 gap-6 border-t border-neutral-200 pt-5 dark:border-neutral-700 md:grid-cols-4 lg:grid-cols-5"
+  >
     <div class="col-span-full hidden lg:col-span-1 lg:block">
-      <a class="flex-none text-xl font-semibold dark:text-white" href="#" aria-label="Brand">{brandName}</a>
+      <a
+        class="flex-none text-xl font-semibold dark:text-white"
+        href="#"
+        aria-label="Brand">{brandName}</a
+      >
     </div>
 
     <div>
-      <h4 class="text-medium font-semibold uppercase text-neutral-900 dark:text-neutral-100">{currentLocale === 'zh' ? '天干' : 'One'}</h4>
+      <h4
+        class="text-medium font-semibold uppercase text-neutral-900 dark:text-neutral-100"
+      >
+        {currentLocale === "zh" ? "天干" : "One"}
+      </h4>
       <div class="mt-3 grid space-y-3 text-sm">
-        {one.map(item => (
-          <FooterLinks href={safeGetRelativeLocaleUrl(item.href)}>{item.text}</FooterLinks>
-        ))}
+        {
+          one.map((item) => (
+            <FooterLinks href={safeGetRelativeLocaleUrl(item.href)}>
+              {item.text}
+            </FooterLinks>
+          ))
+        }
       </div>
     </div>
 
     <div>
-      <h4 class="text-medium font-semibold uppercase text-neutral-900 dark:text-neutral-100">{currentLocale === 'zh' ? '地支' : 'two'}</h4>
+      <h4
+        class="text-medium font-semibold uppercase text-neutral-900 dark:text-neutral-100"
+      >
+        {currentLocale === "zh" ? "地支" : "two"}
+      </h4>
       <div class="mt-3 grid space-y-3 text-sm">
-        {two.map(item => (
-          <FooterLinks href={safeGetRelativeLocaleUrl(item.href)}>{item.text}</FooterLinks>
-        ))}
+        {
+          two.map((item) => (
+            <FooterLinks href={safeGetRelativeLocaleUrl(item.href)}>
+              {item.text}
+            </FooterLinks>
+          ))
+        }
       </div>
     </div>
 
     <div>
-      <h4 class="text-medium font-semibold uppercase text-neutral-900 dark:text-neutral-100">{currentLocale === 'zh' ? '阴阳' : 'three'}</h4>
+      <h4
+        class="text-medium font-semibold uppercase text-neutral-900 dark:text-neutral-100"
+      >
+        {currentLocale === "zh" ? "阴阳" : "three"}
+      </h4>
       <div class="mt-3 grid space-y-3 text-sm">
-        {three.map(item => (
-          <FooterLinks href={safeGetRelativeLocaleUrl(item.href)}>{item.text}</FooterLinks>
-        ))}
+        {
+          three.map((item) => (
+            <FooterLinks href={safeGetRelativeLocaleUrl(item.href)}>
+              {item.text}
+            </FooterLinks>
+          ))
+        }
       </div>
     </div>
 
     <div>
-      <h4 class="text-medium font-semibold uppercase text-neutral-900 dark:text-neutral-100">{currentLocale === 'zh' ? '更多' : 'More'}</h4>
+      <h4
+        class="text-medium font-semibold uppercase text-neutral-900 dark:text-neutral-100"
+      >
+        {currentLocale === "zh" ? "更多" : "More"}
+      </h4>
       <div class="mt-3 grid space-y-3 text-sm">
-        {more.map(item => (
-          <FooterLinks href={safeGetRelativeLocaleUrl(item.href)}>{item.text}</FooterLinks>)
-        )}
+        {
+          more.map((item) => (
+            <FooterLinks href={safeGetRelativeLocaleUrl(item.href)}>
+              {item.text}
+            </FooterLinks>
+          ))
+        }
       </div>
     </div>
   </div>
 
   <div class="mt-5 border-t border-neutral-200 pt-5 dark:border-neutral-700">
-    <div class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between">
+    <div
+      class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between"
+    >
       <div class="mt-3 sm:mt-0">
-        <a class="flex-none text-sm text-neutral-600 dark:text-neutral-400" href={safeGetRelativeLocaleUrl('/')} aria-label="iNote">{brandName} &copy; {today.getFullYear()}</a>
+        <a
+          class="flex-none text-sm text-neutral-600 dark:text-neutral-400"
+          href={safeGetRelativeLocaleUrl("/")}
+          aria-label="iNote">{brandName} &copy; {today.getFullYear()}</a
+        >
       </div>
-      
+
       <div class="flex items-center justify-between gap-x-3">
         <div class="ms-4 space-x-4 text-sm">
-          <a class="inline-block text-neutral-500 hover:text-neutral-800 dark:text-neutral-500 dark:hover:text-neutral-200" href={safeGetRelativeLocaleUrl('rss.xml')} aria-label="RSS">
+          <a
+            class="inline-block text-neutral-500 hover:text-neutral-800 dark:text-neutral-500 dark:hover:text-neutral-200"
+            href={safeGetRelativeLocaleUrl("rss.xml")}
+            aria-label="RSS"
+          >
             <Icon name="tabler:rss" class="mt-1 h-auto w-5" />
           </a>
         </div>

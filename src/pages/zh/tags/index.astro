@@ -6,7 +6,7 @@ import { getConstants } from "@consts";
 const currentLocale = "zh";
 const constants = getConstants(currentLocale);
 
-const allPosts = await getCollection("posts", ({ id }) => id.startsWith('cn/'));
+const allPosts = await getCollection("posts", ({ id }) => id.startsWith("cn/"));
 
 let tagCounts: { [key: string]: number } = {};
 allPosts.forEach((post) => {
@@ -22,7 +22,10 @@ allPosts.forEach((post) => {
 const tags = Object.keys(tagCounts);
 ---
 
-<BaseLayout title={constants.TAGS_TITLE} description={constants.TAGS_DESCRIPTION}>
+<BaseLayout
+  title={constants.TAGS_TITLE}
+  description={constants.TAGS_DESCRIPTION}
+>
   <div class="prose prose-lg mx-auto p-6">
     <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
       {

@@ -1,5 +1,5 @@
 ---
-import type { GetStaticPaths } from 'astro';
+import type { GetStaticPaths } from "astro";
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
@@ -8,7 +8,7 @@ import PostCard from "@components/CommonCard.astro";
 import Pagination from "@components/Pagination.astro";
 import { getConstants } from "@consts";
 
-type Post = CollectionEntry<'posts'>;
+type Post = CollectionEntry<"posts">;
 
 interface PageProps {
   data: Post[];
@@ -17,7 +17,9 @@ interface PageProps {
 }
 
 export const getStaticPaths = (async () => {
-  const allPosts = await getCollection("posts", ({ id }) => id.startsWith('cn/'));
+  const allPosts = await getCollection("posts", ({ id }) =>
+    id.startsWith("cn/"),
+  );
   allPosts.sort(
     (a, b) =>
       new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf(),
@@ -63,7 +65,10 @@ const currentLocale = "zh";
 const constants = getConstants(currentLocale);
 ---
 
-<BaseLayout title={constants.SITE_TITLE} description={constants.SITE_DESCRIPTION}>
+<BaseLayout
+  title={constants.SITE_TITLE}
+  description={constants.SITE_DESCRIPTION}
+>
   <div class="mx-auto max-w-6xl px-4 py-8">
     {
       page.currentPage === 1 ? (

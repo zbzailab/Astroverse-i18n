@@ -1,23 +1,24 @@
 ---
 import HeaderLinks from "@components/HeaderLinks.astro";
 import { Icon } from "astro-icon/components";
-import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 let navData;
 
-const currentLocale = Astro.currentLocale ?? 'zh';
+const currentLocale = Astro.currentLocale ?? "zh";
 
-if (currentLocale === 'zh') {
-  navData = await import('@utils/headernav');
+if (currentLocale === "zh") {
+  navData = await import("@utils/headernav");
 } else {
-  navData = await import('@utils/en/headernav');
+  navData = await import("@utils/en/headernav");
 }
 
 const { one, two, three } = navData;
 
-const safeGetRelativeLocaleUrl = (path: string) => getRelativeLocaleUrl(currentLocale, path);
+const safeGetRelativeLocaleUrl = (path: string) =>
+  getRelativeLocaleUrl(currentLocale, path);
 
-const brandName = currentLocale === 'zh' ? '星界' : 'AstroVerse';
+const brandName = currentLocale === "zh" ? "星界" : "AstroVerse";
 ---
 
 <header class="z-50 flex w-full flex-wrap py-7 lg:flex-nowrap lg:justify-start">
@@ -28,17 +29,19 @@ const brandName = currentLocale === 'zh' ? '星界' : 'AstroVerse';
     <div class="lg:col-span-3">
       <a
         class="inline-block flex-none rounded-xl text-xl font-semibold focus:opacity-80 focus:outline-none dark:text-white"
-        href={safeGetRelativeLocaleUrl('/')}
+        href={safeGetRelativeLocaleUrl("/")}
         aria-label="iNote"
       >
         {brandName}
       </a>
     </div>
 
-    <div class="ms-auto flex items-center gap-x-2 py-1 lg:order-3 lg:col-span-3 lg:ps-6">
+    <div
+      class="ms-auto flex items-center gap-x-2 py-1 lg:order-3 lg:col-span-3 lg:ps-6"
+    >
       <button
         type="button"
-        onclick={`window.location.href='${safeGetRelativeLocaleUrl('/search/')}'`}
+        onclick={`window.location.href='${safeGetRelativeLocaleUrl("/search/")}'`}
         class="inline-flex items-center gap-x-2 rounded-full px-3 py-2 text-sm font-medium text-black hover:bg-neutral-100 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:text-white dark:hover:bg-white/10 dark:hover:text-white"
         aria-label="Search"
       >
@@ -70,8 +73,14 @@ const brandName = currentLocale === 'zh' ? '星界' : 'AstroVerse';
           aria-controls="navbar-collapse-with-animation"
           aria-label="Toggle navigation"
         >
-          <Icon name="tabler:menu-2" class="size-4 flex-shrink-0 hs-collapse-open:hidden" />
-          <Icon name="tabler:menu-order" class="hidden size-4 flex-shrink-0 hs-collapse-open:block" />
+          <Icon
+            name="tabler:menu-2"
+            class="size-4 flex-shrink-0 hs-collapse-open:hidden"
+          />
+          <Icon
+            name="tabler:menu-order"
+            class="hidden size-4 flex-shrink-0 hs-collapse-open:block"
+          />
         </button>
       </div>
     </div>

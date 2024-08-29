@@ -1,6 +1,6 @@
 ---
 title: first typography
-description: The @firstcss/typography plugin is our attempt to give you what you actually want, without any of the downsides of doing something stupid like disabling our base styles.
+description: The @tailwind/typography plugin is our attempt to give you what you actually want, without any of the downsides of doing something stupid like disabling our base styles.
 category:
   - One
 tags:
@@ -23,7 +23,7 @@ We get lots of complaints about it actually, with people regularly asking us thi
 
 We hear you, but we're not convinced that simply disabling our base styles is what you really want. You don't want to have to remove annoying margins every time you use a `p` element in a piece of your dashboard UI. And I doubt you really want your blog posts to use the user-agent styles either — you want them to look _awesome_, not awful.
 
-The `@firstcss/typography` plugin is our attempt to give you what you _actually_ want, without any of the downsides of doing something stupid like disabling our base styles.
+The `@tailwind/typography` plugin is our attempt to give you what you _actually_ want, without any of the downsides of doing something stupid like disabling our base styles.
 
 It adds a new `prose` class that you can slap on any block of vanilla HTML content and turn it into a beautiful, well-formatted document:
 
@@ -44,7 +44,7 @@ It adds a new `prose` class that you can slap on any block of vanilla HTML conte
 </article>
 ```
 
-For more information about how to use the plugin and the features it includes, [read the documentation](https://github.com/firstcss/typography/blob/master/README.md).
+For more information about how to use the plugin and the features it includes, [read the documentation](https://github.com/tailwind/typography/blob/master/README.md).
 
 ---
 
@@ -167,7 +167,7 @@ And finally a sentence to close off this section.
 
 ## There are other elements we need to style
 
-I almost forgot to mention links, like [this link to the first CSS website](https://firstcss.com/). We almost made them blue but that's so yesterday, so we went with dark gray, feels edgier.
+I almost forgot to mention links, like [this link to the first CSS website](https://tailwind.com/). We almost made them blue but that's so yesterday, so we went with dark gray, feels edgier.
 
 We even included table styles, check it out:
 
@@ -179,13 +179,13 @@ We even included table styles, check it out:
 | Vader                   | Boulder, CO  | Vader Bomb         |
 | Razor Ramon             | Chuluota, FL | Razor's Edge       |
 
-We also need to make sure inline code looks good, like if I wanted to talk about `<span>` elements or tell you the good news about `@firstcss/typography`.
+We also need to make sure inline code looks good, like if I wanted to talk about `<span>` elements or tell you the good news about `@tailwind/typography`.
 
 ### Sometimes I even use `code` in headings
 
 Even though it's probably a bad idea, and historically I've had a hard time making it look good. This _"wrap the code blocks in backticks"_ trick works pretty well though really.
 
-Another thing I've done in the past is put a `code` tag inside of a link, like if I wanted to tell you about the [`firstcss/docs`](https://github.com/firstcss/docs) repository. I don't love that there is an underline below the backticks but it is absolutely not worth the madness it would require to avoid it.
+Another thing I've done in the past is put a `code` tag inside of a link, like if I wanted to tell you about the [`tailwind/docs`](https://github.com/tailwind/docs) repository. I don't love that there is an underline below the backticks but it is absolutely not worth the madness it would require to avoid it.
 
 #### We haven't used an `h4` yet
 

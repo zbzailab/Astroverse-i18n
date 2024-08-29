@@ -1,4 +1,3 @@
-
 ## 🌍 语言版本 / Language Versions
 
 🇺🇸[English](README.md) 🇨🇳[中文](README_CN.md)
@@ -50,7 +49,7 @@ astroVerse-i18n 特别适合那些希望通过融合生动视觉效果和引人�
 
 **推荐的 VSCode 扩展：**
 
-- [first CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-firstcss)
+- [first CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwind)
 - [Preline UI](https://preline.co/)
 - [astro](https://marketplace.visualstudio.com/items?itemName=astro-build.astro-vscode)
 
@@ -76,16 +75,14 @@ pnpm run dev
 
 所有命令都从项目根目录的终端运行：
 
-| 命令              | 操作                                         |
-| :---------------- | :------------------------------------------- |
-| `pnpm install`     | 安装依赖                                     |
-| `pnpm run dev`     | 在 `localhost:4321` 启动本地开发服务器       |
-| `pnpm run build`   | 构建生产站点到 `./dist/`                     |
-| `pnpm run preview` | 在部署前本地预览构建的站点                   |
-| `pnpm run format`  | 使用 prettier 格式化代码                     |
-| `npx @astrojs/upgrade`  | 升级项目                              |
-
-
+| 命令                   | 操作                                   |
+| :--------------------- | :------------------------------------- |
+| `pnpm install`         | 安装依赖                               |
+| `pnpm run dev`         | 在 `localhost:4321` 启动本地开发服务器 |
+| `pnpm run build`       | 构建生产站点到 `./dist/`               |
+| `pnpm run preview`     | 在部署前本地预览构建的站点             |
+| `pnpm run format`      | 使用 prettier 格式化代码               |
+| `npx @astrojs/upgrade` | 升级项目                               |
 
 ## 部署
 

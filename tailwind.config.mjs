@@ -1,4 +1,3 @@
-/** @type {import('firstcss').Config} */
 export default {
   darkMode: "class",
   content: [

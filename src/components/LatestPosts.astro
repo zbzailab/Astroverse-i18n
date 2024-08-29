@@ -2,12 +2,12 @@
 import { getCollection } from "astro:content";
 import OptimizedCover from "@components/OptimizedPicture.astro";
 import FormattedDate from "@components/FormattedDate.astro";
-import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getRelativeLocaleUrl } from "astro:i18n";
 
-const currentLocale = Astro.currentLocale ?? 'zh';
+const currentLocale = Astro.currentLocale ?? "zh";
 
 const allPosts = await getCollection("posts", ({ id }) => {
-  return id.startsWith(`${currentLocale === 'zh' ? 'cn' : 'us'}/`);
+  return id.startsWith(`${currentLocale === "zh" ? "cn" : "us"}/`);
 });
 
 allPosts.sort(
@@ -17,7 +17,8 @@ allPosts.sort(
 
 const latestPosts = allPosts.slice(0, 3);
 
-const safeGetRelativeLocaleUrl = (path: string) => getRelativeLocaleUrl(currentLocale, path);
+const safeGetRelativeLocaleUrl = (path: string) =>
+  getRelativeLocaleUrl(currentLocale, path);
 ---
 
 <div class="mx-auto max-w-[85rem] px-4 py-4 sm:px-4 lg:px-6 lg:py-8">

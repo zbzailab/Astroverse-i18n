@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import OptimizedCover from "@components/OptimizedPicture.astro";
 import FormattedDate from "@components/FormattedDate.astro";
-import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 interface Props {
   currentCategory: string;
@@ -11,19 +11,19 @@ interface Props {
 }
 
 const { currentCategory, currentSlug } = Astro.props;
-const currentLocale = Astro.currentLocale ?? 'zh';
+const currentLocale = Astro.currentLocale ?? "zh";
 
 async function getRelatedArticlesByCategory(): Promise<
   CollectionEntry<"posts">[]
 > {
   const allPosts = await getCollection("posts", ({ id }) => {
-  return id.startsWith(`${currentLocale === 'zh' ? 'cn' : 'us'}/`);
-});
+    return id.startsWith(`${currentLocale === "zh" ? "cn" : "us"}/`);
+  });
   return allPosts
     .filter(
       (post) =>
         post.data.category.includes(currentCategory) &&
-        post.slug !== currentSlug
+        post.slug !== currentSlug,
     )
     .sort(
       (a, b) =>
@@ -34,7 +34,8 @@ async function getRelatedArticlesByCategory(): Promise<
 
 const relatedPosts = await getRelatedArticlesByCategory();
 
-const safeGetRelativeLocaleUrl = (path: string) => getRelativeLocaleUrl(currentLocale, path);
+const safeGetRelativeLocaleUrl = (path: string) =>
+  getRelativeLocaleUrl(currentLocale, path);
 ---
 
 <div class="grid grid-cols-1 gap-4 md:grid-cols-3">

@@ -5,9 +5,9 @@ import HeroCard from "@components/HeroCard.astro";
 import Card from "@components/CommonCard.astro";
 import Pagination from "@components/Pagination.astro";
 import { getConstants } from "@consts";
-import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getRelativeLocaleUrl } from "astro:i18n";
 
-const currentLocale = 'zh';
+const currentLocale = "zh";
 const constants = getConstants(currentLocale);
 
 const allPosts = await getCollection("posts", ({ id }) => id.startsWith(`cn/`));
@@ -20,10 +20,13 @@ const postsPerPage = 15;
 const firstPagePosts = allPosts.slice(0, postsPerPage);
 const totalPages = Math.ceil(allPosts.length / postsPerPage);
 
-const basePath = getRelativeLocaleUrl(currentLocale, 'page/');
+const basePath = getRelativeLocaleUrl(currentLocale, "page/");
 ---
 
-<BaseLayout title={constants.SITE_TITLE} description={constants.SITE_DESCRIPTION}>
+<BaseLayout
+  title={constants.SITE_TITLE}
+  description={constants.SITE_DESCRIPTION}
+>
   <div class="mx-auto max-w-6xl px-4 py-8">
     <div class="grid grid-cols-1">
       <div class="col-span-1 mb-4">
@@ -43,7 +46,9 @@ const basePath = getRelativeLocaleUrl(currentLocale, 'page/');
       currentPage={1}
       lastPage={totalPages}
       urlPrev={null}
-      urlNext={totalPages > 1 ? getRelativeLocaleUrl(currentLocale, 'page/2') : null}
+      urlNext={totalPages > 1
+        ? getRelativeLocaleUrl(currentLocale, "page/2")
+        : null}
       basePath={basePath}
       maxDisplayedPages={5}
     />

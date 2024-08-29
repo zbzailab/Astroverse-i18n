@@ -2,20 +2,23 @@
 import type { CollectionEntry } from "astro:content";
 import OptimizedCover from "@components/OptimizedPicture.astro";
 import FormattedDate from "@components/FormattedDate.astro";
-import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 interface Props {
   post: CollectionEntry<"posts">;
 }
 
 const { post } = Astro.props;
-const currentLocale = post.id.startsWith('us/') ? 'en' : 'zh';
+const currentLocale = post.id.startsWith("us/") ? "en" : "zh";
 ---
 
 <div
   class="relative overflow-hidden rounded-xl bg-white transition-transform duration-500 hover:-translate-y-1 hover:scale-105 dark:bg-neutral-900"
 >
-  <a href={getRelativeLocaleUrl(currentLocale, `posts/${post.slug}`)} class="block">
+  <a
+    href={getRelativeLocaleUrl(currentLocale, `posts/${post.slug}`)}
+    class="block"
+  >
     <OptimizedCover src={post.data.cover} alt={post.data.coverAlt} />
     <div class="absolute bottom-0 end-0 start-0 bg-gradient-to-t p-5 md:p-6">
       <div class="mt-16 flex items-center gap-4 text-xs text-white">

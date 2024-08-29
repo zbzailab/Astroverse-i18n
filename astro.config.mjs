@@ -17,8 +17,8 @@ export default defineConfig({
     locales: ["zh", "en"],
     routing: {
       prefixDefaultLocale: true,
-      redirectToDefaultLocale: false
-    }
+      redirectToDefaultLocale: false,
+    },
   },
   image: {
     remotePatterns: [
