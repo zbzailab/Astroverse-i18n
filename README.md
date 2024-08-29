@@ -10,13 +10,13 @@ This theme seamlessly integrates visuals and written content, empowering creator
 
 Ideal for bloggers and content creators who wish to make their stories stand out through the fusion of striking visuals and engaging prose, astroVerse-i18n helps you connect with a diverse audience across the globe.
 
-<img src="public/screenshot.webp" alt="astroVerse-i18n Screenshot" />
+<img src="public/screenshot.webp" alt="astroVerse-i18n 截图" />
 
-## 💯Lighthouse Score
+## 💯 Lighthouse 得分
 
 <p align="center">
-  <a href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fverse-astro-i18n.vercel.app%2F">
-    <img width="510" alt="astroVerse-i18n Lighthouse Score" src="public/astroverse-i18n-lighthouse-score.svg">
+  <a href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fverse-i18n.vercel.app%2F">
+    <img width="510" alt="astroVerse-i18n Lighthouse 得分" src="public/astroverse-i18n-lighthouse-score.svg">
   <a>
 </p>
 
