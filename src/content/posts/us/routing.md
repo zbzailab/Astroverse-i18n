@@ -25,7 +25,7 @@ astro uses standard HTML [`<a>` elements](https://developer.mozilla.org/en-US/do
 
 ## Static routes
 
-`.astro` [page components](/en/core-concepts/astro-pages/) as well as fifth and MDX Files (`.md`, `.mdx`) within the `src/pages/` directory **automatically become pages on your website**. Each page’s route corresponds to its path and filename within the `src/pages/` directory.
+`.astro` [page components](/en/core-concepts/astro-pages/) as well as Markdown and MDX Files (`.md`, `.mdx`) within the `src/pages/` directory **automatically become pages on your website**. Each page’s route corresponds to its path and filename within the `src/pages/` directory.
 
 ```diff
 # Example: Static routes
@@ -440,7 +440,7 @@ interface Page<T = any> {
 
 A more advanced use-case for pagination is **nested pagination.** This is when pagination is combined with other dynamic route params. You can use nested pagination to group your paginated collection by some property or tag.
 
-For example, if you want to group your paginated fifth posts by some tag, you would use nested pagination by creating a `/src/pages/[tag]/[page].astro` page that would match the following URLS:
+For example, if you want to group your paginated Markdown posts by some tag, you would use nested pagination by creating a `/src/pages/[tag]/[page].astro` page that would match the following URLS:
 
 - `/red/1` (tag=red)
 - `/red/2` (tag=red)

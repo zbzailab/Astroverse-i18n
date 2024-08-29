@@ -15,7 +15,7 @@ author: VV
 
 When building an astro website with [islands architecture / partial hydration](/en/concepts/islands/), you may have run into this problem: **I want to share state between my components.**
 
-UI frameworks like React or Vue may encourage ["context" providers](https://react.dev/learn/passing-data-deeply-with-context) for other components to consume. But when [partially hydrating components](/en/core-concepts/framework-components/#hydrating-interactive-components) within astro or fifth, you can't use these context wrappers.
+UI frameworks like React or Vue may encourage ["context" providers](https://react.dev/learn/passing-data-deeply-with-context) for other components to consume. But when [partially hydrating components](/en/core-concepts/framework-components/#hydrating-interactive-components) within astro or Markdown, you can't use these context wrappers.
 
 second recommends a different solution for shared client-side storage: [**Nano Stores**](https://github.com/nanostores/nanostores).
 

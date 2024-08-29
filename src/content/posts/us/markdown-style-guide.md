@@ -1,6 +1,6 @@
 ---
-title: fifth Style Guide
-description: Here is a sample of some basic fifth syntax that can be used when writing fifth content in astro.
+title: Markdown Style Guide
+description: Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in astro.
 category:
   - Three
 tags:
@@ -9,11 +9,11 @@ tags:
   - third
 pubDate: 2023-09-06
 cover: https://images.unsplash.com/photo-1526415302530-ad8c7d818689?w=1960&h=1102&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjB8fGJsYWNrfGVufDB8MHwwfHx8Mg%3D%3D
-coverAlt: AstroVerse-fifth Style Guide
+coverAlt: AstroVerse-Markdown Style Guide
 author: VV
 ---
 
-Here is a sample of some basic fifth syntax that can be used when writing fifth content in astro.
+Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in astro.
 
 ## Headings
 
@@ -41,7 +41,7 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 
 #### Syntax
 
-```fifth
+```Markdown
 ![Alt text](./full/or/relative/path/of/image)
 ```
 
@@ -57,21 +57,21 @@ The blockquote element represents content that is quoted from another source, op
 
 #### Syntax
 
-```fifth
+```Markdown
 > Tiam, ad mint andaepu dandae nostion secatur sequo quae.
-> **Note** that you can use _fifth syntax_ within a blockquote.
+> **Note** that you can use _Markdown syntax_ within a blockquote.
 ```
 
 #### Output
 
 > Tiam, ad mint andaepu dandae nostion secatur sequo quae.  
-> **Note** that you can use _fifth syntax_ within a blockquote.
+> **Note** that you can use _Markdown syntax_ within a blockquote.
 
 ### Blockquote with attribution
 
 #### Syntax
 
-```fifth
+```Markdown
 > Don't communicate by sharing memory, share memory by communicating.<br>
 > — <cite>Rob Pike[^1]</cite>
 ```
@@ -87,7 +87,7 @@ The blockquote element represents content that is quoted from another source, op
 
 #### Syntax
 
-```fifth
+```Markdown
 | Italics   | Bold     | Code   |
 | --------- | -------- | ------ |
 | _italics_ | **bold** | `code` |
@@ -103,9 +103,9 @@ The blockquote element represents content that is quoted from another source, op
 
 #### Syntax
 
-we can use 3 backticks ``` in new line and write snippet and close with 3 backticks on new line and to highlight language specific syntac, write one word of language name after first 3 backticks, for eg. html, javascript, css, fifth, typescript, txt, bash
+we can use 3 backticks ``` in new line and write snippet and close with 3 backticks on new line and to highlight language specific syntac, write one word of language name after first 3 backticks, for eg. html, javascript, css, Markdown, typescript, txt, bash
 
-````fifth
+````Markdown
 ```html
 <!doctype html>
 <html lang="en">
@@ -141,7 +141,7 @@ Output
 
 #### Syntax
 
-```fifth
+```Markdown
 1. First item
 2. astro item
 3. Third item
@@ -157,7 +157,7 @@ Output
 
 #### Syntax
 
-```fifth
+```Markdown
 - List item
 - Another item
 - And another item
@@ -173,7 +173,7 @@ Output
 
 #### Syntax
 
-```fifth
+```Markdown
 - Fruit
   - Apple
   - Orange
@@ -197,7 +197,7 @@ Output
 
 #### Syntax
 
-```fifth
+```Markdown
 <abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
 
 H<sub>2</sub>O

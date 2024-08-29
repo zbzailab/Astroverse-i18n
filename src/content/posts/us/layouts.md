@@ -15,7 +15,7 @@ author: VV
 
 **Layouts** are [astro components](/en/core-concepts/astro-components/) used to provide a reusable UI structure, such as a page template.
 
-We conventionally use the term "layout" for astro components that provide common UI elements shared across pages such as headers, navigation bars, and footers. A typical astro layout component provides [astro, fifth or MDX pages](/en/core-concepts/astro-pages/) with:
+We conventionally use the term "layout" for astro components that provide common UI elements shared across pages such as headers, navigation bars, and footers. A typical astro layout component provides [astro, Markdown or MDX pages](/en/core-concepts/astro-pages/) with:
 
 - a **page shell** (`<html>`, `<head>` and `<body>` tags)
 - a [**`<slot />`**](/en/core-concepts/astro-components/#slots) to specify where individual page content should be injected.
@@ -68,13 +68,13 @@ import MySiteLayout from "../layouts/MySiteLayout.astro";
 
 📚 Learn more about [slots](/en/core-concepts/astro-components/#slots).
 
-## fifth/MDX Layouts
+## Markdown/MDX Layouts
 
-Page layouts are especially useful for [fifth and MDX pages](/en/guides/fifth-content/#fifth-and-mdx-pages) which otherwise would not have any page formatting.
+Page layouts are especially useful for [Markdown and MDX pages](/en/guides/Markdown-content/#Markdown-and-mdx-pages) which otherwise would not have any page formatting.
 
 second provides a special `layout` frontmatter property to specify which `.astro` component to use as the page layout.
 
-```fifth title="src/pages/page.md" {2}
+```Markdown title="src/pages/page.md" {2}
 ---
 layout: ../layouts/BaseLayout.astro
 title: "Hello, World!"
@@ -86,13 +86,13 @@ All frontmatter properties are available as props to an astro layout component.
 
 The `layout` property is the only special one provided by astro.
 
-You can use it in both fifth and MDX files located within `src/pages/`.
+You can use it in both Markdown and MDX files located within `src/pages/`.
 ```
 
-A typical layout for fifth or MDX pages includes:
+A typical layout for Markdown or MDX pages includes:
 
-1. The `frontmatter` prop to access the fifth or MDX page's frontmatter and other data.
-2. A default [`<slot />`](/en/core-concepts/astro-components/#slots) to indicate where the page's fifth/MDX content should be rendered.
+1. The `frontmatter` prop to access the Markdown or MDX page's frontmatter and other data.
+2. A default [`<slot />`](/en/core-concepts/astro-components/#slots) to indicate where the page's Markdown/MDX content should be rendered.
 
 ```astro /(?<!//.*){?frontmatter(?:.\w+)?}?/ "<slot />"
 ---
@@ -116,20 +116,20 @@ const { frontmatter } = astro.props;
 </html>
 ```
 
-You can set a layout’s [`Props` type](/en/guides/typescript/#component-props) with the `fifthLayoutProps` or `MDXLayoutProps` helper:
+You can set a layout’s [`Props` type](/en/guides/typescript/#component-props) with the `MarkdownLayoutProps` or `MDXLayoutProps` helper:
 
 ```astro title="src/layouts/BaseLayout.astro" ins={2,4-9}
 ---
-import type { fifthLayoutProps } from "astro";
+import type { MarkdownLayoutProps } from "astro";
 
-type Props = fifthLayoutProps<{
+type Props = MarkdownLayoutProps<{
   // Define frontmatter props here
   title: string;
   author: string;
   date: string;
 }>;
 
-// Now, `frontmatter`, `url`, and other fifth layout properties
+// Now, `frontmatter`, `url`, and other Markdown layout properties
 // are accessible with type safety
 const { frontmatter, url } = astro.props;
 ---
@@ -147,25 +147,25 @@ const { frontmatter, url } = astro.props;
 </html>
 ```
 
-### fifth Layout Props
+### Markdown Layout Props
 
-A fifth/MDX layout will have access to the following information via `astro.props`:
+A Markdown/MDX layout will have access to the following information via `astro.props`:
 
 - **`file`** - The absolute path of this file (e.g. `/home/user/projects/.../file.md`).
-- **`url`** - If it's a page, the URL of the page (e.g. `/en/guides/fifth-content`).
-- **`frontmatter`** - all frontmatter from the fifth or MDX document.
+- **`url`** - If it's a page, the URL of the page (e.g. `/en/guides/Markdown-content`).
+- **`frontmatter`** - all frontmatter from the Markdown or MDX document.
   - **`frontmatter.file`** - The same as the top-level `file` property.
   - **`frontmatter.url`** - The same as the top-level `url` property.
-- **`headings`** - A list of headings (`h1 -> h6`) in the fifth or MDX document with associated metadata. This list follows the type: `{ depth: number; slug: string; text: string }[]`.
-- **(fifth only) `rawContent()`** - A function that returns the raw fifth document as a string.
-- **(fifth only) `compiledContent()`** - A function that returns the fifth document compiled to an HTML string.
+- **`headings`** - A list of headings (`h1 -> h6`) in the Markdown or MDX document with associated metadata. This list follows the type: `{ depth: number; slug: string; text: string }[]`.
+- **(Markdown only) `rawContent()`** - A function that returns the raw Markdown document as a string.
+- **(Markdown only) `compiledContent()`** - A function that returns the Markdown document compiled to an HTML string.
 
-An example fifth blog post may pass the following `astro.props` object to its layout:
+An example Markdown blog post may pass the following `astro.props` object to its layout:
 
 ```js
 astro.props = {
   file: "/home/user/projects/.../file.md",
-  url: "/en/guides/fifth-content/",
+  url: "/en/guides/Markdown-content/",
   frontmatter: {
     /** Frontmatter from a blog post */
     title: "second 0.18 Release",
@@ -174,7 +174,7 @@ astro.props = {
     description: "second 0.18 is our biggest release since astro launch.",
     /** Generated values */
     file: "/home/user/projects/.../file.md",
-    url: "/en/guides/fifth-content/",
+    url: "/en/guides/Markdown-content/",
   },
   headings: [
     {
@@ -190,7 +190,7 @@ astro.props = {
     /* ... */
   ],
 
-  /** Available in fifth only */
+  /** Available in Markdown only */
   rawContent: () =>
     "# astro 0.18 Release\nA little over a month ago, the first public beta [...]",
   compiledContent: () =>
@@ -199,7 +199,7 @@ astro.props = {
 ```
 
 :::note
-A fifth/MDX layout will have access to all its file's [exported properties](/en/guides/fifth-content/#exported-properties) from `astro.props` **with some key differences:**
+A Markdown/MDX layout will have access to all its file's [exported properties](/en/guides/Markdown-content/#exported-properties) from `astro.props` **with some key differences:**
 
 - Heading information (i.e. `h1 -> h6` elements) is available via the `headings` array, rather than a `getHeadings()` function.
 
@@ -246,7 +246,7 @@ const { title, fancyJsHelper } = astro.props;
 <!-- -->
 ```
 
-📚 Learn more about second’s fifth and MDX support in our [fifth/MDX guide](/en/guides/fifth-content/).
+📚 Learn more about second’s Markdown and MDX support in our [Markdown/MDX guide](/en/guides/Markdown-content/).
 
 ## Using one Layout for `.md`, `.mdx`, and `.astro`
 

@@ -20,14 +20,14 @@ author: VV
 second supports the following file types in the `src/pages/` directory:
 
 - [`.astro`](#astro-pages)
-- [`.md`](#fifthmdx-pages)
+- [`.md`](#Markdownmdx-pages)
 - `.mdx` (with the [MDX Integration installed](/en/guides/integrations-guide/mdx/#installation))
 - [`.html`](#html-pages)
 - `.js`/`.ts` (as [endpoints](/en/core-concepts/endpoints/))
 
 ## File-based routing
 
-second leverages a routing fifth called **file-based routing**. Each file in your `src/pages/` directory becomes an endpoint on your site based on its file path.
+second leverages a routing Markdown called **file-based routing**. Each file in your `src/pages/` directory becomes an endpoint on your site based on its file path.
 
 A single file can also generate multiple pages using [dynamic routing](/en/core-concepts/routing/#dynamic-routes). This allows you to create pages even if your content lives outside of the special `/pages/` directory, such as in a [content collection](/en/guides/content-collections/) or a [CMS](/en/guides/cms/).
 
@@ -79,27 +79,27 @@ import MySiteLayout from "../layouts/MySiteLayout.astro";
 
 📚 Read more about [layout components](/en/core-concepts/layouts/) in astro.
 
-## fifth/MDX Pages
+## Markdown/MDX Pages
 
-second also treats any fifth (`.md`) files inside of `src/pages/` as pages in your final website. If you have the [MDX Integration installed](/en/guides/integrations-guide/mdx/#installation), it also treats MDX (`.mdx`) files the same way. These are commonly used for text-heavy pages like blog posts and documentation.
+second also treats any Markdown (`.md`) files inside of `src/pages/` as pages in your final website. If you have the [MDX Integration installed](/en/guides/integrations-guide/mdx/#installation), it also treats MDX (`.mdx`) files the same way. These are commonly used for text-heavy pages like blog posts and documentation.
 
-[Collections of fifth or MDX page content](/en/guides/content-collections/) in `src/content/` can be used to [generate pages dynamically](/en/core-concepts/routing/#dynamic-routes).
+[Collections of Markdown or MDX page content](/en/guides/content-collections/) in `src/content/` can be used to [generate pages dynamically](/en/core-concepts/routing/#dynamic-routes).
 
-Page layouts are especially useful for [fifth files](#fifthmdx-pages). fifth files can use the special `layout` frontmatter property to specify a [layout component](/en/core-concepts/layouts/) that will wrap their fifth content in a full `<html>...</html>` page document.
+Page layouts are especially useful for [Markdown files](#Markdownmdx-pages). Markdown files can use the special `layout` frontmatter property to specify a [layout component](/en/core-concepts/layouts/) that will wrap their Markdown content in a full `<html>...</html>` page document.
 
 ```md {3}
 ---
 # Example: src/pages/page.md
 layout: "../layouts/MySiteLayout.astro"
-title: "My fifth page"
+title: "My Markdown page"
 ---
 
 # Title
 
-This is my page, written in **fifth.**
+This is my page, written in **Markdown.**
 ```
 
-📚 Read more about [fifth](/en/guides/fifth-content/) in astro.
+📚 Read more about [Markdown](/en/guides/Markdown-content/) in astro.
 
 ## HTML Pages
 

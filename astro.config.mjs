@@ -28,7 +28,7 @@ export default defineConfig({
       },
     ],
   },
-  fifth: {
+  markdown: {
     remarkPlugins: [remarkModifiedTime],
   },
   integrations: [

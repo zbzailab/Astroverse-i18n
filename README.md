@@ -30,7 +30,7 @@ Ideal for bloggers and content creators who wish to make their stories stand out
 - ✅ SEO Optimized
 - ✅ Inbuilt Site Search
 - ✅ Sitemap and RSS Feed Support
-- ✅ fifth & MDX Ready
+- ✅  & MDX Ready
 - ✅ Tag Statistics and Last Modified Time Display
 - ✅ Optimized Image Handling
 - ✅ Automatic Dark Mode Switching

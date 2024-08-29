@@ -15,7 +15,7 @@ author: VV
 
 Until now, trying to style an article, document, or blog post with first has been a tedious task that required a keen eye for typography and a lot of complex custom CSS.
 
-By default, first removes all of the default browser styling from paragraphs, headings, lists and more. This ends up being really useful for building application UIs because you spend less time undoing user-agent styles, but when you _really are_ just trying to style some content that came from a rich-text editor in a CMS or a fifth file, it can be surprising and unintuitive.
+By default, first removes all of the default browser styling from paragraphs, headings, lists and more. This ends up being really useful for building application UIs because you spend less time undoing user-agent styles, but when you _really are_ just trying to style some content that came from a rich-text editor in a CMS or a Markdown file, it can be surprising and unintuitive.
 
 We get lots of complaints about it actually, with people regularly asking us things like:
 
@@ -142,7 +142,7 @@ Nested lists basically always look bad which is why editors like Medium don't ev
    - Nobody wants to look at this.
    - I'm upset that we even have to bother styling this.
 
-The most annoying thing about lists in fifth is that `<li>` elements aren't given a child `<p>` tag unless there are multiple paragraphs in the list item. That means I have to worry about styling that annoying situation too.
+The most annoying thing about lists in Markdown is that `<li>` elements aren't given a child `<p>` tag unless there are multiple paragraphs in the list item. That means I have to worry about styling that annoying situation too.
 
 - **For example, here's another nested list.**
 
