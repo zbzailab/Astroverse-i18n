@@ -10,17 +10,6 @@ interface LanguageConstants {
   ERROR_404_MESSAGE: string;
   ERROR_404_DESCRIPTION: string;
   ERROR_404_TITLE: string;
-  ABOUT_Three_IMAGE_ALT: string;
-  ABOUT_Three_CONTENT: string;
-  ABOUT_Three_TITLE: string;
-  ABOUT_Two_IMAGE_ALT: string;
-  ABOUT_Two_CONTENT: string;
-  ABOUT_Two_TITLE: string;
-  ABOUT_One_IMAGE_ALT: string;
-  ABOUT_One_CONTENT: string;
-  ABOUT_One_TITLE: string;
-  ABOUT_DESCRIPTION: string;
-  ABOUT_TITLE: string;
   UPDATED_ON: string;
   PUBLISHED_ON: string;
   TAGS_HEADING: string;
@@ -40,21 +29,6 @@ const zhConstants: LanguageConstants = {
   ERROR_404_MESSAGE: "页面未找到",
   ERROR_404_DESCRIPTION: "404 - 页面未找到",
   ERROR_404_TITLE: "404 - 页面未找到",
-  ABOUT_Three_IMAGE_ALT: "关于某甲",
-  ABOUT_Three_CONTENT:
-    "增强版astro主题，适用于视觉博客，多语言支持助力全球受众。",
-  ABOUT_Three_TITLE: "某甲",
-  ABOUT_Two_IMAGE_ALT: "关于某乙",
-  ABOUT_Two_CONTENT:
-    "增强版astro主题，适用于视觉博客，多语言支持助力全球受众。",
-  ABOUT_Two_TITLE: "某乙",
-  ABOUT_One_IMAGE_ALT: "关于某丙",
-  ABOUT_One_CONTENT:
-    "增强版astro主题，适用于视觉博客，多语言支持助力全球受众。",
-  ABOUT_One_TITLE: "某丙",
-  ABOUT_DESCRIPTION:
-    "关于星界- 增强版astro主题，适用于视觉博客，多语言支持助力全球受众。",
-  ABOUT_TITLE: "关于星界",
   UPDATED_ON: "更新于",
   PUBLISHED_ON: "发布于",
   TAGS_HEADING: "标签",
@@ -75,21 +49,6 @@ const enConstants: LanguageConstants = {
   ERROR_404_MESSAGE: "Page not found",
   ERROR_404_DESCRIPTION: "404 - Page not found",
   ERROR_404_TITLE: "404 - Page Not Found",
-  ABOUT_Three_IMAGE_ALT: "About Three",
-  ABOUT_Three_CONTENT:
-    "Enhanced astro theme for impactful visual blogging, now with multilingual support for a global audience.",
-  ABOUT_Three_TITLE: "Three",
-  ABOUT_Two_IMAGE_ALT: "About Two",
-  ABOUT_Two_CONTENT:
-    "Enhanced astro theme for impactful visual blogging, now with multilingual support for a global audience.",
-  ABOUT_Two_TITLE: "Two",
-  ABOUT_One_IMAGE_ALT: "About One",
-  ABOUT_One_CONTENT:
-    "Enhanced astro theme for impactful visual blogging, now with multilingual support for a global audience.",
-  ABOUT_One_TITLE: "One",
-  ABOUT_DESCRIPTION:
-    "About astroVerse - Enhanced astro theme for impactful visual blogging, now with multilingual support for a global audience.",
-  ABOUT_TITLE: "About astroVerse",
   UPDATED_ON: "Updated on",
   PUBLISHED_ON: "Published on",
   TAGS_HEADING: "Tags",
