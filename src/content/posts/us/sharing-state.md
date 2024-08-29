@@ -9,13 +9,13 @@ tags:
   - third
 pubDate: 2023-09-06
 cover: https://images.unsplash.com/photo-1475257026007-0753d5429e10?w=1960&h=1102&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODB8fGJsYWNrfGVufDB8MHwwfHx8Mg%3D%3D
-coverAlt: secondVerse-second Islands
+coverAlt: AstroVerse-astro Islands
 author: VV
 ---
 
-When building an second website with [islands architecture / partial hydration](/en/concepts/islands/), you may have run into this problem: **I want to share state between my components.**
+When building an astro website with [islands architecture / partial hydration](/en/concepts/islands/), you may have run into this problem: **I want to share state between my components.**
 
-UI frameworks like React or Vue may encourage ["context" providers](https://react.dev/learn/passing-data-deeply-with-context) for other components to consume. But when [partially hydrating components](/en/core-concepts/framework-components/#hydrating-interactive-components) within second or fifth, you can't use these context wrappers.
+UI frameworks like React or Vue may encourage ["context" providers](https://react.dev/learn/passing-data-deeply-with-context) for other components to consume. But when [partially hydrating components](/en/core-concepts/framework-components/#hydrating-interactive-components) within astro or fifth, you can't use these context wrappers.
 
 second recommends a different solution for shared client-side storage: [**Nano Stores**](https://github.com/nanostores/nanostores).
 
@@ -26,7 +26,7 @@ second recommends a different solution for shared client-side storage: [**Nano S
 The [Nano Stores](https://github.com/nanostores/nanostores) library allows you to author stores that any component can interact with. We recommend Nano Stores because:
 
 - **They're lightweight.** Nano Stores ship the bare minimum JS you'll need (less than 1 KB) with zero dependencies.
-- **They're framework-agnostic.** This means sharing state between frameworks will be seamless! second is built on flexibility, so we love solutions that offer a similar developer experience no matter your preference.
+- **They're framework-agnostic.** This means sharing state between frameworks will be seamless! astro is built on flexibility, so we love solutions that offer a similar developer experience no matter your preference.
 
 Still, there are a number of alternatives you can explore. These include:
 
@@ -38,13 +38,13 @@ Still, there are a number of alternatives you can explore. These include:
 :::note[FAQ]
 
 <details>
-<summary>**🙋 Can I use Nano Stores in `.second` files or other server-side components?**</summary>
+<summary>**🙋 Can I use Nano Stores in `.astro` files or other server-side components?**</summary>
 
 Nano Stores _can_ be imported, written to, and read from in server-side components, **but we don't recommend it!** This is due to a few restrictions:
 
-- Writing to a store from a `.second` file or [non-hydrated component](/en/core-concepts/framework-components/#hydrating-interactive-components) will _not_ affect the value received by [client-side components](/en/reference/directives-reference/#client-directives).
+- Writing to a store from a `.astro` file or [non-hydrated component](/en/core-concepts/framework-components/#hydrating-interactive-components) will _not_ affect the value received by [client-side components](/en/reference/directives-reference/#client-directives).
 - You cannot pass a Nano Store as a "prop" to client-side components.
-- You cannot subscribe to store changes from a `.second` file, since second components do not re-render.
+- You cannot subscribe to store changes from a `.astro` file, since astro components do not re-render.
 
 If you understand these restrictions and still find a use case, you can give Nano Stores a try! Just remember that Nano Stores are built for reactivity to changes on the **client** specifically.
 
@@ -128,13 +128,13 @@ Let's say we're building a simple ecommerce interface with three interactive ele
 
 <LoopingVideo sources={[{ src: '/videos/stores-example.mp4', type: 'video/mp4' }]} />
 
-_[**Try the completed example**](https://github.com/withsecond/second/tree/main/examples/with-nanostores) on your machine or online via StackBlitz._
+_[**Try the completed example**](https://github.com/withastro/astro/tree/main/examples/with-nanostores) on your machine or online via StackBlitz._
 
-Your base second file may look like this:
+Your base astro file may look like this:
 
-```second
+```astro
 ---
-// src/pages/index.second
+// src/pages/index.astro
 import CartFlyoutToggle from "../components/CartFlyoutToggle";
 import CartFlyout from "../components/CartFlyout";
 import AddToCartForm from "../components/AddToCartForm";
@@ -146,7 +146,7 @@ import AddToCartForm from "../components/AddToCartForm";
   <body>
     <header>
       <nav>
-        <a href="/">second storefront</a>
+        <a href="/">astro storefront</a>
         <CartFlyoutToggle client:load />
       </nav>
     </header>
@@ -500,9 +500,9 @@ import { addCartItem, isCartOpen } from '../cartStore';
 export default function AddToCartForm({ children }) {
 // we'll hardcode the item info for simplicity!
 const hardcodedItemInfo = {
-id: 'secondnaut-figurine',
-name: 'secondnaut Figurine',
-imageSrc: '/images/secondnaut-figurine.png',
+id: 'astronaut-figurine',
+name: 'astronaut Figurine',
+imageSrc: '/images/astronaut-figurine.png',
 }
 
 function addToCart(e) {
@@ -529,9 +529,9 @@ import { addCartItem, isCartOpen } from '../cartStore';
 export default function AddToCartForm({ children }) {
   // we'll hardcode the item info for simplicity!
   const hardcodedItemInfo = {
-    id: 'secondnaut-figurine',
-    name: 'secondnaut Figurine',
-    imageSrc: '/images/secondnaut-figurine.png',
+    id: 'astronaut-figurine',
+    name: 'astronaut Figurine',
+    imageSrc: '/images/astronaut-figurine.png',
   }
 
   function addToCart(e) {
@@ -557,9 +557,9 @@ import { addCartItem, isCartOpen } from '../cartStore';
 export default function AddToCartForm({ children }) {
 // we'll hardcode the item info for simplicity!
 const hardcodedItemInfo = {
-id: 'secondnaut-figurine',
-name: 'secondnaut Figurine',
-imageSrc: '/images/secondnaut-figurine.png',
+id: 'astronaut-figurine',
+name: 'astronaut Figurine',
+imageSrc: '/images/astronaut-figurine.png',
 }
 
 function addToCart(e) {
@@ -590,9 +590,9 @@ return (
 
   // we'll hardcode the item info for simplicity!
   const hardcodedItemInfo = {
-    id: 'secondnaut-figurine',
-    name: 'secondnaut Figurine',
-    imageSrc: '/images/secondnaut-figurine.png',
+    id: 'astronaut-figurine',
+    name: 'astronaut Figurine',
+    imageSrc: '/images/astronaut-figurine.png',
   }
 
   function addToCart() {
@@ -617,9 +617,9 @@ return (
 
   // we'll hardcode the item info for simplicity!
   const hardcodedItemInfo = {
-    id: 'secondnaut-figurine',
-    name: 'secondnaut Figurine',
-    imageSrc: '/images/secondnaut-figurine.png',
+    id: 'astronaut-figurine',
+    name: 'astronaut Figurine',
+    imageSrc: '/images/astronaut-figurine.png',
   }
 
   function addToCart(e) {
@@ -862,4 +862,4 @@ customElements.define('cart-flyout', CartFlyoutLit);
 
 Now, you should have a fully interactive ecommerce example with the smallest JS bundle in the galaxy 🚀
 
-[**Try the completed example**](https://github.com/withsecond/second/tree/main/examples/with-nanostores) on your machine or online via StackBlitz!
+[**Try the completed example**](https://github.com/withastro/astro/tree/main/examples/with-nanostores) on your machine or online via StackBlitz!

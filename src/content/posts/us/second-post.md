@@ -1,5 +1,5 @@
 ---
-title: second post
+title: astro post
 description: Lorem ipsum dolor sit amet.
 category:
   - One
@@ -9,7 +9,7 @@ tags:
   - third
 pubDate: 2023-09-05
 cover: https://images.unsplash.com/photo-1610010992962-ab921d36eebb?w=1960&h=1102&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzZ8fGJsYWNrfGVufDB8MHwwfHx8Mg%3D%3D
-coverAlt: secondVerse-second post
+coverAlt: AstroVerse-astro post
 author: VV
 ---
 

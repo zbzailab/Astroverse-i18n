@@ -1,6 +1,6 @@
 ---
-title: second Syntax
-description: An intro to the .second component syntax.
+title: astro Syntax
+description: An intro to the .astro component syntax.
 category:
   - One
 tags:
@@ -9,31 +9,31 @@ tags:
   - third
 pubDate: 2023-09-01
 cover: https://images.unsplash.com/photo-1517544845501-bb7810f64d76?w=1960&h=1102&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fGJsYWNrfGVufDB8MHwwfHx8Mg%3D%3D
-coverAlt: secondVerse-Aliases
+coverAlt: AstroVerse-Aliases
 author: VV
 ---
 
-**If you know HTML, you already know enough to write your first second component.**
+**If you know HTML, you already know enough to write your first astro component.**
 
-second component syntax is a superset of HTML. The syntax was [designed to feel familiar to anyone with experience writing HTML or JSX](#differences-between-second-and-jsx), and adds support for including components and JavaScript expressions.
+astro component syntax is a superset of HTML. The syntax was [designed to feel familiar to anyone with experience writing HTML or JSX](#differences-between-astro-and-jsx), and adds support for including components and JavaScript expressions.
 
 ## JSX-like Expressions
 
-You can define local JavaScript variables inside of the frontmatter component script between the two code fences (`---`) of an second component. You can then inject these variables into the component's HTML template using JSX-like expressions!
+You can define local JavaScript variables inside of the frontmatter component script between the two code fences (`---`) of an astro component. You can then inject these variables into the component's HTML template using JSX-like expressions!
 
 :::note[Dynamic vs reactive]
-Using this approach, you can include **dynamic** values that are calculated in the frontmatter. But once included, these values are not **reactive** and will never change. second components are templates that only run once, during the rendering step.
+Using this approach, you can include **dynamic** values that are calculated in the frontmatter. But once included, these values are not **reactive** and will never change. astro components are templates that only run once, during the rendering step.
 
-See below for more examples of [differences between second and JSX](#differences-between-second-and-jsx).
+See below for more examples of [differences between astro and JSX](#differences-between-astro-and-jsx).
 :::
 
 ### Variables
 
 Local variables can be added into the HTML using the curly braces syntax:
 
-```second title="src/components/Variables.second" "{name}"
+```astro title="src/components/Variables.astro" "{name}"
 ---
-const name = "second";
+const name = "astro";
 ---
 
 <div>
@@ -46,9 +46,9 @@ const name = "second";
 
 Local variables can be used in curly braces to pass attribute values to both HTML elements and components:
 
-```second title="src/components/DynamicAttributes.second" "{name}" "${name}"
+```astro title="src/components/DynamicAttributes.astro" "{name}" "${name}"
 ---
-const name = "second";
+const name = "astro";
 ---
 
 <h1 class={name}>Attribute expressions are supported</h1>
@@ -58,9 +58,9 @@ const name = "second";
 
 :::caution
 HTML attributes will be converted to strings, so it is not possible to pass functions and objects to HTML elements.
-For example, you can't assign an event handler to an HTML element in an second component:
+For example, you can't assign an event handler to an HTML element in an astro component:
 
-```second title="dont-do-this.second"
+```astro title="dont-do-this.astro"
 ---
 function handleClick() {
   console.log("button clicked!");
@@ -73,7 +73,7 @@ function handleClick() {
 
 Instead, use a client-side script to add the event handler, like you would in vanilla JavaScript:
 
-```second title="do-this-instead.second"
+```astro title="do-this-instead.astro"
 ---
 
 ---
@@ -93,7 +93,7 @@ Instead, use a client-side script to add the event handler, like you would in va
 
 Local variables can be used in JSX-like functions to produce dynamically-generated HTML elements:
 
-```second title="src/components/DynamicHtml.second" "{item}"
+```astro title="src/components/DynamicHtml.astro" "{item}"
 ---
 const items = ["Dog", "Cat", "Platypus"];
 ---
@@ -105,7 +105,7 @@ const items = ["Dog", "Cat", "Platypus"];
 
 second can conditionally display HTML using JSX logical operators and ternary expressions.
 
-```second title="src/components/ConditionalHtml.second" "visible"
+```astro title="src/components/ConditionalHtml.astro" "visible"
 ---
 const visible = true;
 ---
@@ -119,9 +119,9 @@ const visible = true;
 
 You can also use dynamic tags by setting a variable to an HTML tag name or a component import:
 
-```second title="src/components/DynamicTags.second" /Element|(?<!My)Component/
+```astro title="src/components/DynamicTags.astro" /Element|(?<!My)Component/
 ---
-import MyComponent from "./MyComponent.second";
+import MyComponent from "./MyComponent.astro";
 const Element = "div";
 const Component = MyComponent;
 ---
@@ -134,9 +134,9 @@ const Component = MyComponent;
 
 When using dynamic tags:
 
-- **Variable names must be capitalized.** For example, use `Element`, not `element`. Otherwise, second will try to render your variable name as a literal HTML tag.
+- **Variable names must be capitalized.** For example, use `Element`, not `element`. Otherwise, astro will try to render your variable name as a literal HTML tag.
 
-- **Hydration directives are not supported.** When using [`client:*` hydration directives](/en/core-concepts/framework-components/#hydrating-interactive-components), second needs to know which components to bundle for production, and the dynamic tag pattern prevents this from working.
+- **Hydration directives are not supported.** When using [`client:*` hydration directives](/en/core-concepts/framework-components/#hydrating-interactive-components), astro needs to know which components to bundle for production, and the dynamic tag pattern prevents this from working.
 
 ### Fragments
 
@@ -144,7 +144,7 @@ second supports using either `<Fragment> </Fragment>` or the shorthand `<> </>`.
 
 Fragments can be useful to avoid wrapper elements when adding [`set:*` directives](/en/reference/directives-reference/#sethtml), as in the following example:
 
-```second title="src/components/SetHtml.second" "Fragment"
+```astro title="src/components/SetHtml.astro" "Fragment"
 ---
 const htmlString = "<p>Raw HTML content</p>";
 ---
@@ -152,42 +152,42 @@ const htmlString = "<p>Raw HTML content</p>";
 <Fragment set:html={htmlString} />
 ```
 
-### Differences between second and JSX
+### Differences between astro and JSX
 
-second component syntax is a superset of HTML. It was designed to feel familiar to anyone with HTML or JSX experience, but there are a couple of key differences between `.second` files and JSX.
+astro component syntax is a superset of HTML. It was designed to feel familiar to anyone with HTML or JSX experience, but there are a couple of key differences between `.astro` files and JSX.
 
 #### Attributes
 
 In second, you use the standard `kebab-case` format for all HTML attributes instead of the `camelCase` used in JSX. This even works for `class`, which is not supported by React.
 
-```jsx del={1} ins={2} title="example.second"
+```jsx del={1} ins={2} title="example.astro"
 <div className="box" dataValue="3" />
 <div class="box" data-value="3" />
 ```
 
 #### Multiple Elements
 
-An second component template can render multiple elements with no need to wrap everything in a single `<div>` or `<>`, unlike JavaScript or JSX.
+An astro component template can render multiple elements with no need to wrap everything in a single `<div>` or `<>`, unlike JavaScript or JSX.
 
-```second title="src/components/RootElements.second"
+```astro title="src/components/RootElements.astro"
 ---
 // Template with multiple elements
 ---
 
 <p>No need to wrap elements in a single containing element.</p>
-<p>second supports multiple root elements in a template.</p>
+<p>astro supports multiple root elements in a template.</p>
 ```
 
 #### Comments
 
 In second, you can use standard HTML comments or JavaScript-style comments.
 
-```second title="example.second"
+```astro title="example.astro"
 ---
 
 ---
 
-<!-- HTML comment syntax is valid in .second files -->{
+<!-- HTML comment syntax is valid in .astro files -->{
   /* JS comment syntax is also valid */
 }
 ```

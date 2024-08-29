@@ -9,7 +9,7 @@ tags:
   - 丙辰
 pubDate: 2023-09-01
 cover: https://images.unsplash.com/photo-1544669086-a3cccb8a9a1d?q=80&w=1960&h=1102&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
-coverAlt: secondVerse-一部乱蓬蓬的花白的胡子
+coverAlt: AstroVerse-一部乱蓬蓬的花白的胡子
 author: VV
 ---
 

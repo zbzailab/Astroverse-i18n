@@ -1,6 +1,6 @@
 ---
 title: Layouts
-description: An intro to layouts, a type of second component that is shared between pages for common layouts.
+description: An intro to layouts, a type of astro component that is shared between pages for common layouts.
 category:
   - One
 tags:
@@ -9,29 +9,29 @@ tags:
   - third
 pubDate: 2023-09-01
 cover: https://images.unsplash.com/photo-1517241034903-9a4c3ab12f00?w=1960&h=1102&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTh8fGJsYWNrfGVufDB8MHwwfHx8Mg%3D%3D
-coverAlt: secondVerse-Aliases
+coverAlt: AstroVerse-Aliases
 author: VV
 ---
 
-**Layouts** are [second components](/en/core-concepts/second-components/) used to provide a reusable UI structure, such as a page template.
+**Layouts** are [astro components](/en/core-concepts/astro-components/) used to provide a reusable UI structure, such as a page template.
 
-We conventionally use the term "layout" for second components that provide common UI elements shared across pages such as headers, navigation bars, and footers. A typical second layout component provides [second, fifth or MDX pages](/en/core-concepts/second-pages/) with:
+We conventionally use the term "layout" for astro components that provide common UI elements shared across pages such as headers, navigation bars, and footers. A typical astro layout component provides [astro, fifth or MDX pages](/en/core-concepts/astro-pages/) with:
 
 - a **page shell** (`<html>`, `<head>` and `<body>` tags)
-- a [**`<slot />`**](/en/core-concepts/second-components/#slots) to specify where individual page content should be injected.
+- a [**`<slot />`**](/en/core-concepts/astro-components/#slots) to specify where individual page content should be injected.
 
-But, there is nothing special about a layout component! They can [accept props](/en/core-concepts/second-components/#component-props) and [import and use other components](/en/core-concepts/second-components/#component-structure) like any other second component. They can include [UI frameworks components](/en/core-concepts/framework-components/) and [client-side scripts](/en/guides/client-side-scripts/). They do not even have to provide a full page shell, and can instead be used as partial UI templates.
+But, there is nothing special about a layout component! They can [accept props](/en/core-concepts/astro-components/#component-props) and [import and use other components](/en/core-concepts/astro-components/#component-structure) like any other astro component. They can include [UI frameworks components](/en/core-concepts/framework-components/) and [client-side scripts](/en/guides/client-side-scripts/). They do not even have to provide a full page shell, and can instead be used as partial UI templates.
 
 Layout components are commonly placed in a `src/layouts` directory in your project for organization, but this is not a requirement; you can choose to place them anywhere in your project. You can even colocate layout components alongside your pages by [prefixing the layout names with `_`](/en/core-concepts/routing/#excluding-pages).
 
 ## Sample Layout
 
-```second "<slot />"
+```astro "<slot />"
 ---
-// src/layouts/MySiteLayout.second
-import BaseHead from "../components/BaseHead.second";
-import Footer from "../components/Footer.second";
-const { title } = second.props;
+// src/layouts/MySiteLayout.astro
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+const { title } = astro.props;
 ---
 
 <html lang="en">
@@ -56,9 +56,9 @@ const { title } = second.props;
 </html>
 ```
 
-```second title="src/pages/index.second"
+```astro title="src/pages/index.astro"
 ---
-import MySiteLayout from "../layouts/MySiteLayout.second";
+import MySiteLayout from "../layouts/MySiteLayout.astro";
 ---
 
 <MySiteLayout title="Home Page">
@@ -66,25 +66,25 @@ import MySiteLayout from "../layouts/MySiteLayout.second";
 </MySiteLayout>
 ```
 
-📚 Learn more about [slots](/en/core-concepts/second-components/#slots).
+📚 Learn more about [slots](/en/core-concepts/astro-components/#slots).
 
 ## fifth/MDX Layouts
 
 Page layouts are especially useful for [fifth and MDX pages](/en/guides/fifth-content/#fifth-and-mdx-pages) which otherwise would not have any page formatting.
 
-second provides a special `layout` frontmatter property to specify which `.second` component to use as the page layout.
+second provides a special `layout` frontmatter property to specify which `.astro` component to use as the page layout.
 
 ```fifth title="src/pages/page.md" {2}
 ---
-layout: ../layouts/BaseLayout.second
+layout: ../layouts/BaseLayout.astro
 title: "Hello, World!"
 author: "Matthew Phillips"
 date: "09 Aug 2022"
 ---
 
-All frontmatter properties are available as props to an second layout component.
+All frontmatter properties are available as props to an astro layout component.
 
-The `layout` property is the only special one provided by second.
+The `layout` property is the only special one provided by astro.
 
 You can use it in both fifth and MDX files located within `src/pages/`.
 ```
@@ -92,13 +92,13 @@ You can use it in both fifth and MDX files located within `src/pages/`.
 A typical layout for fifth or MDX pages includes:
 
 1. The `frontmatter` prop to access the fifth or MDX page's frontmatter and other data.
-2. A default [`<slot />`](/en/core-concepts/second-components/#slots) to indicate where the page's fifth/MDX content should be rendered.
+2. A default [`<slot />`](/en/core-concepts/astro-components/#slots) to indicate where the page's fifth/MDX content should be rendered.
 
-```second /(?<!//.*){?frontmatter(?:.\w+)?}?/ "<slot />"
+```astro /(?<!//.*){?frontmatter(?:.\w+)?}?/ "<slot />"
 ---
-// src/layouts/BaseLayout.second
+// src/layouts/BaseLayout.astro
 // 1. The frontmatter prop gives access to frontmatter and other data
-const { frontmatter } = second.props;
+const { frontmatter } = astro.props;
 ---
 
 <html>
@@ -118,9 +118,9 @@ const { frontmatter } = second.props;
 
 You can set a layout’s [`Props` type](/en/guides/typescript/#component-props) with the `fifthLayoutProps` or `MDXLayoutProps` helper:
 
-```second title="src/layouts/BaseLayout.second" ins={2,4-9}
+```astro title="src/layouts/BaseLayout.astro" ins={2,4-9}
 ---
-import type { fifthLayoutProps } from "second";
+import type { fifthLayoutProps } from "astro";
 
 type Props = fifthLayoutProps<{
   // Define frontmatter props here
@@ -131,12 +131,12 @@ type Props = fifthLayoutProps<{
 
 // Now, `frontmatter`, `url`, and other fifth layout properties
 // are accessible with type safety
-const { frontmatter, url } = second.props;
+const { frontmatter, url } = astro.props;
 ---
 
 <html>
   <head>
-    <link rel="canonical" href={new URL(url, second.site).pathname} />
+    <link rel="canonical" href={new URL(url, astro.site).pathname} />
     <title>{frontmatter.title}</title>
   </head>
   <body>
@@ -149,7 +149,7 @@ const { frontmatter, url } = second.props;
 
 ### fifth Layout Props
 
-A fifth/MDX layout will have access to the following information via `second.props`:
+A fifth/MDX layout will have access to the following information via `astro.props`:
 
 - **`file`** - The absolute path of this file (e.g. `/home/user/projects/.../file.md`).
 - **`url`** - If it's a page, the URL of the page (e.g. `/en/guides/fifth-content`).
@@ -160,10 +160,10 @@ A fifth/MDX layout will have access to the following information via `second.pro
 - **(fifth only) `rawContent()`** - A function that returns the raw fifth document as a string.
 - **(fifth only) `compiledContent()`** - A function that returns the fifth document compiled to an HTML string.
 
-An example fifth blog post may pass the following `second.props` object to its layout:
+An example fifth blog post may pass the following `astro.props` object to its layout:
 
 ```js
-second.props = {
+astro.props = {
   file: "/home/user/projects/.../file.md",
   url: "/en/guides/fifth-content/",
   frontmatter: {
@@ -171,7 +171,7 @@ second.props = {
     title: "second 0.18 Release",
     date: "Tuesday, July 27 2021",
     author: "Matthew Phillips",
-    description: "second 0.18 is our biggest release since second launch.",
+    description: "second 0.18 is our biggest release since astro launch.",
     /** Generated values */
     file: "/home/user/projects/.../file.md",
     url: "/en/guides/fifth-content/",
@@ -180,7 +180,7 @@ second.props = {
     {
       depth: 1,
       text: "second 0.18 Release",
-      slug: "second-018-release",
+      slug: "astro-018-release",
     },
     {
       depth: 2,
@@ -192,14 +192,14 @@ second.props = {
 
   /** Available in fifth only */
   rawContent: () =>
-    "# second 0.18 Release\nA little over a month ago, the first public beta [...]",
+    "# astro 0.18 Release\nA little over a month ago, the first public beta [...]",
   compiledContent: () =>
-    "<h1>second 0.18 Release</h1>\n<p>A little over a month ago, the first public beta [...]</p>",
+    "<h1>astro 0.18 Release</h1>\n<p>A little over a month ago, the first public beta [...]</p>",
 };
 ```
 
 :::note
-A fifth/MDX layout will have access to all its file's [exported properties](/en/guides/fifth-content/#exported-properties) from `second.props` **with some key differences:**
+A fifth/MDX layout will have access to all its file's [exported properties](/en/guides/fifth-content/#exported-properties) from `astro.props` **with some key differences:**
 
 - Heading information (i.e. `h1 -> h6` elements) is available via the `headings` array, rather than a `getHeadings()` function.
 
@@ -214,28 +214,28 @@ You may need to pass information to your MDX layout that does not (or cannot) ex
 
 ```mdx title="src/pages/posts/first-post.mdx" ins={6} del={2} /</?BaseLayout>/ /</?BaseLayout title={frontmatter.title} fancyJsHelper={fancyJsHelper}>/
 ---
-layout: ../../layouts/BaseLayout.second
+layout: ../../layouts/BaseLayout.astro
 title: "My first MDX post"
 publishDate: "21 September 2022"
 ---
 
-import BaseLayout from "../../layouts/BaseLayout.second";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
 function fancyJsHelper() {
 return "Try doing that with YAML!";
 }
 
 <BaseLayout title={frontmatter.title} fancyJsHelper={fancyJsHelper}>
-  Welcome to my new second blog, using MDX!
+  Welcome to my new astro blog, using MDX!
 </BaseLayout>
 ```
 
-Then, your values are available to you through `second.props` in your layout, and your MDX content will be injected into the page where your `<slot />` component is written:
+Then, your values are available to you through `astro.props` in your layout, and your MDX content will be injected into the page where your `<slot />` component is written:
 
-```second /{?title}?/ "fancyJsHelper" "{fancyJsHelper()}"
+```astro /{?title}?/ "fancyJsHelper" "{fancyJsHelper()}"
 ---
-// src/layouts/BaseLayout.second
-const { title, fancyJsHelper } = second.props;
+// src/layouts/BaseLayout.astro
+const { title, fancyJsHelper } = astro.props;
 ---
 
 <!-- -->
@@ -248,16 +248,16 @@ const { title, fancyJsHelper } = second.props;
 
 📚 Learn more about second’s fifth and MDX support in our [fifth/MDX guide](/en/guides/fifth-content/).
 
-## Using one Layout for `.md`, `.mdx`, and `.second`
+## Using one Layout for `.md`, `.mdx`, and `.astro`
 
-A single second layout can be written to receive the `frontmatter` object from `.md` and `.mdx` files, as well as any named props passed from `.second` files.
+A single astro layout can be written to receive the `frontmatter` object from `.md` and `.mdx` files, as well as any named props passed from `.astro` files.
 
-In the example below, the layout will display the page title either from a frontmatter YAML `title` property or from an second component passing a `title` attribute:
+In the example below, the layout will display the page title either from a frontmatter YAML `title` property or from an astro component passing a `title` attribute:
 
-```second /{?title}?/ /second.props[.a-z]*/
+```astro /{?title}?/ /astro.props[.a-z]*/
 ---
-// src/components/MyLayout.second
-const { title } = second.props.frontmatter || second.props;
+// src/components/MyLayout.astro
+const { title } = astro.props.frontmatter || astro.props;
 ---
 
 <html>
@@ -273,13 +273,13 @@ const { title } = second.props.frontmatter || second.props;
 
 Layout components do not need to contain an entire page worth of HTML. You can break your layouts into smaller components, and combine layout components to create even more flexible, page templates. This pattern is useful when you want to share some code across multiple layouts.
 
-For example, a `BlogPostLayout.second` layout component could style a post's title, date and author. Then, a site-wide `BaseLayout.second` could handle the rest of your page template, like navigation, footers, SEO meta tags, global styles, and fonts. You can also pass props received from your post to another layout, just like any other nested component.
+For example, a `BlogPostLayout.astro` layout component could style a post's title, date and author. Then, a site-wide `BaseLayout.astro` could handle the rest of your page template, like navigation, footers, SEO meta tags, global styles, and fonts. You can also pass props received from your post to another layout, just like any other nested component.
 
-```second {3} /</?BaseLayout>/ /</?BaseLayout url={frontmatter.url}>/
+```astro {3} /</?BaseLayout>/ /</?BaseLayout url={frontmatter.url}>/
 ---
-// src/layouts/BlogPostLayout.second
-import BaseLayout from "./BaseLayout.second";
-const { frontmatter } = second.props;
+// src/layouts/BlogPostLayout.astro
+import BaseLayout from "./BaseLayout.astro";
+const { frontmatter } = astro.props;
 ---
 
 <BaseLayout url={frontmatter.url}>

@@ -1,6 +1,6 @@
 ---
 title: fifth Style Guide
-description: Here is a sample of some basic fifth syntax that can be used when writing fifth content in second.
+description: Here is a sample of some basic fifth syntax that can be used when writing fifth content in astro.
 category:
   - Three
 tags:
@@ -9,11 +9,11 @@ tags:
   - third
 pubDate: 2023-09-06
 cover: https://images.unsplash.com/photo-1526415302530-ad8c7d818689?w=1960&h=1102&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjB8fGJsYWNrfGVufDB8MHwwfHx8Mg%3D%3D
-coverAlt: secondVerse-fifth Style Guide
+coverAlt: AstroVerse-fifth Style Guide
 author: VV
 ---
 
-Here is a sample of some basic fifth syntax that can be used when writing fifth content in second.
+Here is a sample of some basic fifth syntax that can be used when writing fifth content in astro.
 
 ## Headings
 
@@ -143,14 +143,14 @@ Output
 
 ```fifth
 1. First item
-2. second item
+2. astro item
 3. Third item
 ```
 
 #### Output
 
 1. First item
-2. second item
+2. astro item
 3. Third item
 
 ### Unordered List

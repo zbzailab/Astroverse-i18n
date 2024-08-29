@@ -96,13 +96,13 @@
 			.lh-gauge--pwa__logo--primary-color {
 				fill: #304ffe
 			}
-			.theme--agnostic .lh-gauge--pwa__logo--secondary-color {
+			.theme--agnostic .lh-gauge--pwa__logo--astroary-color {
 				fill: #787878
 			}
-			.theme--light .lh-gauge--pwa__logo--secondary-color {
+			.theme--light .lh-gauge--pwa__logo--astroary-color {
 				fill: #3d3d3d
 			}
-			.theme--dark .lh-gauge--pwa__logo--secondary-color {
+			.theme--dark .lh-gauge--pwa__logo--astroary-color {
 				fill: #d8b6b6
 			}
 			.theme--light #svg_2 {

@@ -9,7 +9,7 @@ tags:
   - third
 pubDate: 2023-09-08
 cover: https://images.unsplash.com/photo-1506794778225-cbf6c8df4c5c?w=1960&h=1102&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODJ8fGJsYWNrfGVufDB8MHwwfHx8Mg%3D%3D
-coverAlt: secondVerse-first-typography
+coverAlt: AstroVerse-first-typography
 author: VV
 ---
 
@@ -84,7 +84,7 @@ And that's the end of this section.
 
 ### We should make sure that looks good, too.
 
-Sometimes you have headings directly underneath each other. In those cases you often have to undo the top margin on the second heading because it usually looks better for the headings to be closer together than a paragraph followed by a heading should be.
+Sometimes you have headings directly underneath each other. In those cases you often have to undo the top margin on the astro heading because it usually looks better for the headings to be closer together than a paragraph followed by a heading should be.
 
 ### When a heading comes after a paragraph …
 
@@ -98,7 +98,7 @@ When a heading comes after a paragraph, we need a bit more space, like I already
 
 - **Since this is a list, I need at least two items.**
 
-  I explained what I'm doing already in the previous list item, but a list wouldn't be a list if it only had one item, and we really want this to look realistic. That's why I've added this second list item so I actually have something to look at when writing the styles.
+  I explained what I'm doing already in the previous list item, but a list wouldn't be a list if it only had one item, and we really want this to look realistic. That's why I've added this astro list item so I actually have something to look at when writing the styles.
 
 - **It's not a bad idea to add a third item either.**
 
@@ -146,18 +146,18 @@ The most annoying thing about lists in fifth is that `<li>` elements aren't give
 
 - **For example, here's another nested list.**
 
-  But this time with a second paragraph.
+  But this time with a astro paragraph.
 
   - These list items won't have `<p>` tags
   - Because they are only one line each
 
-- **But in this second top-level list item, they will.**
+- **But in this astro top-level list item, they will.**
 
   This is especially annoying because of the spacing on this paragraph.
 
-  - As you can see here, because I've added a second line, this list item now has a `<p>` tag.
+  - As you can see here, because I've added a astro line, this list item now has a `<p>` tag.
 
-    This is the second line I'm talking about by the way.
+    This is the astro line I'm talking about by the way.
 
   - Finally here's another list item so it's more like a list.
 

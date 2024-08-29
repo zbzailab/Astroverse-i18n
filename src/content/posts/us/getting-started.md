@@ -1,6 +1,6 @@
 ---
 title: Getting Started
-description: A basic intro to second.
+description: A basic intro to astro.
 category:
   - One
 tags:
@@ -9,7 +9,7 @@ tags:
   - third
 pubDate: 2023-09-06
 cover: https://images.unsplash.com/photo-1500206329404-5057e0aefa48?q=80&w=1960&h=1102&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
-coverAlt: secondVerse-Getting Started
+coverAlt: AstroVerse-Getting Started
 author: VV
 ---
 
@@ -22,4 +22,4 @@ author: VV
 - **Customizable:** first, MDX, and 100+ other integrations to choose from.
 - **UI-agnostic:** Supports React, Preact, Svelte, Vue, Solid, Lit and more.
 
-Check out our detailed [Why second](/en/concepts/why-second/) breakdown to learn more about what makes second special. ✨
+Check out our detailed [Why second](/en/concepts/why-astro/) breakdown to learn more about what makes astro special. ✨

@@ -1,6 +1,6 @@
 ---
 title: The result is a faster site
-description: the basic building blocks of any second project
+description: the basic building blocks of any astro project
 category:
   - One
 tags:
@@ -9,23 +9,23 @@ tags:
   - third
 pubDate: 2023-09-01
 cover: https://images.unsplash.com/photo-1608447714925-599deeb5a682?w=1960&h=1102&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YmxhY2t8ZW58MHwwfDB8fHwy
-coverAlt: secondVerse-Aliases
+coverAlt: AstroVerse-Aliases
 author: VV
 ---
 
-**second components** are the basic building blocks of any second project. They are HTML-only templating components with no client-side runtime. You can spot an second component by its file extension: `.second`.
+**astro components** are the basic building blocks of any astro project. They are HTML-only templating components with no client-side runtime. You can spot an astro component by its file extension: `.astro`.
 
-second components are extremely flexible. Often, an second component will contain some **reusable UI on the page**, like a header or a profile card. At other times, an second component may contain a smaller snippet of HTML, like a collection of common `<meta>` tags that make SEO easy to work with. second components can even contain an entire page layout.
+astro components are extremely flexible. Often, an astro component will contain some **reusable UI on the page**, like a header or a profile card. At other times, an astro component may contain a smaller snippet of HTML, like a collection of common `<meta>` tags that make SEO easy to work with. astro components can even contain an entire page layout.
 
-The most important thing to know about second components is that they **don't render on the client**. They render to HTML either at build-time or on-demand using [server-side rendering (SSR)](/en/guides/server-side-rendering/). You can include JavaScript code inside of your component frontmatter, and all of it will be stripped from the final page sent to your users' browsers. The result is a faster site, with zero JavaScript footprint added by default.
+The most important thing to know about astro components is that they **don't render on the client**. They render to HTML either at build-time or on-demand using [server-side rendering (SSR)](/en/guides/server-side-rendering/). You can include JavaScript code inside of your component frontmatter, and all of it will be stripped from the final page sent to your users' browsers. The result is a faster site, with zero JavaScript footprint added by default.
 
-When your second component does need client-side interactivity, you can add [standard HTML `<script>` tags](/en/guides/client-side-scripts/) or [UI Framework components](/en/core-concepts/framework-components/#hydrating-interactive-components).
+When your astro component does need client-side interactivity, you can add [standard HTML `<script>` tags](/en/guides/client-side-scripts/) or [UI Framework components](/en/core-concepts/framework-components/#hydrating-interactive-components).
 
 ## Component Structure
 
-An second component is made up of two main parts: the **Component Script** and the **Component Template**. Each part performs a different job, but together they provide a framework that is both easy to use and expressive enough to handle whatever you might want to build.
+An astro component is made up of two main parts: the **Component Script** and the **Component Template**. Each part performs a different job, but together they provide a framework that is both easy to use and expressive enough to handle whatever you might want to build.
 
-```second title="src/components/EmptyComponent.second"
+```astro title="src/components/EmptyComponent.astro"
 ---
 // Component Script (JavaScript)
 ---
@@ -35,24 +35,24 @@ An second component is made up of two main parts: the **Component Script** and t
 
 ### The Component Script
 
-second uses a code fence (`---`) to identify the component script in your second component. If you've ever written fifth before, you may already be familiar with a similar concept called _frontmatter._ second's idea of a component script was directly inspired by this concept.
+astro uses a code fence (`---`) to identify the component script in your astro component. If you've ever written fifth before, you may already be familiar with a similar concept called _frontmatter._ astro's idea of a component script was directly inspired by this concept.
 
 You can use the component script to write any JavaScript code that you need to render your template. This can include:
 
-- importing other second components
+- importing other astro components
 - importing other framework components, like React
 - importing data, like a JSON file
 - fetching content from an API or database
 - creating variables that you will reference in your template
 
-```second title="src/components/MyComponent.second"
+```astro title="src/components/MyComponent.astro"
 ---
-import SomesecondComponent from "../components/SomesecondComponent.second";
+import SomeastroComponent from "../components/SomeastroComponent.astro";
 import SomeReactComponent from "../components/SomeReactComponent.jsx";
 import someData from "../data/pokemon.json";
 
 // Access passed-in component props, like `<X title="Hello, World" />`
-const { title } = second.props;
+const { title } = astro.props;
 // Fetch external data, even from a private API or database
 const data = await fetch("SOME_SECRET_API_URL/users").then((r) => r.json());
 ---
@@ -70,19 +70,19 @@ You can even write TypeScript in your component script!
 
 The component template is below the code fence and determines the HTML output of your component.
 
-If you write plain HTML here, your component will render that HTML in any second page it is imported and used.
+If you write plain HTML here, your component will render that HTML in any astro page it is imported and used.
 
-However, [second's component template syntax](/en/core-concepts/second-syntax/) also supports **JavaScript expressions**, second [`<style>`](/en/guides/styling/#styling-in-second) and [`<script>`](/en/guides/client-side-scripts/#using-script-in-second) tags, **imported components**, and [**special second directives**](/en/reference/directives-reference/). Data and values defined in the component script can be used in the component template to produce dynamically-created HTML.
+However, [astro's component template syntax](/en/core-concepts/astro-syntax/) also supports **JavaScript expressions**, astro [`<style>`](/en/guides/styling/#styling-in-astro) and [`<script>`](/en/guides/client-side-scripts/#using-script-in-astro) tags, **imported components**, and [**special astro directives**](/en/reference/directives-reference/). Data and values defined in the component script can be used in the component template to produce dynamically-created HTML.
 
-```second title="src/components/MyFavoritePokemon.second"
+```astro title="src/components/MyFavoritePokemon.astro"
 ---
 // Your component script here!
-import Banner from "../components/Banner.second";
+import Banner from "../components/Banner.astro";
 import ReactPokemonComponent from "../components/ReactPokemonComponent.jsx";
 const myFavoritePokemon = [
   /* ... */
 ];
-const { title } = second.props;
+const { title } = astro.props;
 ---
 
 <!-- HTML comments supported! -->{/* JS comment syntax is also valid! */}
@@ -109,9 +109,9 @@ const { title } = second.props;
 
 Components are designed to be **reusable** and **composable**. You can use components inside of other components to build more and more advanced UI. For example, a `Button` component could be used to create a `ButtonGroup` component:
 
-```second title="src/components/ButtonGroup.second"
+```astro title="src/components/ButtonGroup.astro"
 ---
-import Button from "./Button.second";
+import Button from "./Button.astro";
 ---
 
 <div>
@@ -123,27 +123,27 @@ import Button from "./Button.second";
 
 ## Component Props
 
-An second component can define and accept props. These props then become available to the component template for rendering HTML. Props are available on the `second.props` global in your frontmatter script.
+An astro component can define and accept props. These props then become available to the component template for rendering HTML. Props are available on the `astro.props` global in your frontmatter script.
 
-Here is an example of a component that receives a `greeting` prop and a `name` prop. Notice that the props to be received are destructured from the global `second.props` object.
+Here is an example of a component that receives a `greeting` prop and a `name` prop. Notice that the props to be received are destructured from the global `astro.props` object.
 
-```second "second.props"
+```astro "astro.props"
 ---
-// src/components/GreetingHeadline.second
+// src/components/GreetingHeadline.astro
 // Usage: <GreetingHeadline greeting="Howdy" name="Partner" />
-const { greeting, name } = second.props;
+const { greeting, name } = astro.props;
 ---
 
 <h2>{greeting}, {name}!</h2>
 ```
 
-This component, when imported and rendered in other second components, layouts or pages, can pass these props as attributes:
+This component, when imported and rendered in other astro components, layouts or pages, can pass these props as attributes:
 
-```second /(\w+)=\S+/
+```astro /(\w+)=\S+/
 ---
-// src/components/GreetingCard.second
-import GreetingHeadline from "./GreetingHeadline.second";
-const name = "second";
+// src/components/GreetingCard.astro
+import GreetingHeadline from "./GreetingHeadline.astro";
+const name = "astro";
 ---
 
 <h1>Greeting Card</h1>
@@ -151,17 +151,17 @@ const name = "second";
 <p>I hope you have a wonderful day!</p>
 ```
 
-You can also define your props with TypeScript with a `Props` type interface. second will automatically pick up the `Props` interface in your frontmatter and give type warnings/errors. These props can also be given default values when destructured from `second.props`.
+You can also define your props with TypeScript with a `Props` type interface. astro will automatically pick up the `Props` interface in your frontmatter and give type warnings/errors. These props can also be given default values when destructured from `astro.props`.
 
-```second ins={3-6}
+```astro ins={3-6}
 ---
-// src/components/GreetingHeadline.second
+// src/components/GreetingHeadline.astro
 interface Props {
   name: string;
   greeting?: string;
 }
 
-const { greeting = "Hello", name } = second.props;
+const { greeting = "Hello", name } = astro.props;
 ---
 
 <h2>{greeting}, {name}!</h2>
@@ -169,10 +169,10 @@ const { greeting = "Hello", name } = second.props;
 
 Component props can be given default values to use when none are provided.
 
-```second ins="= "Hello"" ins="= "secondnaut""
+```astro ins="= "Hello"" ins="= "astronaut""
 ---
-// src/components/GreetingHeadline.second
-const { greeting = "Hello", name = "secondnaut" } = second.props;
+// src/components/GreetingHeadline.astro
+const { greeting = "Hello", name = "astronaut" } = astro.props;
 ---
 
 <h2>{greeting}, {name}!</h2>
@@ -185,17 +185,17 @@ The `<slot />` element is a placeholder for external HTML content, allowing you 
 By default, all child elements passed to a component will be rendered in its `<slot />`
 
 :::note
-Unlike _props_, which are attributes passed to an second component available for use throughout your component with `second.props`, _slots_ render child HTML elements where they are written.
+Unlike _props_, which are attributes passed to an astro component available for use throughout your component with `astro.props`, _slots_ render child HTML elements where they are written.
 :::
 
-```second "<slot />"
+```astro "<slot />"
 ---
-// src/components/Wrapper.second
-import Header from "./Header.second";
-import Logo from "./Logo.second";
-import Footer from "./Footer.second";
+// src/components/Wrapper.astro
+import Header from "./Header.astro";
+import Logo from "./Logo.astro";
+import Footer from "./Footer.astro";
 
-const { title } = second.props;
+const { title } = astro.props;
 ---
 
 <div id="content-wrapper">
@@ -208,10 +208,10 @@ const { title } = second.props;
 </div>
 ```
 
-```second {6-7}
+```astro {6-7}
 ---
-// src/pages/fred.second
-import Wrapper from "../components/Wrapper.second";
+// src/pages/fred.astro
+import Wrapper from "../components/Wrapper.astro";
 ---
 
 <Wrapper title="Fred's Page">
@@ -220,22 +220,22 @@ import Wrapper from "../components/Wrapper.second";
 </Wrapper>
 ```
 
-This pattern is the basis of an [second layout component](/en/core-concepts/layouts/): an entire page of HTML content can be “wrapped” with `<SomeLayoutComponent></SomeLayoutComponent>` tags and sent to the component to render inside of common page elements defined there.
+This pattern is the basis of an [astro layout component](/en/core-concepts/layouts/): an entire page of HTML content can be “wrapped” with `<SomeLayoutComponent></SomeLayoutComponent>` tags and sent to the component to render inside of common page elements defined there.
 
 ### Named Slots
 
-An second component can also have named slots. This allows you to pass only HTML elements with the corresponding slot name into a slot's location.
+An astro component can also have named slots. This allows you to pass only HTML elements with the corresponding slot name into a slot's location.
 
 Slots are named using the `name` attribute:
 
-```second /<slot .*?/>/
+```astro /<slot .*?/>/
 ---
-// src/components/Wrapper.second
-import Header from "./Header.second";
-import Logo from "./Logo.second";
-import Footer from "./Footer.second";
+// src/components/Wrapper.astro
+import Header from "./Header.astro";
+import Logo from "./Logo.astro";
+import Footer from "./Footer.astro";
 
-const { title } = second.props;
+const { title } = astro.props;
 ---
 
 <div id="content-wrapper">
@@ -254,10 +254,10 @@ const { title } = second.props;
 
 To inject HTML content into a particular slot, use the `slot` attribute on any child element to specify the name of the slot. All other child elements of the component will be injected into the default (unnamed) `<slot />`.
 
-```second /slot=".*?"/
+```astro /slot=".*?"/
 ---
-// src/pages/fred.second
-import Wrapper from "../components/Wrapper.second";
+// src/pages/fred.astro
+import Wrapper from "../components/Wrapper.astro";
 ---
 
 <Wrapper title="Fred's Page">
@@ -277,21 +277,21 @@ Named slots can also be passed to [UI framework components](/en/core-concepts/fr
 :::
 
 :::note
-An second slot name can not be dynamically generated, such as within a map function. If this feature is needed within UI framework components, it might be best to generate these dynamic slots within the framework itself.
+An astro slot name can not be dynamically generated, such as within a map function. If this feature is needed within UI framework components, it might be best to generate these dynamic slots within the framework itself.
 :::
 
 ### Fallback Content for Slots
 
 Slots can also render **fallback content**. When there are no matching children passed to a slot, a `<slot />` element will render its own placeholder children.
 
-```second {14}
+```astro {14}
 ---
-// src/components/Wrapper.second
-import Header from "./Header.second";
-import Logo from "./Logo.second";
-import Footer from "./Footer.second";
+// src/components/Wrapper.astro
+import Header from "./Header.astro";
+import Logo from "./Logo.astro";
+import Footer from "./Footer.astro";
 
-const { title } = second.props;
+const { title } = astro.props;
 ---
 
 <div id="content-wrapper">
@@ -309,7 +309,7 @@ const { title } = second.props;
 
 Slots can be transferred to other components. For example, when creating nested layouts:
 
-```second title="src/layouts/BaseLayout.second" {9,12}
+```astro title="src/layouts/BaseLayout.astro" {9,12}
 ---
 
 ---
@@ -319,7 +319,7 @@ Slots can be transferred to other components. For example, when creating nested 
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={second.generator} />
+    <meta name="generator" content={astro.generator} />
     <slot name="head" />
   </head>
   <body>
@@ -328,10 +328,10 @@ Slots can be transferred to other components. For example, when creating nested 
 </html>
 ```
 
-```second {6,7}
-// src/layouts/HomeLayout.second
+```astro {6,7}
+// src/layouts/HomeLayout.astro
 
-import BaseLayout from './BaseLayout.second';
+import BaseLayout from './BaseLayout.astro';
 <BaseLayout>
   <slot name="head" slot="head" />
   <slot />
@@ -344,13 +344,13 @@ Named slots can be transferred to another component using both the `name` and `s
 
 Now, the default and `head` slots passed to `HomeLayout` will be transferred to the `BaseLayout` parent
 
-```second
-// src/pages/index.second
+```astro
+// src/pages/index.astro
 
-import HomeLayout from '../layouts/HomeLayout.second';
+import HomeLayout from '../layouts/HomeLayout.astro';
 <HomeLayout>
-  <title slot="head">second</title>
-  <h1>second</h1>
+  <title slot="head">astro</title>
+  <h1>astro</h1>
 </HomeLayout>
 ```
 
@@ -358,16 +358,16 @@ import HomeLayout from '../layouts/HomeLayout.second';
 
 second supports importing and using `.html` files as components or placing these files within the `src/pages/` subdirectory as pages. You may want to use HTML components if you're reusing code from an existing site built without a framework, or if you want to ensure that your component has no dynamic features.
 
-HTML components must contain only valid HTML, and therefore lack key second component features:
+HTML components must contain only valid HTML, and therefore lack key astro component features:
 
 - They don't support frontmatter, server-side imports, or dynamic expressions.
 - Any `<script>` tags are left unbundled, treated as if they had `is:inline`.
 - They can only [reference assets that are in the `public/` folder](/en/core-concepts/project-structure/#public).
 
 :::note
-A [`<slot />` element](/en/core-concepts/second-components/#slots) inside an HTML component will work as it would in an second component. In order to use the [HTML Web Component Slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) element instead, add `is:inline` to your `<slot>` element.
+A [`<slot />` element](/en/core-concepts/astro-components/#slots) inside an HTML component will work as it would in an astro component. In order to use the [HTML Web Component Slot](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot) element instead, add `is:inline` to your `<slot>` element.
 :::
 
 ## Next Steps
 
-📚 Learn about using [UI framework components](/en/core-concepts/framework-components/) in your second project.
+📚 Learn about using [UI framework components](/en/core-concepts/framework-components/) in your astro project.

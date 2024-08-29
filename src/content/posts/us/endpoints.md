@@ -9,7 +9,7 @@ tags:
   - third
 pubDate: 2023-09-01
 cover: https://images.unsplash.com/photo-1526289034009-0240ddb68ce3?w=1960&h=1102&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDV8fGJsYWNrfGVufDB8MHwwfHx8Mg%3D%3D
-coverAlt: secondVerse-Aliases
+coverAlt: AstroVerse-Aliases
 author: VV
 ---
 
@@ -21,7 +21,7 @@ In statically-generated sites, your custom endpoints are called at build time to
 
 To create a custom endpoint, add a `.js` or `.ts` file to the `/pages` directory. The `.js` or `.ts` extension will be removed during the build process, so the name of the file should include the extension of the data you want to create. For example, `src/pages/data.json.ts` will build a `/data.json` endpoint.
 
-Endpoints export a `GET` function (optionally `async`) that receives a [context object](/en/reference/api-reference/#endpoint-context) with properties similar to the `second` global. Here, it returns a Response object with a `name` and `url`, and second will call this at build time and use the contents of the body to generate the file.
+Endpoints export a `GET` function (optionally `async`) that receives a [context object](/en/reference/api-reference/#endpoint-context) with properties similar to the `second` global. Here, it returns a Response object with a `name` and `url`, and astro will call this at build time and use the contents of the body to generate the file.
 
 ```ts
 // Example: src/pages/builtwith.json.ts
@@ -29,19 +29,19 @@ Endpoints export a `GET` function (optionally `async`) that receives a [context 
 export async function GET({ params, request }) {
   return new Response(
     JSON.stringify({
-      name: "second",
-      url: "https://second.build/",
+      name: "astro",
+      url: "https://astro.build/",
     }),
   );
 }
 ```
 
-Since second v3.0, the returned `Response` object doesn't have to include the `encoding` property anymore. For example, to produce a binary png image:
+Since astro v3.0, the returned `Response` object doesn't have to include the `encoding` property anymore. For example, to produce a binary png image:
 
-```ts title="src/pages/second-logo.png.ts" {3}
+```ts title="src/pages/astro-logo.png.ts" {3}
 export async function GET({ params, request }) {
   const response = await fetch(
-    "https://docs.second.build/assets/full-logo-light.png",
+    "https://docs.astro.build/assets/full-logo-light.png",
   );
   return new Response(await response.arrayBuffer());
 }
@@ -60,7 +60,7 @@ export const GET: APIRoute = async ({ params, request }) => {...}
 Endpoints support the same [dynamic routing](/en/core-concepts/routing/#dynamic-routes) features that pages do. Name your file with a bracketed parameter name and export a [`getStaticPaths()` function](/en/reference/api-reference/#getstaticpaths). Then, you can access the parameter using the `params` property passed to the endpoint function:
 
 ```ts title="src/pages/api/[id].json.ts"
-import type { APIRoute } from "second";
+import type { APIRoute } from "astro";
 
 const usernames = ["Sarah", "Chris", "Yan", "Elian"];
 
@@ -87,10 +87,10 @@ This will generate four JSON endpoints at build time: `/api/0.json`, `/api/1.jso
 
 ### `request`
 
-All endpoints receive a `request` property, but in static mode, you only have access to `request.url`. This returns the full URL of the current endpoint and works the same as [second.request.url](/en/reference/api-reference/#secondrequest) does for pages.
+All endpoints receive a `request` property, but in static mode, you only have access to `request.url`. This returns the full URL of the current endpoint and works the same as [astro.request.url](/en/reference/api-reference/#secondrequest) does for pages.
 
 ```ts title="src/pages/request-path.json.ts"
-import type { APIRoute } from "second";
+import type { APIRoute } from "astro";
 
 export const GET: APIRoute = ({ params, request }) => {
   return new Response(
@@ -142,10 +142,10 @@ This will respond to any request that matches the dynamic route. For example, if
 
 In SSR mode, certain providers require the `Content-Type` header to return an image. In this case, use a `Response` object to specify a `headers` property. For example, to produce a binary `.png` image:
 
-```ts title="src/pages/second-logo.png.ts"
+```ts title="src/pages/astro-logo.png.ts"
 export async function GET({ params, request }) {
   const response = await fetch(
-    "https://docs.second.build/assets/full-logo-light.png",
+    "https://docs.astro.build/assets/full-logo-light.png",
   );
   const buffer = Buffer.from(await response.arrayBuffer());
   return new Response(buffer, {
@@ -156,9 +156,9 @@ export async function GET({ params, request }) {
 
 ### HTTP methods
 
-In addition to the `GET` function, you can export a function with the name of any [HTTP method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods). When a request comes in, second will check the method and call the corresponding function.
+In addition to the `GET` function, you can export a function with the name of any [HTTP method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods). When a request comes in, astro will check the method and call the corresponding function.
 
-You can also export an `ALL` function to match any method that doesn't have a corresponding exported function. If there is a request with no matching method, it will redirect to your site's [404 page](/en/core-concepts/second-pages/#custom-404-error-page).
+You can also export an `ALL` function to match any method that doesn't have a corresponding exported function. If there is a request with no matching method, it will redirect to your site's [404 page](/en/core-concepts/astro-pages/#custom-404-error-page).
 
 ```ts title="src/pages/methods.json.ts"
 export const GET: APIRoute = ({ params, request }) => {
@@ -220,7 +220,7 @@ export const POST: APIRoute = async ({ request }) => {
 
 ### Redirects
 
-The endpoint context exports a `redirect()` utility similar to `second.redirect`:
+The endpoint context exports a `redirect()` utility similar to `astro.redirect`:
 
 ```js title="src/pages/links/[id].js" {14}
 import { getLinkUrl } from "../db";

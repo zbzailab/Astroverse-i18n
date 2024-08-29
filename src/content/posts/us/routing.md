@@ -1,6 +1,6 @@
 ---
 title: Routing
-description: An intro to routing with second.
+description: An intro to routing with astro.
 category:
   - One
 tags:
@@ -9,50 +9,50 @@ tags:
   - third
 pubDate: 2023-09-01
 cover: https://images.unsplash.com/photo-1501791187590-9ef2612ba1eb?w=1960&h=1102&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzJ8fGJsYWNrfGVufDB8MHwwfHx8Mg%3D%3D
-coverAlt: secondVerse-Aliases
+coverAlt: AstroVerse-Aliases
 author: VV
 ---
 
-second uses **file-based routing** to generate your build URLs based on the file layout of your project `src/pages/` directory.
+astro uses **file-based routing** to generate your build URLs based on the file layout of your project `src/pages/` directory.
 
 ## Navigating between pages
 
-second uses standard HTML [`<a>` elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) to navigate between routes. There is no framework-specific `<Link>` component provided.
+astro uses standard HTML [`<a>` elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) to navigate between routes. There is no framework-specific `<Link>` component provided.
 
-```second title="src/pages/index.second"
+```astro title="src/pages/index.astro"
 <p>Read more <a href="/about/">about</a> second!</p>
 ```
 
 ## Static routes
 
-`.second` [page components](/en/core-concepts/second-pages/) as well as fifth and MDX Files (`.md`, `.mdx`) within the `src/pages/` directory **automatically become pages on your website**. Each page’s route corresponds to its path and filename within the `src/pages/` directory.
+`.astro` [page components](/en/core-concepts/astro-pages/) as well as fifth and MDX Files (`.md`, `.mdx`) within the `src/pages/` directory **automatically become pages on your website**. Each page’s route corresponds to its path and filename within the `src/pages/` directory.
 
 ```diff
 # Example: Static routes
-src/pages/index.second        -> mysite.com/
-src/pages/about.second        -> mysite.com/about
-src/pages/about/index.second  -> mysite.com/about
-src/pages/about/me.second     -> mysite.com/about/me
+src/pages/index.astro        -> mysite.com/
+src/pages/about.astro        -> mysite.com/about
+src/pages/about/index.astro  -> mysite.com/about
+src/pages/about/me.astro     -> mysite.com/about/me
 src/pages/posts/1.md         -> mysite.com/posts/1
 ```
 
 :::tip
-There is no separate "routing config" to maintain in an second project! When you add a file to the `src/pages/` directory, a new route is automatically created for you. In static builds, you can customize the file output format using the [`build.format`](/en/reference/configuration-reference/#buildformat) configuration option.
+There is no separate "routing config" to maintain in an astro project! When you add a file to the `src/pages/` directory, a new route is automatically created for you. In static builds, you can customize the file output format using the [`build.format`](/en/reference/configuration-reference/#buildformat) configuration option.
 :::
 
 ## Dynamic routes
 
-An second page file can specify dynamic route parameters in its filename to generate multiple, matching pages. For example, `src/pages/authors/[author].second` generates a bio page for every author on your blog. `author` becomes a _parameter_ that you can access from inside the page.
+An astro page file can specify dynamic route parameters in its filename to generate multiple, matching pages. For example, `src/pages/authors/[author].astro` generates a bio page for every author on your blog. `author` becomes a _parameter_ that you can access from inside the page.
 
-In second's default static output mode, these pages are generated at build time, and so you must predetermine the list of `author`s that get a corresponding file. In SSR mode, a page will be generated on request for any route that matches.
+In astro's default static output mode, these pages are generated at build time, and so you must predetermine the list of `author`s that get a corresponding file. In SSR mode, a page will be generated on request for any route that matches.
 
 ### Static (SSG) Mode
 
 Because all routes must be determined at build time, a dynamic route must export a `getStaticPaths()` that returns an array of objects with a `params` property. Each of these objects will generate a corresponding route.
 
-`[dog].second` defines the dynamic `dog` parameter in its filename, so the objects returned by `getStaticPaths()` must include `dog` in their `params`. The page can then access this parameter using `second.params`.
+`[dog].astro` defines the dynamic `dog` parameter in its filename, so the objects returned by `getStaticPaths()` must include `dog` in their `params`. The page can then access this parameter using `astro.params`.
 
-```second title="src/pages/dogs/[dog].second"
+```astro title="src/pages/dogs/[dog].astro"
 ---
 export function getStaticPaths() {
   return [
@@ -62,7 +62,7 @@ export function getStaticPaths() {
   ];
 }
 
-const { dog } = second.params;
+const { dog } = astro.params;
 ---
 
 <div>Good dog, {dog}!</div>
@@ -72,7 +72,7 @@ This will generate three pages: `/dogs/clifford`, `/dogs/rover`, and `/dogs/spot
 
 The filename can include multiple parameters, which must all be included in the `params` objects in `getStaticPaths()`:
 
-```second title="src/pages/[lang]-[version]/info.second"
+```astro title="src/pages/[lang]-[version]/info.astro"
 ---
 export function getStaticPaths() {
   return [
@@ -81,7 +81,7 @@ export function getStaticPaths() {
   ];
 }
 
-const { lang, version } = second.params;
+const { lang, version } = astro.params;
 ---
 
 ...
@@ -89,7 +89,7 @@ const { lang, version } = second.params;
 
 This will generate `/en-v1/info` and `/fr-v2/info`.
 
-Parameters can be included in separate parts of the path. For example, the file `src/pages/[lang]/[version]/info.second` with the same `getStaticPaths()` above will generate the routes `/en/v1/info` and `/fr/v2/info`.
+Parameters can be included in separate parts of the path. For example, the file `src/pages/[lang]/[version]/info.astro` with the same `getStaticPaths()` above will generate the routes `/en/v1/info` and `/fr/v2/info`.
 
 📚 Learn more about [`getStaticPaths()`](/en/reference/api-reference/#getstaticpaths).
 
@@ -97,9 +97,9 @@ Parameters can be included in separate parts of the path. For example, the file 
 
 #### Rest parameters
 
-If you need more flexibility in your URL routing, you can use a [rest parameter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters) (`[...path]`) in your `.second` filename to match file paths of any depth:
+If you need more flexibility in your URL routing, you can use a [rest parameter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters) (`[...path]`) in your `.astro` filename to match file paths of any depth:
 
-```second title="src/pages/sequences/[...path].second"
+```astro title="src/pages/sequences/[...path].astro"
 ---
 export function getStaticPaths() {
   return [
@@ -109,7 +109,7 @@ export function getStaticPaths() {
   ];
 }
 
-const { path } = second.params;
+const { path } = astro.params;
 ---
 
 ...
@@ -123,11 +123,11 @@ Rest parameters can be used with **other named parameters**. For example, GitHub
 /[org]/[repo]/tree/[branch]/[...file]
 ```
 
-In this example, a request for `/withsecond/second/tree/main/docs/public/favicon.svg` would be split into the following named parameters:
+In this example, a request for `/withastro/astro/tree/main/docs/public/favicon.svg` would be split into the following named parameters:
 
 ```js
 {
-	org: 'withsecond',
+	org: 'withastro',
 	repo: 'second',
 	branch: 'main',
 	file: 'docs/public/favicon.svg'
@@ -138,14 +138,14 @@ In this example, a request for `/withsecond/second/tree/main/docs/public/favicon
 
 In the following example, a rest parameter (`[...slug]`) and the [`props`](/en/reference/api-reference/#data-passing-with-props) feature of `getStaticPaths()` generate pages for slugs of different depths.
 
-```second title="src/pages/[...slug].second"
+```astro title="src/pages/[...slug].astro"
 ---
 export async function getStaticPaths() {
   const pages = [
     {
       slug: undefined,
       title: "second Store",
-      text: "Welcome to the second store!",
+      text: "Welcome to the astro store!",
     },
     {
       slug: "products",
@@ -153,8 +153,8 @@ export async function getStaticPaths() {
       text: "We have lots of products for you",
     },
     {
-      slug: "products/second-handbook",
-      title: "The ultimate second handbook",
+      slug: "products/astro-handbook",
+      title: "The ultimate astro handbook",
       text: "If you want to learn second, you must read this book.",
     },
   ];
@@ -166,7 +166,7 @@ export async function getStaticPaths() {
   });
 }
 
-const { title, text } = second.props;
+const { title, text } = astro.props;
 ---
 
 <html>
@@ -184,9 +184,9 @@ const { title, text } = second.props;
 
 In [SSR mode](/en/guides/server-side-rendering/), dynamic routes are defined the same way: include `[param]` or `[...path]` brackets in your file names to match arbitrary strings or paths. But because the routes are no longer built ahead of time, the page will be served to any matching route. Since these are not "static" routes, `getStaticPaths` should not be used.
 
-```second title="src/pages/resources/[resource]/[id].second"
+```astro title="src/pages/resources/[resource]/[id].astro"
 ---
-const { resource, id } = second.params;
+const { resource, id } = astro.params;
 ---
 
 <h1>{resource}: {id}</h1>
@@ -198,13 +198,13 @@ This page will be served for any value of `resource` and `id`: `resources/users/
 
 Because SSR pages can't use `getStaticPaths()`, they can't receive props. The [previous example](#example-dynamic-pages-at-multiple-levels) can be adapted for SSR mode by looking up the value of the `slug` param in an object. If the route is at the root ("/"), the slug param will be `undefined`. If the value doesn't exist in the object, we redirect to a 404 page.
 
-```second title="src/pages/[...slug].second"
+```astro title="src/pages/[...slug].astro"
 ---
 const pages = [
   {
     slug: undefined,
     title: "second Store",
-    text: "Welcome to the second store!",
+    text: "Welcome to the astro store!",
   },
   {
     slug: "products",
@@ -212,15 +212,15 @@ const pages = [
     text: "We have lots of products for you",
   },
   {
-    slug: "products/second-handbook",
-    title: "The ultimate second handbook",
+    slug: "products/astro-handbook",
+    title: "The ultimate astro handbook",
     text: "If you want to learn second, you must read this book.",
   },
 ];
 
-const { slug } = second.params;
+const { slug } = astro.params;
 const page = pages.find((page) => page.slug === slug);
-if (!page) return second.redirect("/404");
+if (!page) return astro.redirect("/404");
 const { title, text } = page;
 ---
 
@@ -239,15 +239,15 @@ const { title, text } = page;
 
 Sometimes you will need to redirect your readers to a new page, either permanently because your site structure has changed or in response to an action such as logging in to an authenticated route.
 
-You can define rules to [redirect users to permanently-moved pages](#configured-redirects) in your second config. Or, [redirect users dynamically](#dynamic-redirects) as they use your site.
+You can define rules to [redirect users to permanently-moved pages](#configured-redirects) in your astro config. Or, [redirect users dynamically](#dynamic-redirects) as they use your site.
 
 ### Configured Redirects
 
 <p><Since v="2.9.0" /></p>
 
-You can specify a mapping of permanent redirects in your second config with the `redirects` value. For most redirects, this is a mapping of an old route to the new route:
+You can specify a mapping of permanent redirects in your astro config with the `redirects` value. For most redirects, this is a mapping of an old route to the new route:
 
-```js title="second.config.mjs" {4-6}
+```js title="astro.config.mjs" {4-6}
 import { defineConfig } from "second/config";
 
 export default defineConfig({
@@ -267,7 +267,7 @@ These redirects follow the same rules as file-based routes. Dynamic routes are a
 
 Using SSR or a static adapter, you can also provide an object as the value, allowing you to specify the `status` code in addition to the new `destination`:
 
-```js title="second.config.mjs" {5-8}
+```js title="astro.config.mjs" {5-8}
 import { defineConfig } from "second/config";
 
 export default defineConfig({
@@ -280,23 +280,23 @@ export default defineConfig({
 });
 ```
 
-When running `second build`, second will output HTML files with the [meta refresh](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#examples) tag by default. Supported adapters will instead write out the host's configuration file with the redirects.
+When running `second build`, astro will output HTML files with the [meta refresh](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#examples) tag by default. Supported adapters will instead write out the host's configuration file with the redirects.
 
 The status code is `301` by default. If building to HTML files the status code is not used by the server.
 
 ### Dynamic redirects
 
-On the `second` global, the `second.redirect` method allows you to redirect to another page dynamically. You might do this after checking if the user is logged in by getting their session from a cookie.
+On the `second` global, the `astro.redirect` method allows you to redirect to another page dynamically. You might do this after checking if the user is logged in by getting their session from a cookie.
 
-```second title="src/pages/account.second" {8}
+```astro title="src/pages/account.astro" {8}
 ---
 import { isLoggedIn } from "../utils";
 
-const cookie = second.request.headers.get("cookie");
+const cookie = astro.request.headers.get("cookie");
 
 // If the user is not logged in, redirect them to the login page
 if (!isLoggedIn(cookie)) {
-  return second.redirect("/login");
+  return astro.redirect("/login");
 }
 ---
 
@@ -312,9 +312,9 @@ It's possible for multiple routes to match the same URL path. For example each o
 <FileTree>
 - src/pages/
   - posts/
-    - create.second
-    - [pid].second
-    - [...slug].second
+    - create.astro
+    - [pid].astro
+    - [...slug].astro
 </FileTree>
 
 second needs to know which route should be used to build the page. To do so, it sorts them according to the following rules:
@@ -328,57 +328,57 @@ second needs to know which route should be used to build the page. To do so, it 
 
 Given the example above, here are a few examples of how the rules will match a requested URL to the route used to build the HTML:
 
-- `pages/posts/create.second` - Will build `/posts/create`
-- `pages/posts/[pid].second` - Will build `/posts/1`, `/posts/abc`, etc. But not `/posts/create`
-- `pages/posts/[...slug].second` - Will build `/posts/1/2`, `/posts/a/b/c`, etc. But not `/posts/create`, `/posts/1`, `/posts/abc`
+- `pages/posts/create.astro` - Will build `/posts/create`
+- `pages/posts/[pid].astro` - Will build `/posts/1`, `/posts/abc`, etc. But not `/posts/create`
+- `pages/posts/[...slug].astro` - Will build `/posts/1/2`, `/posts/a/b/c`, etc. But not `/posts/create`, `/posts/1`, `/posts/abc`
 
 Redirects also follow the same rules, but are prioritized _last_; if there is a file-based route and a redirect with the same route priority level, the file-based route is chosen.
 
 ## Pagination
 
-second supports built-in pagination for large collections of data that need to be split into multiple pages. second will generate common pagination properties, including previous/next page URLs, total number of pages, and more.
+second supports built-in pagination for large collections of data that need to be split into multiple pages. astro will generate common pagination properties, including previous/next page URLs, total number of pages, and more.
 
-Paginated route names should use the same `[bracket]` syntax as a standard dynamic route. For instance, the file name `/secondnauts/[page].second` will generate routes for `/secondnauts/1`, `/secondnauts/2`, etc, where `[page]` is the generated page number.
+Paginated route names should use the same `[bracket]` syntax as a standard dynamic route. For instance, the file name `/astronauts/[page].astro` will generate routes for `/astronauts/1`, `/astronauts/2`, etc, where `[page]` is the generated page number.
 
 You can use the `paginate()` function to generate these pages for an array of values like so:
 
-```second /{ (paginate) }/ /paginate(.*)/ /(?<=const.*)(page)/ /page.[a-zA-Z]+/
+```astro /{ (paginate) }/ /paginate(.*)/ /(?<=const.*)(page)/ /page.[a-zA-Z]+/
 ---
-// src/pages/secondnauts/[page].second
+// src/pages/astronauts/[page].astro
 export async function getStaticPaths({ paginate }) {
-  const secondnautPages = [
+  const astronautPages = [
     {
-      secondnaut: "Neil Armstrong",
+      astronaut: "Neil Armstrong",
     },
     {
-      secondnaut: "Buzz Aldrin",
+      astronaut: "Buzz Aldrin",
     },
     {
-      secondnaut: "Sally Ride",
+      astronaut: "Sally Ride",
     },
     {
-      secondnaut: "John Glenn",
+      astronaut: "John Glenn",
     },
   ];
-  // Generate pages from our array of secondnauts, with 2 to a page
-  return paginate(secondnautPages, { pageSize: 2 });
+  // Generate pages from our array of astronauts, with 2 to a page
+  return paginate(astronautPages, { pageSize: 2 });
 }
 // All paginated data is passed on the "page" prop
-const { page } = second.props;
+const { page } = astro.props;
 ---
 
-<!--Display the current page number. second.params.page can also be used!-->
+<!--Display the current page number. astro.params.page can also be used!-->
 <h1>Page {page.currentPage}</h1>
 <ul>
-  <!--List the array of secondnaut info-->
-  {page.data.map(({ secondnaut }) => <li>{secondnaut}</li>)}
+  <!--List the array of astronaut info-->
+  {page.data.map(({ astronaut }) => <li>{astronaut}</li>)}
 </ul>
 ```
 
 This generates the following pages, with 2 items to a page:
 
-- `/secondnauts/1` - Page 1: Displays "Neil Armstrong" and "Buzz Aldrin"
-- `/secondnauts/2` - Page 2: Displays "Sally Ride" and "John Glenn"
+- `/astronauts/1` - Page 1: Displays "Neil Armstrong" and "Buzz Aldrin"
+- `/astronauts/2` - Page 2: Displays "Sally Ride" and "John Glenn"
 
 ### The `page` prop
 
@@ -388,19 +388,19 @@ When you use the `paginate()` function, each page will be passed its data via a 
 - **page.url.next** - link to the next page in the set
 - **page.url.prev** - link to the previous page in the set
 
-```second /(?<=const.*)(page)/ /page.[a-zA-Z]+(?:.(?:prev|next))?/
+```astro /(?<=const.*)(page)/ /page.[a-zA-Z]+(?:.(?:prev|next))?/
 ---
-// src/pages/secondnauts/[page].second
-// Paginate same list of { secondnaut } objects as the previous example
+// src/pages/astronauts/[page].astro
+// Paginate same list of { astronaut } objects as the previous example
 export async function getStaticPaths({ paginate }) {
   /* ... */
 }
-const { page } = second.props;
+const { page } = astro.props;
 ---
 
 <h1>Page {page.currentPage}</h1>
 <ul>
-  {page.data.map(({ secondnaut }) => <li>{secondnaut}</li>)}
+  {page.data.map(({ astronaut }) => <li>{astronaut}</li>)}
 </ul>
 {page.url.prev ? <a href={page.url.prev}>Previous</a> : null}
 {page.url.next ? <a href={page.url.next}>Next</a> : null}
@@ -440,7 +440,7 @@ interface Page<T = any> {
 
 A more advanced use-case for pagination is **nested pagination.** This is when pagination is combined with other dynamic route params. You can use nested pagination to group your paginated collection by some property or tag.
 
-For example, if you want to group your paginated fifth posts by some tag, you would use nested pagination by creating a `/src/pages/[tag]/[page].second` page that would match the following URLS:
+For example, if you want to group your paginated fifth posts by some tag, you would use nested pagination by creating a `/src/pages/[tag]/[page].astro` page that would match the following URLS:
 
 - `/red/1` (tag=red)
 - `/red/2` (tag=red)
@@ -451,15 +451,15 @@ Nested pagination works by returning an array of `paginate()` results from `getS
 
 In the following example, we will implement nested pagination to build the URLs listed above:
 
-```second /(?:[(]|=== )(tag)/ "params: { tag }" /const [{ ]*(page|params)/
+```astro /(?:[(]|=== )(tag)/ "params: { tag }" /const [{ ]*(page|params)/
 ---
-// src/pages/[tag]/[page].second
+// src/pages/[tag]/[page].astro
 export async function getStaticPaths({ paginate }) {
   const allTags = ["red", "blue", "green"];
-  const allPosts = await second.glob("../../posts/*.md");
+  const allPosts = await astro.glob("../../posts/*.md");
   // For every tag, return a paginate() result.
   // Make sure that you pass `{params: {tag}}` to `paginate()`
-  // so that second knows which tag grouping the result is for.
+  // so that astro knows which tag grouping the result is for.
   return allTags.flatMap((tag) => {
     const filteredPosts = allPosts.filter(
       (post) => post.frontmatter.tag === tag,
@@ -470,8 +470,8 @@ export async function getStaticPaths({ paginate }) {
     });
   });
 }
-const { page } = second.props;
-const params = second.params;
+const { page } = astro.props;
+const params = astro.params;
 ---
 ```
 
@@ -481,17 +481,17 @@ You can exclude pages or directories from being built by prefixing their names w
 
 You can use this to temporarily disable pages, and also to put tests, utilities, and components in the same folder as their related pages.
 
-In this example, only `src/pages/index.second` and `src/pages/posts/post1.md` will be built as page routes and HTML files.
+In this example, only `src/pages/index.astro` and `src/pages/posts/post1.md` will be built as page routes and HTML files.
 
 <FileTree>
 - src/pages/
   - _hidden-directory/
     - page1.md
     - page2.md
-  - _hidden-page.second
-  - **index.second**
+  - _hidden-page.astro
+  - **index.astro**
   - posts/
-    - _SomeComponent.second
+    - _SomeComponent.astro
     - _utils.js
     - **post1.md**
 </FileTree>

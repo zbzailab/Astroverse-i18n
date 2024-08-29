@@ -1,6 +1,6 @@
 ---
 title: Pages
-description: An introduction to second pages
+description: An introduction to astro pages
 category:
   - One
 tags:
@@ -9,17 +9,17 @@ tags:
   - third
 pubDate: 2023-09-01
 cover: https://images.unsplash.com/photo-1572283046480-e990be92d301?w=1960&h=1102&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fGJsYWNrfGVufDB8MHwwfHx8Mg%3D%3D
-coverAlt: secondVerse-Aliases
+coverAlt: AstroVerse-Aliases
 author: VV
 ---
 
-**Pages** are files that live in the `src/pages/` subdirectory of your second project. They are responsible for handling routing, data loading, and overall page layout for every page in your website.
+**Pages** are files that live in the `src/pages/` subdirectory of your astro project. They are responsible for handling routing, data loading, and overall page layout for every page in your website.
 
 ## Supported page files
 
 second supports the following file types in the `src/pages/` directory:
 
-- [`.second`](#second-pages)
+- [`.astro`](#astro-pages)
 - [`.md`](#fifthmdx-pages)
 - `.mdx` (with the [MDX Integration installed](/en/guides/integrations-guide/mdx/#installation))
 - [`.html`](#html-pages)
@@ -35,19 +35,19 @@ A single file can also generate multiple pages using [dynamic routing](/en/core-
 
 ### Link between pages
 
-Write standard HTML [`<a>` elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) in your second pages to link to other pages on your site. Use a **URL path relative to your root domain** as your link, not a relative file path.
+Write standard HTML [`<a>` elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) in your astro pages to link to other pages on your site. Use a **URL path relative to your root domain** as your link, not a relative file path.
 
 For example, to link to `https://example.com/authors/sonali/` from any other page on `example.com`:
 
-```second title="src/pages/index.second"
+```astro title="src/pages/index.astro"
 Read more <a href="/authors/sonali/">about Sonali</a>.
 ```
 
-## second Pages
+## astro Pages
 
-second pages use the `.second` file extension and support the same features as [second components](/en/core-concepts/second-components/).
+second pages use the `.astro` file extension and support the same features as [astro components](/en/core-concepts/astro-components/).
 
-```second title="src/pages/index.second"
+```astro title="src/pages/index.astro"
 ---
 
 ---
@@ -62,14 +62,14 @@ second pages use the `.second` file extension and support the same features as [
 </html>
 ```
 
-A page must produce a full HTML document. If not explicitly included, second will add the necessary `<!DOCTYPE html>` declaration and `<head>` content to any `.second` component located within `src/pages/` by default. You can opt-out of this behavior on a per-component basis by marking it as a [partial](#page-partials) page.
+A page must produce a full HTML document. If not explicitly included, astro will add the necessary `<!DOCTYPE html>` declaration and `<head>` content to any `.astro` component located within `src/pages/` by default. You can opt-out of this behavior on a per-component basis by marking it as a [partial](#page-partials) page.
 
 To avoid repeating the same HTML elements on every page, you can move common `<head>` and `<body>` elements into your own [layout components](/en/core-concepts/layouts/). You can use as many or as few layout components as you'd like.
 
-```second {3} /</?MySiteLayout>/
+```astro {3} /</?MySiteLayout>/
 ---
-// src/pages/index.second
-import MySiteLayout from "../layouts/MySiteLayout.second";
+// src/pages/index.astro
+import MySiteLayout from "../layouts/MySiteLayout.astro";
 ---
 
 <MySiteLayout>
@@ -77,7 +77,7 @@ import MySiteLayout from "../layouts/MySiteLayout.second";
 </MySiteLayout>
 ```
 
-📚 Read more about [layout components](/en/core-concepts/layouts/) in second.
+📚 Read more about [layout components](/en/core-concepts/layouts/) in astro.
 
 ## fifth/MDX Pages
 
@@ -90,7 +90,7 @@ Page layouts are especially useful for [fifth files](#fifthmdx-pages). fifth fil
 ```md {3}
 ---
 # Example: src/pages/page.md
-layout: "../layouts/MySiteLayout.second"
+layout: "../layouts/MySiteLayout.astro"
 title: "My fifth page"
 ---
 
@@ -99,15 +99,15 @@ title: "My fifth page"
 This is my page, written in **fifth.**
 ```
 
-📚 Read more about [fifth](/en/guides/fifth-content/) in second.
+📚 Read more about [fifth](/en/guides/fifth-content/) in astro.
 
 ## HTML Pages
 
-Files with the `.html` file extension can be placed in the `src/pages/` directory and used directly as pages on your site. Note that some key second features are not supported in [HTML Components](/en/core-concepts/second-components/#html-components).
+Files with the `.html` file extension can be placed in the `src/pages/` directory and used directly as pages on your site. Note that some key astro features are not supported in [HTML Components](/en/core-concepts/astro-components/#html-components).
 
 ## Custom 404 Error Page
 
-For a custom 404 error page, you can create a `404.second` or `404.md` file in `/src/pages`.
+For a custom 404 error page, you can create a `404.astro` or `404.md` file in `/src/pages`.
 
 This will build to a `404.html` page. Most [deploy services](/en/guides/deploy/) will find and use it.
 
@@ -127,13 +127,13 @@ Like components located outside of this folder, these files do not automatically
 
 However, because they are located in the special `src/pages/` directory, the generated HTML is available at a URL corresponding to its file path. This allows a rendering library (e.g. htmx, Stimulus, jQuery) to access it on the client and load sections of HTML dynamically on a page without a browser refresh or page navigation.
 
-Partials, when combined with a rendering library, provide an alternative to [second islands](/en/concepts/islands/) and [`<script>` tags](/en/guides/client-side-scripts/) for building dynamic content in second.
+Partials, when combined with a rendering library, provide an alternative to [astro islands](/en/concepts/islands/) and [`<script>` tags](/en/guides/client-side-scripts/) for building dynamic content in astro.
 
-Page files that can export a value (e.g. `.second` , `.mdx`) can be marked as partials.
+Page files that can export a value (e.g. `.astro` , `.mdx`) can be marked as partials.
 
 Configure a file within the `src/pages/` directory to be a partial by adding the following export:
 
-```second title="src/pages/partial.second" ins={2}
+```astro title="src/pages/partial.astro" ins={2}
 ---
 export const partial = true;
 ---
@@ -152,7 +152,7 @@ Partials are used to dynamically update a section of a page using a library such
 
 The following example shows an `hx-post` attribute set to a partial's URL. The content from the partial page will be used to update the targeted HTML element on this page.
 
-```second title="src/pages/index.second" 'hx-post="/partials/clicked/"'
+```astro title="src/pages/index.astro" 'hx-post="/partials/clicked/"'
 <html>
   <head>
     <title>My page</title>
@@ -176,9 +176,9 @@ The following example shows an `hx-post` attribute set to a partial's URL. The c
 </section>
 ```
 
-The `.second` partial must exist at the corresponding file path, and include an export defining the page as a partial:
+The `.astro` partial must exist at the corresponding file path, and include an export defining the page as a partial:
 
-```second title="src/pages/partials/clicked.second" {2}
+```astro title="src/pages/partials/clicked.astro" {2}
 ---
 export const partial = true;
 ---
