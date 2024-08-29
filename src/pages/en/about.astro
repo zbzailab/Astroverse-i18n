@@ -1,0 +1,86 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import OptimizedCover from "@components/OptimizedPicture.astro";
+import { Icon } from "astro-icon/components";
+import LatestPosts from "@components/LatestPosts.astro";
+import { getConstants } from "@consts";
+
+const currentLocale = "en";
+const constants = getConstants(currentLocale);
+
+const title = `About ${constants.SITE_TITLE}`;
+const description = constants.SITE_DESCRIPTION;
+const tabs = [
+  {
+    icon: "tabler:yoga",
+    title: "Heavenly Stems",
+    content: "Heavenly Stems represent the timing of the heavens, symbolizing the passage of time and the arrangement of destiny. Each Heavenly Stem is a unique energy symbol, guiding us to find our direction in the flow of time.",
+    image: "https://images.unsplash.com/photo-1516827003699-2880f453d93b?q=80&w=1592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    imageAlt: "About the Astral World - Heavenly Stems"
+  },
+  {
+    icon: "tabler:swimming",
+    title: "Earthly Branches",
+    content: "Earthly Branches symbolize the power of the earth and the operation of human affairs. The combination of Earthly Branches forms the framework of time and space, allowing us to find stability amidst change.",
+    image: "https://images.unsplash.com/photo-1560233026-ad254fa8da38?q=80&w=2759&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    imageAlt: "About the Astral World - Earthly Branches"
+  },
+  {
+    icon: "tabler:run",
+    title: "Yin and Yang",
+    content: "Yin and Yang are the fundamental laws of the universe, representing opposition and unity. The balance of Yin and Yang allows all things to thrive, teaching us to maintain harmony and balance in life.",
+    image: "https://images.unsplash.com/photo-1520533881-8a3699d7e58b?q=80&w=2572&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    imageAlt: "About the Astral World - Yin and Yang"
+  }
+];
+---
+
+
+<BaseLayout title={title} description={description}>
+  <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+    <div class="relative p-6 md:p-16">
+      <div class="relative z-10 lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
+        <div class="mb-10 lg:mb-0 lg:col-span-6 lg:col-start-8 lg:order-2">
+          <h2 class="text-2xl text-neutral-800 font-bold sm:text-3xl dark:text-neutral-200">
+            {description}
+          </h2>
+  
+          <nav class="grid gap-4 mt-5 md:mt-10" aria-label="Tabs" role="tablist" aria-orientation="vertical">
+            {tabs.map((tab, index) => (
+              <button type="button" class={`hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-start hover:bg-neutral-200 focus:outline-none focus:bg-neutral-200 p-4 md:p-5 rounded-xl dark:hs-tab-active:bg-neutral-700 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 ${index === 0 ? 'active' : ''}`} id={`tabs-with-card-item-${index + 1}`} data-hs-tab={`#tabs-with-card-${index + 1}`} aria-controls={`tabs-with-card-${index + 1}`} role="tab">
+                <span class="flex gap-x-6">
+                  <Icon name={tab.icon} class="shrink-0 mt-2 size-6 md:size-7 hs-tab-active:text-neutral-600 text-neutral-800 dark:hs-tab-active:text-neutral-500 dark:text-neutral-200" />
+                  <span class="grow">
+                    <span class="block text-lg font-semibold hs-tab-active:text-neutral-600 text-neutral-800 dark:hs-tab-active:text-neutral-500 dark:text-neutral-200">{tab.title}</span>
+                    <span class="block mt-1 text-neutral-800 dark:hs-tab-active:text-neutral-200 dark:text-neutral-200">{tab.content}</span>
+                  </span>
+                </span>
+              </button>
+            ))}
+          </nav>
+        </div>
+  
+        <div class="lg:col-span-6">
+          <div class="relative">
+            <div>
+              {tabs.map((tab, index) => (
+                <div id={`tabs-with-card-${index + 1}`} class={index === 0 ? '' : 'hidden'} role="tabpanel" aria-labelledby={`tabs-with-card-item-${index + 1}`}>
+                  <OptimizedCover
+                    class="shadow-xl shadow-neutral-200 rounded-xl dark:shadow-neutral-900/20"
+                    src={tab.image}
+                    alt={tab.imageAlt}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="absolute inset-0 grid grid-cols-12 size-full">
+        <div class="col-span-full lg:col-span-7 lg:col-start-6 bg-neutral-100 w-full h-5/6 rounded-xl sm:h-3/4 lg:h-full dark:bg-neutral-800"></div>
+      </div>
+    </div>
+  </div>
+  <LatestPosts currentLocale={currentLocale} />
+</BaseLayout>

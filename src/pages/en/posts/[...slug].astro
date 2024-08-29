@@ -1,0 +1,67 @@
+---
+import type { GetStaticPaths } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import RelatedPostsCard from "@components/RelatedPostsCard.astro";
+import FormattedDate from "@components/FormattedDate.astro";
+import OptimizedCover from "@components/OptimizedPicture.astro";
+import { getConstants } from "@consts";
+
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection("posts", ({ id }) => id.startsWith('us/'));
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}) satisfies GetStaticPaths;
+
+type Props = {
+  post: CollectionEntry<'posts'>;
+};
+
+const { post } = Astro.props as Props;
+const { Content } = await post.render();
+
+const currentLocale = 'en';
+const constants = getConstants(currentLocale);
+---
+
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <main>
+    <article class="prose mx-auto dark:prose-invert">
+      <div class="prose-h1 text-center">
+        <h1>{post.data.title}</h1>
+      </div>
+      <div>
+        {post.data.cover && (
+          <OptimizedCover src={post.data.cover} alt={post.data.coverAlt || ''} />
+        )}
+      </div>
+      <div>
+        <Content />
+      </div>
+      <div class="prose-a:no-underline">
+        {post.data.tags.map((tag) => (
+          <span class="mb-2 mr-2 inline-block rounded-full bg-neutral-200 px-3 py-1 text-sm hover:bg-neutral-500 dark:bg-neutral-600">
+            <a href={`/en/tags/${tag}/1/`}>{tag}</a>
+          </span>
+        ))}
+      </div>
+      <div class="flex justify-between">
+        <small>
+          {constants.PUBLISHED_ON} <FormattedDate date={post.data.pubDate} />, {constants.UPDATED_ON} <FormattedDate
+            date={new Date().toISOString()}
+          />
+        </small>
+      </div>
+    </article>
+    <div class="mt-4">
+      <RelatedPostsCard
+        currentCategory={post.data.category[0]}
+        currentSlug={post.slug}
+      />
+    </div>
+  </main>
+</BaseLayout>

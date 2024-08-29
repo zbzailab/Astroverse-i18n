@@ -1,52 +1,26 @@
-# Prerequisites
-*.d
+# build output
+dist/
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+# generated types
+.astro/
 
-# Linker output
-*.ilk
-*.map
-*.exp
+# dependencies
+node_modules/
 
-# Precompiled Headers
-*.gch
-*.pch
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+# environment variables
+.env
+.env.production
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
+# macOS-specific files
+.DS_Store
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+# jetbrains setting folder
+.idea/

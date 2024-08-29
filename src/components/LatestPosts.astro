@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+import OptimizedCover from "@components/OptimizedPicture.astro";
+import FormattedDate from "@components/FormattedDate.astro";
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const currentLocale = Astro.currentLocale ?? 'zh';
+
+const allPosts = await getCollection("posts", ({ id }) => {
+  return id.startsWith(`${currentLocale === 'zh' ? 'cn' : 'us'}/`);
+});
+
+allPosts.sort(
+  (a, b) =>
+    new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf(),
+);
+
+const latestPosts = allPosts.slice(0, 3);
+
+const safeGetRelativeLocaleUrl = (path: string) => getRelativeLocaleUrl(currentLocale, path);
+---
+
+<div class="mx-auto max-w-[85rem] px-4 py-4 sm:px-4 lg:px-6 lg:py-8">
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+    {
+      latestPosts.map((post) => (
+        <div class="relative mb-4 overflow-hidden rounded-xl bg-white transition-transform duration-500 hover:-translate-y-1 hover:scale-105 dark:bg-neutral-900">
+          <a href={safeGetRelativeLocaleUrl(`posts/${post.slug}`)}>
+            <OptimizedCover src={post.data.cover} alt={post.data.coverAlt} />
+            <div class="absolute bottom-0 end-0 start-0 bg-gradient-to-t p-4 md:p-5">
+              <div class="mt-16 flex items-center gap-4 text-xs text-white">
+                <span>{post.data.tags.join(" ")}</span>
+                <FormattedDate date={post.data.pubDate} />
+              </div>
+              <h2 class="mt-2 text-lg font-bold text-white">
+                {post.data.title}
+              </h2>
+            </div>
+          </a>
+        </div>
+      ))
+    }
+  </div>
+</div>

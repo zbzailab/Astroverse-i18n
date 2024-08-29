@@ -1,0 +1,81 @@
+---
+import type { GetStaticPaths } from 'astro';
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import PostCard from "@components/CommonCard.astro";
+import Pagination from "@components/Pagination.astro";
+import { getCategoryMetadata } from "@consts";
+
+
+export const getStaticPaths = (async () => {
+  const allPosts = await getCollection("posts", ({ id }) => id.startsWith('us/'));
+  const uniqueCategories = [
+    ...new Set(allPosts.flatMap((post) => post.data.category)),
+  ];
+
+  return uniqueCategories.flatMap((category) => {
+    const filteredPosts = allPosts.filter((post) =>
+      post.data.category.includes(category)
+    );
+    filteredPosts.sort((a, b) =>
+      new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
+    );
+
+    const pageSize = 12;
+    const totalPages = Math.ceil(filteredPosts.length / pageSize);
+
+    return Array.from({ length: totalPages }, (_, index) => ({
+      params: { category, page: (index + 1).toString() },
+      props: {
+        page: {
+          data: filteredPosts.slice(index * pageSize, (index + 1) * pageSize),
+          currentPage: index + 1,
+          lastPage: totalPages,
+        },
+      },
+    }));
+  });
+}) satisfies GetStaticPaths;
+
+type Post = CollectionEntry<'posts'>;
+
+interface Props {
+  page: {
+    data: Post[];
+    currentPage: number;
+    lastPage: number;
+  };
+}
+
+const { category } = Astro.params;
+const { page } = Astro.props as Props;
+
+if (typeof category !== 'string') {
+  throw new Error('Invalid category parameter');
+}
+
+const currentLocale = 'en';
+const { title, description } = getCategoryMetadata(category, currentLocale);
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="mx-auto max-w-4xl px-4 py-8">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {page.data.map((post) => <PostCard post={post} />)}
+    </div>
+
+    <Pagination
+      currentPage={page.currentPage}
+      lastPage={page.lastPage}
+      urlPrev={page.currentPage > 1
+        ? `/en/category/${category}/${page.currentPage - 1}`
+        : null}
+      urlNext={page.currentPage < page.lastPage
+        ? `/en/category/${category}/${page.currentPage + 1}`
+        : null}
+      basePath={`/en/category/${category}`}
+      maxDisplayedPages={5}
+    />
+  </div>
+</BaseLayout>

@@ -1,0 +1,38 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { Icon } from "astro-icon/components";
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getConstants } from "@consts";
+
+const currentLocale = "en";
+const constants = getConstants(currentLocale);
+
+const safeGetRelativeLocaleUrl = (path: string) => getRelativeLocaleUrl(currentLocale, path);
+---
+
+<BaseLayout title={constants.ERROR_404_TITLE} description={constants.ERROR_404_DESCRIPTION}>
+  <main id="content">
+    <div class="px-4 py-10 text-center sm:px-6 lg:px-8">
+      <h1
+        class="block text-7xl font-bold text-neutral-800 dark:text-white sm:text-9xl"
+      >
+        404
+      </h1>
+      <p class="mt-3 text-neutral-600 dark:text-neutral-400">{constants.ERROR_404_MESSAGE}</p>
+      <p class="text-neutral-600 dark:text-neutral-400">
+        {constants.ERROR_404_SUBMESSAGE}
+      </p>
+      <div
+        class="mt-5 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-3"
+      >
+        <a
+          class="inline-flex w-full items-center justify-center gap-x-2 rounded-lg border border-transparent bg-neutral-400 px-4 py-3 text-sm font-semibold text-white hover:bg-neutral-600 disabled:pointer-events-none disabled:opacity-50 sm:w-auto"
+          href={safeGetRelativeLocaleUrl('/')}
+        >
+          <Icon name="tabler:chevron-left" class="icon-base" />
+          {constants.GO_TO_HOMEPAGE}
+        </a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
