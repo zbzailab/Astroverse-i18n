@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import FooterLinks from "@components/FooterLinks.astro";
-import FooterLanguageSwitcher from "@components/FooterLanguageSwitcher.astro";
+import FooterLanguageSwitcher from "@components/LanguageSwitcher.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
 let navData;
@@ -9,7 +9,7 @@ let navData;
 const currentLocale = Astro.currentLocale ?? "zh";
 
 if (currentLocale === "zh") {
-  navData = await import("@utils/footernav");
+  navData = await import("@utils/zh/footernav");
 } else {
   navData = await import("@utils/en/footernav");
 }

@@ -8,7 +8,7 @@ let navData;
 const currentLocale = Astro.currentLocale ?? "zh";
 
 if (currentLocale === "zh") {
-  navData = await import("@utils/headernav");
+  navData = await import("@utils/zh/headernav");
 } else {
   navData = await import("@utils/en/headernav");
 }
