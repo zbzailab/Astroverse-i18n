@@ -1,5 +1,5 @@
 export const one = [
-  { text: "First", href: "/tags/firs/1/" },
+  { text: "First", href: "/tags/first/1/" },
   { text: "Second", href: "/tags/second/1/" },
   { text: "Third", href: "/tags/third/1/" },
 ];
