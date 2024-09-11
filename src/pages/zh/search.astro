@@ -11,11 +11,10 @@ const constants = getConstants(currentLocale);
   description={constants.SEARCH_PAGE_DESCRIPTION}
 >
   <main>
-    <section class="mx-auto w-full max-w-screen-2xl px-4 md:px-6">
-      <div
-        class="mt-32 flex min-h-[500px] flex-col items-center justify-start pt-6"
-      >
-        <div class="h-[34px] w-full max-w-[500px] md:w-[400px] lg:w-[500px]">
+    <section class="mx-auto w-full max-w-screen-2xl px-4 md:px-6 pb-32">
+      <!-- Add pb-32 to ensure spacing between the content and footer -->
+      <div class="mt-32 flex min-h-[500px] flex-col items-center justify-start pt-6">
+        <div class="h-auto max-h-[500px] w-full max-w-[500px] md:w-[400px] lg:w-[500px] overflow-y-auto">
           <Pagefind
             id="search"
             className="pagefind-ui h-full w-full"
