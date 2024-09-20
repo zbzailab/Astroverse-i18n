@@ -2,22 +2,23 @@
 import BaseHead from "@components/BaseHead.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
+import { getCurrentLocale } from "@utils/localeUtils";
 
-const { title, description } = Astro.props;
-const lang = Astro.currentLocale ?? "zh";
+const { title, description, image } = Astro.props;
+const lang = getCurrentLocale(Astro.url.pathname);
 ---
 
 <!doctype html>
 <html lang={lang}>
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={title} description={description} image={image} />
   </head>
   <body
-    class="flex flex-col min-h-screen mx-auto max-w-6xl px-4 dark:prose-invert dark:bg-neutral-900 sm:px-6 lg:px-8"
+    class="mx-auto flex min-h-screen max-w-6xl flex-col px-4 dark:prose-invert dark:bg-neutral-900 sm:px-6 lg:px-8"
   >
+
     <Header />
 
-    <!-- Ensure the main content grows to fill available space -->
     <main class="flex-grow">
       <slot />
     </main>

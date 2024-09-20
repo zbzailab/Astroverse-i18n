@@ -1,23 +1,23 @@
-export const one = [
-  { text: "First", href: "/tags/first/1/" },
-  { text: "Second", href: "/tags/second/1/" },
-  { text: "Third", href: "/tags/third/1/" },
+export const life = [
+  { text: "Reflect", href: "https://idimi.com/" },
+  { text: "Media", href: "https://idimi.com/" },
+  { text: "Roam", href: "https://idimi.com/" },
 ];
 
-export const two = [
-  { text: "Fourth", href: "/tags/fourth/1/" },
-  { text: "Fifth", href: "/tags/fifth/1/" },
-  { text: "Sixth", href: "/tags/sixth/1/" },
+export const invest = [
+  { text: "Risk", href: "https://idimi.com/" },
+  { text: "Strategy", href: "https://idimi.com/" },
+  { text: "Allocation", href: "https://idimi.com/" },
 ];
 
-export const three = [
-  { text: "Seventh", href: "/tags/seventh/1/" },
-  { text: "Eighth", href: "/tags/eighth/1/" },
-  { text: "Ninth", href: "/tags/ninth/1/" },
+export const build = [
+  { text: "Innovation", href: "https://idimi.com/" },
+  { text: "Model", href: "https://idimi.com/" },
+  { text: "Management", href: "/tags/management/1/" },
 ];
 
 export const more = [
-  { text: "About", href: "/about/" },
-  { text: "Links", href: "#" },
-  { text: "Navigation", href: "#" },
+  { text: "About", href: "https://idimi.com/about/" },
+  { text: "Links", href: "https://idimi.com/" },
+  { text: "Navigation", href: "https://idimi.com/en/" },
 ];

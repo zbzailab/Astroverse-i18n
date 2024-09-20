@@ -1,14 +1,15 @@
-export const one = {
-  text: "One",
-  href: "/category/one/1/",
+export const life = {
+  text: "Life",
+  href: "/category/life/1/",
 };
 
-export const two = {
-  text: "Two",
-  href: "/category/two/1/",
+export const invest = {
+  text: "Invest",
+  href: "/category/invest/1/",
 };
 
-export const three = {
-  text: "three",
-  href: "/category/three/1/",
+export const build = {
+  text: "Build",
+  href: "/category/build/1/",
 };
+

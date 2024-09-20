@@ -2,23 +2,29 @@
 import HeaderLinks from "@components/HeaderLinks.astro";
 import { Icon } from "astro-icon/components";
 import { getRelativeLocaleUrl } from "astro:i18n";
+import { getCurrentLocale, getBrandName } from "@utils/localeUtils";
+import LanguageSwitcher from "@components/LanguageSwitcher.astro";
+
+const currentLocale = getCurrentLocale(Astro.url.pathname);
+const brandName = getBrandName(currentLocale);
 
 let navData;
 
-const currentLocale = Astro.currentLocale ?? "zh";
-
-if (currentLocale === "zh") {
-  navData = await import("@utils/zh/headernav");
-} else {
-  navData = await import("@utils/en/headernav");
+switch (currentLocale) {
+  case "zh":
+    navData = await import("@utils/zh/headernav");
+    break;
+  default:
+    navData = await import("@utils/en/headernav");
+    break;
 }
 
-const { one, two, three } = navData;
+const { life, invest, build } = navData;
+
+
 
 const safeGetRelativeLocaleUrl = (path: string) =>
   getRelativeLocaleUrl(currentLocale, path);
-
-const brandName = currentLocale === "zh" ? "星界" : "AstroVerse";
 ---
 
 <header class="z-50 flex w-full flex-wrap py-7 lg:flex-nowrap lg:justify-start">
@@ -30,7 +36,7 @@ const brandName = currentLocale === "zh" ? "星界" : "AstroVerse";
       <a
         class="inline-block flex-none rounded-xl text-xl font-semibold focus:opacity-80 focus:outline-none dark:text-white"
         href={safeGetRelativeLocaleUrl("/")}
-        aria-label="Astroverse"
+        aria-label="DiMi"
       >
         {brandName}
       </a>
@@ -65,6 +71,8 @@ const brandName = currentLocale === "zh" ? "星界" : "AstroVerse";
         <Icon name="tabler:moon-filled" class="icon-base" />
       </button>
 
+      <LanguageSwitcher />
+
       <div class="lg:hidden">
         <button
           type="button"
@@ -92,14 +100,14 @@ const brandName = currentLocale === "zh" ? "星界" : "AstroVerse";
       <div
         class="mt-5 flex flex-col gap-x-0 gap-y-4 lg:mt-0 lg:flex-row lg:items-center lg:justify-center lg:gap-x-7 lg:gap-y-0"
       >
-        <HeaderLinks href={safeGetRelativeLocaleUrl(one.href)}>
-          {one.text}
+        <HeaderLinks href={safeGetRelativeLocaleUrl(life.href)}>
+          {life.text}
         </HeaderLinks>
-        <HeaderLinks href={safeGetRelativeLocaleUrl(two.href)}>
-          {two.text}
+        <HeaderLinks href={safeGetRelativeLocaleUrl(invest.href)}>
+          {invest.text}
         </HeaderLinks>
-        <HeaderLinks href={safeGetRelativeLocaleUrl(three.href)}>
-          {three.text}
+        <HeaderLinks href={safeGetRelativeLocaleUrl(build.href)}>
+          {build.text}
         </HeaderLinks>
       </div>
     </div>

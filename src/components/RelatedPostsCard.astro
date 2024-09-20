@@ -4,6 +4,7 @@ import type { CollectionEntry } from "astro:content";
 import OptimizedCover from "@components/OptimizedPicture.astro";
 import FormattedDate from "@components/FormattedDate.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
+import { getCurrentLocale } from "@utils/localeUtils";
 
 interface Props {
   currentCategory: string;
@@ -11,19 +12,18 @@ interface Props {
 }
 
 const { currentCategory, currentSlug } = Astro.props;
-const currentLocale = Astro.currentLocale ?? "zh";
+const currentLocale = getCurrentLocale(Astro.url.pathname);
 
 async function getRelatedArticlesByCategory(): Promise<
   CollectionEntry<"posts">[]
 > {
-  const allPosts = await getCollection("posts", ({ id }) => {
-    return id.startsWith(`${currentLocale === "zh" ? "cn" : "us"}/`);
-  });
+  const allPosts = await getCollection("posts");
   return allPosts
     .filter(
       (post) =>
         post.data.category.includes(currentCategory) &&
-        post.slug !== currentSlug,
+        post.slug !== currentSlug &&
+        post.slug.startsWith(currentLocale),
     )
     .sort(
       (a, b) =>
@@ -40,19 +40,24 @@ const safeGetRelativeLocaleUrl = (path: string) =>
 
 <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
   {
-    relatedPosts.map((post) => (
-      <div class="relative mb-4 overflow-hidden rounded-xl bg-white transition-transform duration-500 hover:-translate-y-1 hover:scale-105 dark:bg-neutral-900">
-        <a href={safeGetRelativeLocaleUrl(`posts/${post.slug}`)}>
-          <OptimizedCover src={post.data.cover} alt={post.data.coverAlt} />
-          <div class="absolute bottom-0 end-0 start-0 bg-gradient-to-t p-4 md:p-5">
-            <div class="mt-16 flex items-center gap-4 text-xs text-white">
-              <span>{post.data.tags.join(" ")}</span>
-              <FormattedDate date={post.data.pubDate} />
+    relatedPosts.map((post) => {
+      const cleanSlug = post.slug.replace(/^[a-z]{2}\//, "");
+      return (
+        <div class="relative mb-4 overflow-hidden rounded-xl bg-white transition-transform duration-500 hover:-translate-y-1 hover:scale-105 dark:bg-neutral-900">
+          <a href={safeGetRelativeLocaleUrl(`posts/${cleanSlug}`)}>
+            <OptimizedCover src={post.data.cover} alt={post.data.coverAlt} />
+            <div class="absolute bottom-0 end-0 start-0 bg-gradient-to-t p-4 md:p-5">
+              <div class="mt-16 flex items-center gap-4 text-xs text-white">
+                <span>{post.data.tags.join(" ")}</span>
+                <FormattedDate date={post.data.pubDate} />
+              </div>
+              <h2 class="mt-2 text-lg font-bold text-white">
+                {post.data.title}
+              </h2>
             </div>
-            <h2 class="mt-2 text-lg font-bold text-white">{post.data.title}</h2>
-          </div>
-        </a>
-      </div>
-    ))
+          </a>
+        </div>
+      );
+    })
   }
 </div>

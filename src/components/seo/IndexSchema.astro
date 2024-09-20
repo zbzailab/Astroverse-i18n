@@ -1,0 +1,59 @@
+---
+import { Schema } from "astro-seo-schema";
+import GlobalSchema from "@seo/GlobalSchema.astro";
+import { getConstants } from "@consts";
+import type { SupportedLocale } from "@consts";
+import { getTranslationByLanguage } from "@utils/translationMapping";
+
+interface Props {
+  locale: SupportedLocale;
+  totalPosts: number;
+}
+
+const { locale, totalPosts } = Astro.props as Props;
+
+const constants = getConstants(locale);
+
+const siteUrl = Astro.site
+  ? `${Astro.site.toString().replace(/\/?$/, "/")}`
+  : "https://idimi.com/";
+
+const homepageTranslation = getTranslationByLanguage("homepage", locale);
+
+const homeUrl = `${siteUrl}${locale}/`;
+---
+
+<GlobalSchema />
+
+<Schema
+  item={{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: constants.SITE_TITLE,
+    url: homeUrl,
+    description: constants.SITE_DESCRIPTION,
+    mainEntity: {
+      "@type": "Blog",
+      name: constants.SITE_TITLE,
+      headline: `${constants.SITE_TITLE} Blog`,
+      url: homeUrl,
+      description: constants.SITE_DESCRIPTION,
+      blogPostCount: totalPosts,
+    },
+  }}
+/>
+
+<Schema
+  item={{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: homepageTranslation,
+        item: homeUrl,
+      },
+    ],
+  }}
+/>

@@ -1,0 +1,93 @@
+---
+import { Schema } from "astro-seo-schema";
+import GlobalSchema from "@seo/GlobalSchema.astro";
+import { getConstants } from "@consts";
+import type { SupportedLocale } from "@consts";
+import { getCategoryByLanguage } from "@utils/categoryMapping";
+import { getTranslationByLanguage } from "@utils/translationMapping";
+
+interface Props {
+  category: string;
+  page: {
+    currentPage: number;
+    data: Array<{
+      slug: string;
+      data: {
+        title: string;
+      };
+    }>;
+  };
+  locale: SupportedLocale;
+}
+
+const { category, page, locale } = Astro.props as Props;
+
+const constants = getConstants(locale);
+
+const siteUrl = Astro.site
+  ? `${Astro.site.toString().replace(/\/?$/, "/")}`
+  : "https://idimi.com/";
+
+const translatedCategory = getCategoryByLanguage(category, "en", locale);
+
+const categoryUrl = `${siteUrl}${locale}/category/${translatedCategory}/${page.currentPage}/`;
+
+const homepageTranslation = getTranslationByLanguage("homepage", locale);
+const blogTranslation = getTranslationByLanguage("blog", locale);
+const categoryTitle = getTranslationByLanguage(translatedCategory, locale);
+
+const generatePostUrl = (slug: string) => {
+  const pathParts = slug.split("/").filter(Boolean);
+  const cleanedSlug = pathParts[pathParts.length - 1];
+  return `${siteUrl}${locale}/posts/${cleanedSlug}/`;
+};
+---
+
+<GlobalSchema />
+
+<Schema
+  item={{
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `${categoryTitle} - ${locale.toUpperCase()}`,
+    description: constants.SITE_DESCRIPTION,
+    url: categoryUrl,
+    mainEntity: {
+      "@type": "ItemList",
+      name: categoryTitle,
+      itemListElement: page.data.map((post, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: generatePostUrl(post.slug),
+        name: post.data.title,
+      })),
+    },
+  }}
+/>
+
+<Schema
+  item={{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: homepageTranslation,
+        item: siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: blogTranslation,
+        item: `${siteUrl}${locale}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: categoryTitle,
+        item: categoryUrl,
+      },
+    ],
+  }}
+/>

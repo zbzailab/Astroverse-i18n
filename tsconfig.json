@@ -2,11 +2,15 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "strictNullChecks": true,
+    "lib": ["es2017", "dom"],
+    "target": "es2017",
     "module": "esnext",
     "baseUrl": ".",
     "paths": {
       "@components/*": ["src/components/*"],
-      "@en/*": ["src/components/en/*"],
+      "@seo/*": ["src/components/seo/*"],
+      "@analytics/*": ["src/components/analytics/*"],
+      "@waline/*": ["src/components/waline/*"],
       "@layouts/*": ["src/layouts/*"],
       "@utils/*": ["src/utils/*"],
       "@consts": ["src/consts.ts"]

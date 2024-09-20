@@ -6,22 +6,24 @@ interface Props {
   alt: string;
   widths?: number[];
   sizes?: string;
-  formats?: string[];
-  fallbackFormat?: string;
   class?: string;
+  loading?: "lazy" | "eager";
+  fetchpriority?: "high" | "low" | "auto";
 }
 
 const {
   src,
   alt,
-  widths = [392, 700, 980, 1960],
-  sizes = `(max-width: 360px) 392px, 
-           (max-width: 720px) 700px, 
-           (max-width: 1600px) 980px, 
+  widths = [320, 640, 960, 1280, 1600, 1960],
+  sizes = `(max-width: 320px) 320px,
+           (max-width: 640px) 640px,
+           (max-width: 960px) 960px,
+           (max-width: 1280px) 1280px,
+           (max-width: 1600px) 1600px,
            1960px`,
-  formats = ["avif"],
-  fallbackFormat = "avif",
   class: className = "mx-auto w-full max-w-full rounded-lg",
+  loading = "lazy",
+  fetchpriority = "auto",
 } = Astro.props;
 ---
 
@@ -30,8 +32,10 @@ const {
   alt={alt}
   widths={widths}
   sizes={sizes}
-  formats={formats}
-  fallbackFormat={fallbackFormat}
+  formats={["avif"]}
+  fallbackFormat="avif"
   class={className}
+  loading={loading}
+  fetchpriority={fetchpriority}
   inferSize
 />

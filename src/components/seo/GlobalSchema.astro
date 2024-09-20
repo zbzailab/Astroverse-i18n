@@ -1,0 +1,130 @@
+---
+import { Schema } from "astro-seo-schema";
+import { getConstants } from "@consts";
+import type { SupportedLocale } from "@consts";
+import { getCurrentLocale } from "@utils/localeUtils";
+import { getTranslationByLanguage } from "@utils/translationMapping";
+
+const currentLocale: SupportedLocale = getCurrentLocale(Astro.url.pathname);
+const constants = getConstants(currentLocale);
+
+const siteUrl = Astro.site
+  ? `${Astro.site.toString().replace(/\/?$/, "/")}`
+  : "https://idimi.com/";
+const siteName = constants.SITE_TITLE;
+const organizationName = `${constants.SITE_TITLE} Lab`;
+const logoPath = import.meta.env.LOGO_PATH || "/favicon.ico";
+const logoUrl = new URL(logoPath, siteUrl).toString();
+
+const socialLinks = [
+  import.meta.env.TWITTER_URL || "https://twitter.com/idimilab",
+  import.meta.env.GITHUB_URL || "https://github.com/isooosi",
+];
+
+const siteDescription = constants.SITE_DESCRIPTION;
+
+const homepageTranslation = getTranslationByLanguage("homepage", currentLocale);
+const blogTranslation = getTranslationByLanguage("blog", currentLocale);
+
+const searchUrl = `${siteUrl}${currentLocale}/search?q={search_term_string}`;
+
+const breadcrumbs: Array<{
+  "@type": "ListItem";
+  position: number;
+  name: string;
+  item: string;
+}> = [
+  {
+    "@type": "ListItem",
+    position: 1,
+    name: homepageTranslation,
+    item: siteUrl,
+  },
+  {
+    "@type": "ListItem",
+    position: 2,
+    name: blogTranslation,
+    item: `${siteUrl}${currentLocale}/`,
+  },
+];
+---
+
+<Schema
+  item={{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteName,
+    url: siteUrl,
+    description: siteDescription,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: searchUrl,
+      "query-input": "required name=search_term_string",
+    },
+    inLanguage: currentLocale,
+  }}
+/>
+
+<Schema
+  item={{
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: organizationName,
+    url: siteUrl,
+    logo: {
+      "@type": "ImageObject",
+      url: logoUrl,
+    },
+    sameAs: socialLinks,
+    description: siteDescription,
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "Customer Service",
+      email: "hi@mail.idimi.com",
+      availableLanguage: [
+        "Chinese",
+        "English",
+      ],
+    },
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "1707 old fannin RD",
+      addressLocality: "Flowood",
+      addressRegion: "Mississippi",
+      postalCode: "39232",
+      addressCountry: "US",
+    },
+    founder: "DiMi",
+    foundingDate: "2013-01-02",
+  }}
+/>
+
+<Schema
+  item={{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbs,
+  }}
+/>
+
+<Schema
+  item={{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: `${siteName} - ${currentLocale.toUpperCase()}`,
+    description: siteDescription,
+    inLanguage: currentLocale,
+    publisher: {
+      "@type": "Organization",
+      name: organizationName,
+      logo: {
+        "@type": "ImageObject",
+        url: logoUrl,
+      },
+    },
+    mainEntity: {
+      "@type": "WebSite",
+      "@id": siteUrl,
+    },
+  }}
+/>

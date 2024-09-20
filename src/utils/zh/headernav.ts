@@ -1,14 +1,14 @@
-export const one = {
-  text: "天干",
-  href: "/category/天干/1/",
+export const life = {
+  text: "生活",
+  href: "/category/生活/1/",
 };
 
-export const two = {
-  text: "地支",
-  href: "/category/地支/1/",
+export const invest = {
+  text: "投资",
+  href: "/category/投资/1/",
 };
 
-export const three = {
-  text: "阴阳",
-  href: "/category/阴阳/1/",
+export const build = {
+  text: "创业",
+  href: "/category/创业/1/",
 };

@@ -7,6 +7,7 @@ import PostCard from "@components/CommonCard.astro";
 import Pagination from "@components/Pagination.astro";
 import { getTagMetadata } from "@consts";
 import { getChineseTag } from "@utils/tagMapping";
+import TagsSchema from "@seo/TagsSchema.astro";
 
 type Post = CollectionEntry<"posts">;
 
@@ -18,12 +19,12 @@ interface PageProps {
 
 export const getStaticPaths = (async () => {
   const allPosts = await getCollection("posts", ({ id }) =>
-    id.startsWith("us/"),
+    id.startsWith("en/"),
   );
   const uniqueTags = [...new Set(allPosts.flatMap((post) => post.data.tags))];
 
   return uniqueTags.flatMap((tag) => {
-    const chineseTag = getChineseTag(tag);
+    const chineseTag = getChineseTag(tag, "en");
     const filteredPosts = allPosts.filter(
       (post) =>
         post.data.tags.includes(tag) || post.data.tags.includes(chineseTag),
@@ -61,6 +62,9 @@ const { title, description } = getTagMetadata(tag, currentLocale);
 ---
 
 <BaseLayout title={title} description={description}>
+  <TagsSchema tag={tag} page={page} locale="en" />
+  <h1 class="sr-only">All articles under tag "{tag}"</h1>
+  <h2 class="sr-only">Article list</h2>
   <div class="mx-auto max-w-4xl px-4 py-8">
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       {page.data.map((post) => <PostCard post={post} />)}

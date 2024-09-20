@@ -2,11 +2,12 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { getConstants } from "@consts";
+import TagsIndexSchema from "@seo/TagsIndexSchema.astro";
 
 const currentLocale = "zh";
 const constants = getConstants(currentLocale);
 
-const allPosts = await getCollection("posts", ({ id }) => id.startsWith("cn/"));
+const allPosts = await getCollection("posts", ({ id }) => id.startsWith("zh/"));
 
 let tagCounts: { [key: string]: number } = {};
 allPosts.forEach((post) => {
@@ -26,6 +27,9 @@ const tags = Object.keys(tagCounts);
   title={constants.TAGS_TITLE}
   description={constants.TAGS_DESCRIPTION}
 >
+  <TagsIndexSchema tags={tags} tagCounts={tagCounts} locale={currentLocale} />
+  <h1 class="sr-only">所有标签</h1>
+  <h2 class="sr-only">标签列表</h2>
   <div class="prose prose-lg mx-auto p-6">
     <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
       {

@@ -6,10 +6,11 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import PostCard from "@components/CommonCard.astro";
 import Pagination from "@components/Pagination.astro";
 import { getCategoryMetadata } from "@consts";
+import CategorySchema from "@seo/CategorySchema.astro";
 
 export const getStaticPaths = (async () => {
   const allPosts = await getCollection("posts", ({ id }) =>
-    id.startsWith("us/"),
+    id.startsWith("en/"),
   );
   const uniqueCategories = [
     ...new Set(allPosts.flatMap((post) => post.data.category)),
@@ -62,6 +63,9 @@ const { title, description } = getCategoryMetadata(category, currentLocale);
 ---
 
 <BaseLayout title={title} description={description}>
+  <CategorySchema category={category} page={page} locale="en" />
+  <h1 class="sr-only">All articles under category "{category}"</h1>
+  <h2 class="sr-only">Article list</h2>
   <div class="mx-auto max-w-4xl px-4 py-8">
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       {page.data.map((post) => <PostCard post={post} />)}

@@ -3,20 +3,25 @@ import type { CollectionEntry } from "astro:content";
 import OptimizedCover from "@components/OptimizedPicture.astro";
 import FormattedDate from "@components/FormattedDate.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
+import { getCurrentLocale } from "@utils/localeUtils";
 
 interface Props {
   post: CollectionEntry<"posts">;
 }
 
 const { post } = Astro.props;
-const currentLocale = post.id.startsWith("us/") ? "en" : "zh";
+
+const currentLocale = getCurrentLocale(post.id);
 ---
 
 <div
   class="relative overflow-hidden rounded-xl bg-white transition-transform duration-500 hover:-translate-y-1 hover:scale-105 dark:bg-neutral-900"
 >
   <a
-    href={getRelativeLocaleUrl(currentLocale, `posts/${post.slug}`)}
+    href={getRelativeLocaleUrl(
+      currentLocale,
+      `posts/${post.slug.replace(/^[a-z]{2}\//, "")}`,
+    )}
     class="block"
   >
     <OptimizedCover src={post.data.cover} alt={post.data.coverAlt} />

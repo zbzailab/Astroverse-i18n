@@ -6,7 +6,7 @@ export async function GET(context) {
   const currentLocale = "zh";
   const constants = getConstants(currentLocale);
 
-  let posts = await getCollection("posts", ({ id }) => id.startsWith("cn/"));
+  let posts = await getCollection("posts", ({ id }) => id.startsWith("zh/"));
 
   posts = posts
     .sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate))
@@ -17,11 +17,10 @@ export async function GET(context) {
     description: constants.SITE_DESCRIPTION,
     site: context.site,
     customData: `<language>zh-CN</language>`,
-    trailingSlash: true,
     items: posts.map((post) => ({
       title: post.data.title,
       description: post.data.description,
-      link: `/zh/posts/${post.slug.split("/").pop()}`,
+      link: `/zh/posts/${post.slug.split("/").pop()}/`,
       pubDate: post.data.pubDate,
       content: post.body,
       customData: post.data.customData,

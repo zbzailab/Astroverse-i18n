@@ -18,7 +18,7 @@ interface PageProps {
 
 export const getStaticPaths = (async () => {
   const allPosts = await getCollection("posts", ({ id }) =>
-    id.startsWith("cn/"),
+    id.startsWith("zh/"),
   );
   allPosts.sort(
     (a, b) =>

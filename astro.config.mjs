@@ -5,16 +5,19 @@ import pagefind from "astro-pagefind";
 import icon from "astro-icon";
 import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
+import rehypeExternalLinks from "rehype-external-links";
+import partytown from "@astrojs/partytown";
 
 export default defineConfig({
-  site: "https://verse-i18n.vercel.app/",
+  site: "https://idimi.com",
   trailingSlash: "always",
-  prefetch: {
-    prefetchAll: true,
-  },
+  prefetch: true,
   i18n: {
     defaultLocale: "en",
-    locales: ["zh", "en"],
+    locales: [
+      "zh",
+      "en",
+    ],
     routing: {
       prefixDefaultLocale: true,
       redirectToDefaultLocale: false,
@@ -30,6 +33,14 @@ export default defineConfig({
   },
   markdown: {
     remarkPlugins: [remarkModifiedTime],
+    rehypePlugins: [
+      [
+        rehypeExternalLinks,
+        {
+          content: { type: "text", value: " ↗" },
+        },
+      ],
+    ],
   },
   integrations: [
     sitemap(),
@@ -39,8 +50,15 @@ export default defineConfig({
     icon({
       include: {
         tabler: ["*"],
+        mdi: ["*"],
+        "material-symbols": ["*"],
         flagpack: ["*"],
         "flat-color-icons": ["*"],
+      },
+    }),
+    partytown({
+      config: {
+        forward: ["dataLayer.push"],
       },
     }),
   ],

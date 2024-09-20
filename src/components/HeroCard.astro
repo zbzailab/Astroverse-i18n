@@ -3,13 +3,15 @@ import type { CollectionEntry } from "astro:content";
 import OptimizedCover from "@components/OptimizedPicture.astro";
 import FormattedDate from "@components/FormattedDate.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
+import { getCurrentLocale } from "@utils/localeUtils";
 
 interface Props {
   post: CollectionEntry<"posts">;
 }
 
 const { post } = Astro.props;
-const currentLocale = post.id.startsWith("us/") ? "en" : "zh";
+
+const currentLocale = getCurrentLocale(Astro.url.pathname);
 
 function truncateUTF8String(str: string, maxBytes: number) {
   let byteCount = 0;
@@ -30,17 +32,23 @@ function truncateUTF8String(str: string, maxBytes: number) {
 }
 
 const truncatedDescription = truncateUTF8String(post.data.description, 150);
+
+const cleanSlug = post.slug.replace(/^[a-z]{2}\//, "");
+
+const postUrl = getRelativeLocaleUrl(currentLocale, `posts/${cleanSlug}`);
 ---
 
 <div
   class="relative overflow-hidden rounded-xl border bg-white transition-transform duration-500 hover:-translate-y-1 hover:scale-105 dark:border-neutral-600 dark:bg-neutral-900 md:flex md:flex-row"
 >
-  <a
-    href={getRelativeLocaleUrl(currentLocale, `posts/${post.slug}`)}
-    class="block md:flex md:flex-1"
-  >
+  <a href={postUrl} class="block md:flex md:flex-1">
     <div class="md:w-2/3">
-      <OptimizedCover src={post.data.cover} alt={post.data.coverAlt} />
+      <OptimizedCover
+        src={post.data.cover}
+        alt={post.data.coverAlt}
+        loading="eager"
+        fetchpriority="high"
+      />
     </div>
     <div
       class="absolute bottom-0 end-0 start-0 bg-gradient-to-t from-black p-4 md:relative md:flex md:w-1/3 md:flex-col md:justify-start md:bg-transparent md:p-5"

@@ -13,36 +13,34 @@ const description = constants.SITE_DESCRIPTION;
 const tabs = [
   {
     icon: "tabler:yoga",
-    title: "Heavenly Stems",
+    title: "Life",
     content:
-      "Heavenly Stems represent the timing of the heavens, symbolizing the passage of time and the arrangement of destiny. Each Heavenly Stem is a unique energy symbol, guiding us to find our direction in the flow of time.",
-    image:
-      "https://images.unsplash.com/photo-1516827003699-2880f453d93b?q=80&w=1592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    imageAlt: "About the Astral World - Heavenly Stems",
+      "In the river of life, every rise and fall is a form of accumulation, and every journey is a rainbow after the storm.",
+    image: "https://ass.idimi.xyz/media/image/202409121604629.avif",
+    imageAlt: "About DiMi - Life",
   },
   {
     icon: "tabler:swimming",
-    title: "Earthly Branches",
+    title: "Investment",
     content:
-      "Earthly Branches symbolize the power of the earth and the operation of human affairs. The combination of Earthly Branches forms the framework of time and space, allowing us to find stability amidst change.",
-    image:
-      "https://images.unsplash.com/photo-1560233026-ad254fa8da38?q=80&w=2759&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    imageAlt: "About the Astral World - Earthly Branches",
+      "Moving through the fog, perceiving the light of the future, turning every decision into a note of time and wisdom.",
+    image: "https://ass.idimi.xyz/media/image/202409121605330.avif",
+    imageAlt: "About DiMi - Investment",
   },
   {
     icon: "tabler:run",
-    title: "Yin and Yang",
+    title: "Startup",
     content:
-      "Yin and Yang are the fundamental laws of the universe, representing opposition and unity. The balance of Yin and Yang allows all things to thrive, teaching us to maintain harmony and balance in life.",
-    image:
-      "https://images.unsplash.com/photo-1520533881-8a3699d7e58b?q=80&w=2572&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    imageAlt: "About the Astral World - Yin and Yang",
+      "Fighting in the waves of dreams, every difficult step is a stepping stone toward the other shore. Rising against the wind, light will eventually be seen.",
+    image: "https://ass.idimi.xyz/media/image/202409121605783.avif",
+    imageAlt: "About DiMi - Startup",
   },
 ];
 ---
 
 <BaseLayout title={title} description={description}>
   <div class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+    <h1 class="sr-only">About DiMi</h1>
     <div class="relative p-6 md:p-16">
       <div
         class="relative z-10 lg:grid lg:grid-cols-12 lg:items-center lg:gap-16"
@@ -122,5 +120,6 @@ const tabs = [
       </div>
     </div>
   </div>
+  <h2 class="sr-only">Latest Posts</h2>
   <LatestPosts currentLocale={currentLocale} />
 </BaseLayout>

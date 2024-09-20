@@ -1,17 +1,21 @@
 ---
 import type { GetStaticPaths } from "astro";
 import type { CollectionEntry } from "astro:content";
+import type { SupportedLocale } from "@consts";
+import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import RelatedPostsCard from "@components/RelatedPostsCard.astro";
 import FormattedDate from "@components/FormattedDate.astro";
 import OptimizedCover from "@components/OptimizedPicture.astro";
 import { getConstants } from "@consts";
+import PostsSchema from "@seo/PostsSchema.astro";
+import { getCurrentLocale } from "@utils/localeUtils";
 
 export const getStaticPaths = (async () => {
-  const posts = await getCollection("posts", ({ id }) => id.startsWith("cn/"));
+  const posts = await getCollection("posts", ({ id }) => id.startsWith("zh/"));
   return posts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.slug.replace(/^zh\//, "") },
     props: { post },
   }));
 }) satisfies GetStaticPaths;
@@ -23,14 +27,18 @@ type Props = {
 const { post } = Astro.props as Props;
 const { Content } = await post.render();
 
-const currentLocale = "zh";
+const currentLocale: SupportedLocale = getCurrentLocale(Astro.url.pathname);
 const constants = getConstants(currentLocale);
-
-const title = `${post.data.title} - ${constants.SITE_TITLE}`;
-const description = post.data.description || constants.SITE_DESCRIPTION;
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  image={post.data.cover}
+>
+  <head>
+    <PostsSchema post={post} locale={currentLocale} />
+  </head>
   <main>
     <article class="prose mx-auto dark:prose-invert">
       <div class="prose-h1 text-center">
@@ -49,21 +57,43 @@ const description = post.data.description || constants.SITE_DESCRIPTION;
       <div class="text-justify">
         <Content />
       </div>
-      <div class="prose-a:no-underline">
-        {
-          post.data.tags.map((tag) => (
-            <span class="mb-2 mr-2 inline-block rounded-full bg-neutral-200 px-3 py-1 text-sm hover:bg-neutral-500 dark:bg-neutral-600">
-              <a href={`/zh/tags/${tag}/1/`}>{tag}</a>
-            </span>
-          ))
-        }
-      </div>
-      <div class="flex justify-between">
-        <small>
-          发布于 <FormattedDate date={post.data.pubDate} />，更新于 <FormattedDate
-            date={new Date().toISOString()}
-          />
-        </small>
+      <div class="mx-auto flex max-w-3xl flex-col items-start justify-between sm:flex-row sm:items-center">
+        <div class="flex items-center mb-4 sm:mb-0">
+          <a href="/zh/" aria-label="Go to homepage">
+            <img
+              class="h-16 w-16 rounded-full"
+              src="/dimi.avif"
+              alt={post.data.author || "DiMi"}
+              loading="lazy"
+            />
+          </a>
+          <div class="ml-3">
+            <p class="mb-1 text-sm font-medium text-gray-800 dark:text-neutral-500">
+              {post.data.author || "DiMi"}
+            </p>
+            <p class="mb-1 text-sm text-gray-400 dark:text-neutral-500">
+              {constants.PUBLISHED_ON}
+              <FormattedDate date={post.data.pubDate} />, {constants.UPDATED_ON}
+              <FormattedDate date={new Date().toISOString()} />
+            </p>
+          </div>
+        </div>
+      
+        <div class="w-full sm:w-auto sm:flex sm:flex-col sm:items-end">
+          <div class="mb-2 flex flex-wrap justify-start sm:justify-end prose-a:no-underline">
+            {
+              post.data.tags.map((tag) => (
+                <span class="mb-2 mr-2 rounded-full bg-neutral-200 px-3 py-1 text-sm hover:bg-neutral-500 dark:bg-neutral-600">
+                  <a href={`/zh/tags/${tag}/1/`}>{tag}</a>
+                </span>
+              ))
+            }
+          </div>
+          <div class="flex items-center text-gray-500 dark:text-gray-400">
+            <Icon name="tabler:eye" class="icon-base" />
+            <span class="waline-pageview-count ml-1"></span>
+          </div>
+        </div>
       </div>
     </article>
     <div class="mt-4">

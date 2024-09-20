@@ -13,35 +13,32 @@ const description = constants.SITE_DESCRIPTION;
 const tabs = [
   {
     icon: "tabler:yoga",
-    title: "天干",
+    title: "生活",
     content:
-      "天干代表着天时，寓意着时间的流转和命运的安排。每一个天干都是一个独特的能量象征，引领我们在岁月中寻找属于自己的方向。",
-    image:
-      "https://images.unsplash.com/photo-1516827003699-2880f453d93b?q=80&w=1592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    imageAlt: "关于星界 - 天干",
+      "在生命的长河中，每一次起伏都是一种积淀，每一段路程都是风雨中的彩虹。",
+    image: "https://ass.idimi.xyz/media/image/202409121604629.avif",
+    imageAlt: "关于DiMi - 生活",
   },
   {
     icon: "tabler:swimming",
-    title: "地支",
-    content:
-      "地支象征着大地的力量和人事的运转。地支的组合构建了时间与空间的框架，让我们在变化中寻找稳定的力量。",
-    image:
-      "https://images.unsplash.com/photo-1560233026-ad254fa8da38?q=80&w=2759&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    imageAlt: "关于星界 - 地支",
+    title: "投资",
+    content: "于迷雾中前行，洞察未来的光亮，将每一次选择变成时间与智慧的注脚。",
+    image: "https://ass.idimi.xyz/media/image/202409121605330.avif",
+    imageAlt: "关于DiMi - 投资",
   },
   {
     icon: "tabler:run",
-    title: "阴阳",
+    title: "创业",
     content:
-      "阴阳是宇宙的基本法则，代表着对立与统一。阴阳的平衡让万物生生不息，启示我们在生活中保持和谐与平衡。",
-    image:
-      "https://images.unsplash.com/photo-1520533881-8a3699d7e58b?q=80&w=2572&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    imageAlt: "关于星界 - 阴阳",
+      "在梦想的波涛中搏击，每一步艰难都是通往彼岸的踏石，逆风而上，终见光明。",
+    image: "https://ass.idimi.xyz/media/image/202409121605783.avif",
+    imageAlt: "关于DiMi - 创业",
   },
 ];
 ---
 
 <BaseLayout title={title} description={description}>
+  <h1 class="sr-only">关于{constants.SITE_TITLE}</h1>
   <div class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
     <div class="relative p-6 md:p-16">
       <div
@@ -122,5 +119,6 @@ const tabs = [
       </div>
     </div>
   </div>
+  <h2 class="sr-only">最新文章</h2>
   <LatestPosts currentLocale={currentLocale} />
 </BaseLayout>

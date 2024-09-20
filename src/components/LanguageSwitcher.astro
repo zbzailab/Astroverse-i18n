@@ -1,96 +1,119 @@
 ---
 import { Icon } from "astro-icon/components";
-import { getEnglishTag, getChineseTag } from "@utils/tagMapping";
-import { getEnglishCategory, getChineseCategory } from "@utils/categoryMapping";
+import { getTagByLanguage } from "@utils/tagMapping";
+import { getCategoryByLanguage } from "@utils/categoryMapping";
+import { getLanguageNames } from "@utils/localeUtils";
 
-const currentLocale = Astro.currentLocale ?? 'zh';
-
+const currentLocale = Astro.currentLocale ?? "en";
 const currentPath = Astro.url.pathname;
-let zhUrl, enUrl;
+let localeUrls: Record<string, string> = {};
 
-if (currentPath.includes('/posts/') || currentPath.includes('/en/posts/')) {
-  const pathParts = currentPath.split('/').filter(Boolean);
+const supportedLanguages = ["en", "zh"];
+
+
+const currentLangPrefix = currentPath.split("/")[1];
+
+if (currentPath === "/" || !supportedLanguages.includes(currentLangPrefix)) {
+  supportedLanguages.forEach((locale) => {
+    localeUrls[locale] = `/${locale}/`;
+  });
+} else if (currentPath.includes("/posts/")) {
+  const pathParts = currentPath.split("/").filter(Boolean);
   const slug = pathParts[pathParts.length - 1];
-  
-  if (currentLocale === 'zh') {
-    zhUrl = currentPath;
-    enUrl = `/en/posts/us/${slug}/`;
-  } else {
-    zhUrl = `/zh/posts/cn/${slug}/`;
-    enUrl = currentPath;
-  }
-} else if (currentPath.includes('/zh/category/') || currentPath.includes('/en/category/')) {
-  const pathParts = currentPath.split('/').filter(Boolean);
+
+  supportedLanguages.forEach((locale) => {
+    const newPath = currentPath.replace(
+      `/${currentLangPrefix}/`,
+      `/${locale}/`,
+    );
+    localeUrls[locale] = `${newPath.split("/posts/")[0]}/posts/${slug}/`;
+  });
+} else if (currentPath.includes("/category/")) {
+  const pathParts = currentPath.split("/").filter(Boolean);
   const category = decodeURIComponent(pathParts[pathParts.length - 2]);
   const page = pathParts[pathParts.length - 1];
-  
-  if (currentLocale === 'zh') {
-    zhUrl = currentPath;
-    const englishCategory = getEnglishCategory(category);
-    enUrl = `/en/category/${encodeURIComponent(englishCategory)}/${page}/`;
-  } else {
-    const chineseCategory = getChineseCategory(category);
-    zhUrl = `/zh/category/${encodeURIComponent(chineseCategory)}/${page}/`;
-    enUrl = currentPath;
-  }
-} else if (currentPath.includes('/zh/tags/') || currentPath.includes('/en/tags/')) {
-  const pathParts = currentPath.split('/').filter(Boolean);
 
-  // Check if it's a tag index page (e.g., /zh/tags/ or /en/tags/)
+  supportedLanguages.forEach((locale) => {
+    const translatedCategory = getCategoryByLanguage(
+      category,
+      currentLocale,
+      locale,
+    );
+    const newPath = currentPath.replace(
+      `/${currentLangPrefix}/`,
+      `/${locale}/`,
+    );
+    localeUrls[locale] =
+      `${newPath.split("/category/")[0]}/category/${encodeURIComponent(translatedCategory)}/${page}/`;
+  });
+} else if (currentPath.includes("/tags/")) {
+  const pathParts = currentPath.split("/").filter(Boolean);
+
   if (pathParts.length === 2) {
-    if (currentLocale === 'zh') {
-      zhUrl = currentPath;
-      enUrl = `/en/tags/`;
-    } else {
-      zhUrl = `/zh/tags/`;
-      enUrl = currentPath;
-    }
+    supportedLanguages.forEach((locale) => {
+      const newPath = currentPath.replace(
+        `/${currentLangPrefix}/`,
+        `/${locale}/`,
+      );
+      localeUrls[locale] = `${newPath}`;
+    });
   } else {
     const tag = decodeURIComponent(pathParts[pathParts.length - 2]);
     const page = pathParts[pathParts.length - 1];
 
-    if (currentLocale === 'zh') {
-      zhUrl = currentPath;
-      const englishTag = getEnglishTag(tag);
-      enUrl = `/en/tags/${encodeURIComponent(englishTag)}/${page}/`;
-    } else {
-      const chineseTag = getChineseTag(tag);
-      zhUrl = `/zh/tags/${encodeURIComponent(chineseTag)}/${page}/`;
-      enUrl = currentPath;
-    }
+    supportedLanguages.forEach((locale) => {
+      const translatedTag = getTagByLanguage(tag, currentLocale, locale);
+      const newPath = currentPath.replace(
+        `/${currentLangPrefix}/`,
+        `/${locale}/`,
+      );
+      localeUrls[locale] =
+        `${newPath.split("/tags/")[0]}/tags/${encodeURIComponent(translatedTag)}/${page}/`;
+    });
   }
 } else {
-  if (currentLocale === 'zh') {
-    zhUrl = currentPath;
-    enUrl = `/en${currentPath.slice(3)}`;
-  } else {
-    zhUrl = `/zh${currentPath.slice(3)}`;
-    enUrl = currentPath;
-  }
+  supportedLanguages.forEach((locale) => {
+    const newPath = currentPath.replace(
+      `/${currentLangPrefix}/`,
+      `/${locale}/`,
+    );
+    localeUrls[locale] = newPath;
+  });
 }
 
-const switchLanguageUrl = currentLocale === 'zh' ? enUrl : zhUrl;
+localeUrls[currentLocale] = currentPath;
+
+const languageNames = getLanguageNames();
 ---
 
 <div class="hs-dropdown relative inline-flex [--placement:top-left]">
-  <button id="footer-language-dropdown" type="button" class="hs-dropdown-toggle inline-flex items-center gap-x-2 rounded-lg bg-white px-3 py-2 text-sm text-neutral-800 hover:bg-neutral-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800">
-    {currentLocale === 'zh' ? (
-      <>
-        <Icon name="flagpack:cn" />
-        中文
-      </>
-    ) : (
-      <>
-        <Icon name="flagpack:um" />
-        English
-      </>
-    )}
-    <Icon name="tabler:chevron-up" class="size-4 flex-shrink-0 text-neutral-500 hs-dropdown-open:rotate-180 dark:text-neutral-500" />
+  <button
+    id="footer-language-dropdown"
+    type="button"
+    class="hs-dropdown-toggle inline-flex items-center gap-x-2 rounded-lg bg-white px-3 py-2 text-sm text-neutral-800 hover:bg-neutral-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800"
+  >
+    {languageNames[currentLocale]}
+    <Icon
+      name="tabler:chevron-up"
+      class="size-4 flex-shrink-0 text-neutral-500 hs-dropdown-open:rotate-180 dark:text-neutral-500"
+    />
   </button>
-  <div class="hs-dropdown-menu duration z-10 hidden w-40 rounded-lg bg-white p-2 opacity-0 shadow-md transition-[opacity,margin] hs-dropdown-open:opacity-100 dark:divide-neutral-700 dark:border dark:border-neutral-700 dark:bg-neutral-800" aria-labelledby="footer-language-dropdown">
-    <a class="flex items-center gap-x-2 rounded-lg px-3 py-2 text-sm text-neutral-800 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300" href={switchLanguageUrl}>
-      <Icon name={currentLocale === 'zh' ? "flagpack:um" : "flagpack:cn"} />
-      {currentLocale === 'zh' ? 'English' : '中文'}
-    </a>
+  <div
+    class="hs-dropdown-menu duration z-10 hidden w-40 rounded-lg bg-white p-2 opacity-0 shadow-md transition-[opacity,margin] hs-dropdown-open:opacity-100 dark:divide-neutral-700 dark:border dark:border-neutral-700 dark:bg-neutral-800"
+    aria-labelledby="footer-language-dropdown"
+  >
+    {
+      supportedLanguages.map(
+        (locale) =>
+          locale !== currentLocale && (
+            <a
+              class="flex items-center gap-x-2 rounded-lg px-3 py-2 text-sm text-neutral-800 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300"
+              href={localeUrls[locale]}
+            >
+              {languageNames[locale]}
+            </a>
+          ),
+      )
+    }
   </div>
 </div>

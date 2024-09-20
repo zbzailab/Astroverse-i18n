@@ -1,4 +1,9 @@
-interface LanguageConstants {
+export type SupportedLocale =
+  | "en"
+  | "zh";
+
+export interface LanguageConstants {
+  BrandName: string;
   SITE_TITLE: string;
   SITE_DESCRIPTION: string;
   TAGS_TITLE: string;
@@ -13,17 +18,20 @@ interface LanguageConstants {
   UPDATED_ON: string;
   PUBLISHED_ON: string;
   TAGS_HEADING: string;
+  FOOTER_ABOUT: string;
+  FOOTER_BUILD: string;
+  FOOTER_INVEST: string;
+  FOOTER_LIFE: string;
 }
 
 const zhConstants: LanguageConstants = {
-  SITE_TITLE: "星界",
-  SITE_DESCRIPTION:
-    "星界 - 增强版astro主题，适用于视觉博客，多语言支持助力全球受众。",
-  TAGS_TITLE: "星界 - 所有标签",
-  TAGS_DESCRIPTION:
-    "星界 - 增强版astro主题，适用于视觉博客，多语言支持助力全球受众。",
-  SEARCH_PAGE_TITLE: "星界 - 站内搜索",
-  SEARCH_PAGE_DESCRIPTION: "搜索星界全站内容",
+  BrandName: "DiMi",
+  SITE_TITLE: "DiMi",
+  SITE_DESCRIPTION: "在生活的海洋，创业的波涛和投资的迷雾中前行。",
+  TAGS_TITLE: "所有标签",
+  TAGS_DESCRIPTION: "在生活的海洋，创业的波涛和投资的迷雾中前行。",
+  SEARCH_PAGE_TITLE: "站内搜索",
+  SEARCH_PAGE_DESCRIPTION: "搜索DiMi全站内容",
   GO_TO_HOMEPAGE: "返回首页",
   ERROR_404_SUBMESSAGE: "您查找的页面不存在或已被移动。",
   ERROR_404_MESSAGE: "页面未找到",
@@ -32,17 +40,22 @@ const zhConstants: LanguageConstants = {
   UPDATED_ON: "更新于",
   PUBLISHED_ON: "发布于",
   TAGS_HEADING: "标签",
+  FOOTER_ABOUT: "关于我们",
+  FOOTER_BUILD: "创业",
+  FOOTER_INVEST: "投资",
+  FOOTER_LIFE: "生活",
 };
 
 const enConstants: LanguageConstants = {
-  SITE_TITLE: "astroVerse",
+  BrandName: "DiMi",
+  SITE_TITLE: "DiMi",
   SITE_DESCRIPTION:
-    "astroVerse - Enhanced astro theme for impactful visual blogging, now with multilingual support for a global audience.",
-  TAGS_TITLE: "astroVerse - All Tags",
+    "Navigating through the ocean of life, amidst the waves of entrepreneurship and the fog of investment.",
+  TAGS_TITLE: "All Tags",
   TAGS_DESCRIPTION:
-    "astroVerse - Enhanced astro theme for impactful visual blogging, now with multilingual support for a global audience.",
-  SEARCH_PAGE_TITLE: "astroVerse - Site Search",
-  SEARCH_PAGE_DESCRIPTION: "Search all content on astroVerse",
+    "Navigating through the ocean of life, amidst the waves of entrepreneurship and the fog of investment.",
+  SEARCH_PAGE_TITLE: "Site Search",
+  SEARCH_PAGE_DESCRIPTION: "Search all content on DiMi",
   GO_TO_HOMEPAGE: "Go to Homepage",
   ERROR_404_SUBMESSAGE:
     "The page you're looking for doesn't exist or has been moved.",
@@ -52,36 +65,35 @@ const enConstants: LanguageConstants = {
   UPDATED_ON: "Updated on",
   PUBLISHED_ON: "Published on",
   TAGS_HEADING: "Tags",
+  FOOTER_ABOUT: "About Us",
+  FOOTER_BUILD: "Build",
+  FOOTER_INVEST: "Invest",
+  FOOTER_LIFE: "Life",
 };
 
-export function getConstants(lang: "zh" | "en"): LanguageConstants {
-  return lang === "zh" ? zhConstants : enConstants;
-}
 
-export function getTagMetadata(tag: string, lang: "zh" | "en") {
-  if (lang === "zh") {
-    return {
-      title: `星界中'${tag}'主题的所有文章`,
-      description: `浏览星界关于${tag}的文章。`,
-    };
-  } else {
-    return {
-      title: `All articles on '${tag}' in astroVerse`,
-      description: `Browse articles about ${tag} on astroVerse.`,
-    };
+
+export function getConstants(lang: SupportedLocale): LanguageConstants {
+  switch (lang) {
+    case "zh":
+      return zhConstants;
+    default:
+      return enConstants;
   }
 }
 
-export function getCategoryMetadata(category: string, lang: "zh" | "en") {
-  if (lang === "zh") {
-    return {
-      title: `星界'${category}'相关的文章`,
-      description: `在星界中浏览有关${category}主题的所有文章`,
-    };
-  } else {
-    return {
-      title: `Articles related to '${category}' on astroVerse`,
-      description: `Browse all articles on ${category} in astroVerse`,
-    };
-  }
+export function getTagMetadata(tag: string, lang: SupportedLocale) {
+  const constants = getConstants(lang);
+  return {
+    title: `${constants.SITE_TITLE} - ${tag}`,
+    description: `${constants.TAGS_DESCRIPTION} ${tag}.`,
+  };
+}
+
+export function getCategoryMetadata(category: string, lang: SupportedLocale) {
+  const constants = getConstants(lang);
+  return {
+    title: `${constants.SITE_TITLE} - ${category}`,
+    description: `${constants.SITE_DESCRIPTION} ${category}.`,
+  };
 }

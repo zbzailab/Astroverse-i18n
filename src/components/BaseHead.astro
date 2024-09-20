@@ -1,68 +1,140 @@
 ---
+import GTMHead from "@analytics/GTMHead.astro";
+import Umami from "@analytics/Umami.astro";
+import MetaSEO from "@seo/MetaSEO.astro";
+import GlobalSchema from "@seo/GlobalSchema.astro";
+import { getCurrentLocale, getBrandName } from "@utils/localeUtils";
+import type { SupportedLocale } from "@consts";
+
 interface Props {
   title: string;
   description: string;
   image?: string;
+  canonical?: string;
+  noindex?: boolean;
+  nofollow?: boolean;
+  charset?: string;
+  languageAlternates?: Array<{ href: string; hrefLang: string }>;
 }
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const {
+  title,
+  description,
+  image = "/background.avif",
+  canonical,
+  noindex = false,
+  nofollow = false,
+  charset = "UTF-8",
+  languageAlternates = [],
+} = Astro.props;
 
-const { title, description, image = "/blog-placeholder-1.avif" } = Astro.props;
+const currentLocale: SupportedLocale = getCurrentLocale(Astro.url.pathname);
+const brandName = getBrandName(currentLocale);
 
-const currentLocale = Astro.currentLocale ?? "zh";
+const formattedTitle = title.includes(brandName)
+  ? title
+  : `${title} | ${brandName}`;
 
-function getAlternateLocaleUrl(targetLocale: string) {
+const canonicalURL =
+  canonical || new URL(Astro.url.pathname, Astro.site).toString();
+
+function getAlternateLocaleUrl(targetLocale: string): string {
   const pathParts = Astro.url.pathname.split("/").filter(Boolean);
   if (pathParts[0] === currentLocale) {
     pathParts[0] = targetLocale;
   } else if (pathParts[0] === "posts" && pathParts.length >= 3) {
     pathParts[1] = targetLocale;
-    if (targetLocale === "zh") {
-      pathParts[2] = "cn";
-    } else if (targetLocale === "en") {
-      pathParts[2] = "us";
-    }
   } else {
     pathParts.unshift(targetLocale);
   }
   return new URL("/" + pathParts.join("/"), Astro.site).toString();
 }
 
-const zhUrl = getAlternateLocaleUrl("zh");
-const enUrl = getAlternateLocaleUrl("en");
+const alternateUrls = {
+  zh: getAlternateLocaleUrl("zh"),
+  en: getAlternateLocaleUrl("en"),
+};
 ---
 
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<meta charset={charset} />
+
+<GlobalSchema />
+
+<MetaSEO
+  title={formattedTitle}
+  description={description}
+  canonical={canonicalURL}
+  noindex={noindex}
+  nofollow={nofollow}
+  charset={charset}
+  languageAlternates={[
+    ...languageAlternates,
+    { href: alternateUrls.en, hrefLang: "en" },
+    { href: alternateUrls.zh, hrefLang: "zh" },
+  ]}
+  openGraph={{
+    basic: {
+      title: formattedTitle,
+      type: "website",
+      image: new URL(image, Astro.site).toString(),
+      url: canonicalURL,
+    },
+    optional: {
+      siteName: brandName,
+      locale: currentLocale,
+      description: description,
+      localeAlternate: [
+        "zh_CN",
+        "en_US",
+      ],
+    },
+  }}
+  twitter={{
+    card: "summary_large_image",
+    site: "@idimilab",
+    creator: "@idimilab",
+    title: formattedTitle,
+    description: description,
+    image: new URL(image, Astro.site).toString(),
+    imageAlt: `${brandName} - ${title}`,
+  }}
+  extend={{
+    link: [
+      { rel: "icon", href: "/favicon.ico" },
+      { rel: "sitemap", href: "/sitemap-index.xml" },
+      ...languageAlternates.map(({ href, hrefLang }) => ({
+        rel: "alternate",
+        href,
+        hreflang: hrefLang,
+      })),
+    ],
+    meta: [
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "generator", content: Astro.generator },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: canonicalURL },
+      { property: "og:title", content: formattedTitle },
+      { property: "og:description", content: description },
+      { property: "og:image", content: new URL(image, Astro.site).href },
+      { property: "twitter:card", content: "summary_large_image" },
+      { property: "twitter:url", content: canonicalURL },
+      { property: "twitter:title", content: formattedTitle },
+      { property: "twitter:description", content: description },
+      { property: "twitter:image", content: new URL(image, Astro.site).href },
+    ],
+  }}
+/>
+
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-<meta name="generator" content={Astro.generator} />
 
-<link rel="canonical" href={canonicalURL} />
-
-<link rel="sitemap" href="/sitemap-index.xml" />
-
-<link rel="alternate" hreflang="zh" href={zhUrl} />
-<link rel="alternate" hreflang="en" href={enUrl} />
-<link rel="alternate" hreflang="x-default" href={zhUrl} />
-
-<title>{title}</title>
-<meta name="title" content={title} />
-<meta name="description" content={description} />
-
-<meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
-
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title={brandName}
+  href={new URL("rss.xml", Astro.site)}
+/>
 
 <script>
   import "preline/dist/preline.js";
