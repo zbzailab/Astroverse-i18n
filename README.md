@@ -10,7 +10,7 @@ This theme seamlessly integrates visuals and written content, empowering creator
 
 Ideal for bloggers and content creators who wish to make their stories stand out through the fusion of striking visuals and engaging prose, astroVerse-i18n helps you connect with a diverse audience across the globe.
 
-<img src="public/screenshot.webp" alt="astroVerse-i18n 截图" />
+<img src="public/screenshot.webp" alt="astroVerse-i18n" />
 
 ## 💯 Lighthouse 得分
 
