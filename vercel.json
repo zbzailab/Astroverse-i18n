@@ -17,6 +17,36 @@
         "headers": [
           { "key": "Content-Type", "value": "application/xml" }
         ]
+      },
+      {
+        "source": "/(.*)",
+        "headers": [
+          {
+            "key": "Permissions-Policy",
+            "value": "fullscreen=(self), geolocation=(self)"
+          }
+        ]
       }
-    ]
+    ],
+    "functions": {
+      "api/**/*.js": {
+        "memory": 128,
+        "maxDuration": 10
+      }
+    },
+    "rewrites": [
+      {
+        "source": "/feedback/((?!general).*)",
+        "destination": "/api/feedback/general"
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/old-path",
+        "destination": "/new-path",
+        "permanent": true
+      }
+    ],
+    "cleanUrls": true,
+    "trailingSlash": false
   }
