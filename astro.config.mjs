@@ -7,6 +7,8 @@ import mdx from "@astrojs/mdx";
 import rehypeExternalLinks from "rehype-external-links";
 import partytown from "@astrojs/partytown";
 
+import sitemap from "@astrojs/sitemap";
+
 export default defineConfig({
   site: "https://verse-i18n.vercel.app",
   trailingSlash: "always",
@@ -41,23 +43,17 @@ export default defineConfig({
       ],
     ],
   },
-  integrations: [
-    mdx(),
-    pagefind(),
-    tailwind(),
-    icon({
-      include: {
-        tabler: ["*"],
-        mdi: ["*"],
-        "material-symbols": ["*"],
-        flagpack: ["*"],
-        "flat-color-icons": ["*"],
-      },
-    }),
-    partytown({
-      config: {
-        forward: ["dataLayer.push"],
-      },
-    }),
-  ],
+  integrations: [mdx(), pagefind(), tailwind(), icon({
+    include: {
+      tabler: ["*"],
+      mdi: ["*"],
+      "material-symbols": ["*"],
+      flagpack: ["*"],
+      "flat-color-icons": ["*"],
+    },
+  }), partytown({
+    config: {
+      forward: ["dataLayer.push"],
+    },
+  }), sitemap()],
 });
