@@ -43,9 +43,22 @@ export default defineConfig({
       ],
     ],
   },
-  integrations: [mdx(), pagefind(), tailwind(), icon({
-    include: {
-      tabler: ["*"],
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: 'en',
+        locales: {
+          en: 'en-US',
+          zh: 'zh-CN',
+        },
+      },
+    }),
+    mdx(),
+    pagefind(),
+    tailwind(),
+    icon({
+      include: {
+        tabler: ["*"],
       mdi: ["*"],
       "material-symbols": ["*"],
       flagpack: ["*"],
@@ -55,5 +68,6 @@ export default defineConfig({
     config: {
       forward: ["dataLayer.push"],
     },
-  }), sitemap()],
+  })
+],
 });
