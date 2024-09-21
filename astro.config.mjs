@@ -9,7 +9,7 @@ import rehypeExternalLinks from "rehype-external-links";
 import partytown from "@astrojs/partytown";
 
 export default defineConfig({
-  site: "https://idimi.com",
+  site: "https://verse-i18n.vercel.app",
   trailingSlash: "always",
   prefetch: true,
   i18n: {
