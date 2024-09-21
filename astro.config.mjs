@@ -43,7 +43,26 @@ export default defineConfig({
     ],
   },
   integrations: [
-    sitemap(),
+    sitemap({
+      entryLimit: 10000,
+      i18n: {
+        defaultLocale: "en",
+        locales: {
+          en: "en-US",
+          zh: "zh-CN",
+          fr: "fr-FR",
+          ar: "ar-SA",
+          es: "es-ES",
+          ru: "ru-RU",
+          ja: "ja-JP",
+          ko: "ko-KR",
+          pt: "pt-PT",
+          de: "de-DE",
+          id: "id-ID",
+          hi: "hi-IN",
+        },
+      },
+    }),
     mdx(),
     pagefind(),
     tailwind(),
