@@ -28,16 +28,14 @@
         ]
       }
     ],
-    "functions": {
-      "api/**/*.js": {
-        "memory": 128,
-        "maxDuration": 10
-      }
-    },
     "rewrites": [
       {
         "source": "/feedback/((?!general).*)",
         "destination": "/api/feedback/general"
+      },
+      {
+        "source": "/user/:id",
+        "destination": "/api/user/:id"
       }
     ],
     "redirects": [
@@ -47,6 +45,12 @@
         "permanent": true
       }
     ],
+    "functions": {
+      "api/**/*.js": {
+        "memory": 128,
+        "maxDuration": 10
+      }
+    },
     "cleanUrls": true,
     "trailingSlash": false
   }
