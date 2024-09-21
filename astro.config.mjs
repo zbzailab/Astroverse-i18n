@@ -1,6 +1,5 @@
 import { defineConfig } from "astro/config";
 import { remarkModifiedTime } from "./src/utils/remark-modified-time.mjs";
-import sitemap from "@astrojs/sitemap";
 import pagefind from "astro-pagefind";
 import icon from "astro-icon";
 import tailwind from "@astrojs/tailwind";
@@ -43,7 +42,6 @@ export default defineConfig({
     ],
   },
   integrations: [
-    sitemap(),
     mdx(),
     pagefind(),
     tailwind(),
