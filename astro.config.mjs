@@ -44,7 +44,6 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      entryLimit: 10000,
       i18n: {
         defaultLocale: "en",
         locales: {
