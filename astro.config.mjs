@@ -43,15 +43,7 @@ export default defineConfig({
     ],
   },
   integrations: [
-    sitemap({
-      i18n: {
-        defaultLocale: "en",
-        locales: {
-          en: "en-US",
-          zh: "zh-CN",
-        },
-      },
-    }),
+    sitemap(),
     mdx(),
     pagefind(),
     tailwind(),
