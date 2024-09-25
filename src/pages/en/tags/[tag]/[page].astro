@@ -30,6 +30,11 @@ export const getStaticPaths = (async () => {
         post.data.tags.includes(tag) || post.data.tags.includes(chineseTag),
     );
 
+    filteredPosts.sort(
+      (a, b) =>
+        new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf(),
+    );
+
     const pageSize = 12;
     const totalPages = Math.ceil(filteredPosts.length / pageSize);
 

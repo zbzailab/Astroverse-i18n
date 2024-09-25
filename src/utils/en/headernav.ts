@@ -1,15 +1,15 @@
 export const life = {
-  text: "Life",
+  text: "One",
   href: "/category/life/1/",
 };
 
 export const invest = {
-  text: "Invest",
+  text: "Two",
   href: "/category/invest/1/",
 };
 
 export const build = {
-  text: "Build",
+  text: "Three",
   href: "/category/build/1/",
 };
 

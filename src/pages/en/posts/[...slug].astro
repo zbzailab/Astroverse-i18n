@@ -59,17 +59,17 @@ const constants = getConstants(currentLocale);
       </div>
       <div class="mx-auto flex max-w-3xl flex-col items-start justify-between sm:flex-row sm:items-center">
         <div class="flex items-center mb-4 sm:mb-0">
-          <a href="/en/" aria-label="Go to homepage">
+          <a href="/en/author/" aria-label="Go to homepage">
             <img
               class="h-16 w-16 rounded-full"
               src="/dimi.avif"
-              alt={post.data.author || "DiMi"}
+              alt={post.data.author || "Astroverse"}
               loading="lazy"
             />
           </a>
           <div class="ml-3">
             <p class="mb-1 text-sm font-medium text-gray-800 dark:text-neutral-500">
-              {post.data.author || "DiMi"}
+              {post.data.author || "Astroverse"}
             </p>
             <p class="mb-1 text-sm text-gray-400 dark:text-neutral-500">
               {constants.PUBLISHED_ON}
@@ -79,8 +79,8 @@ const constants = getConstants(currentLocale);
           </div>
         </div>
       
-        <div class="w-full sm:w-auto sm:flex sm:flex-col sm:items-end">
-          <div class="mb-2 flex flex-wrap justify-start sm:justify-end prose-a:no-underline">
+        <div class="w-full flex justify-between items-center sm:w-auto sm:flex sm:flex-col sm:items-end">
+          <div class="mb-2 flex flex-wrap justify-start prose-a:no-underline">
             {
               post.data.tags.map((tag) => (
                 <span class="mb-2 mr-2 rounded-full bg-neutral-200 px-3 py-1 text-sm hover:bg-neutral-500 dark:bg-neutral-600">

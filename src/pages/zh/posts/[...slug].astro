@@ -11,6 +11,7 @@ import OptimizedCover from "@components/OptimizedPicture.astro";
 import { getConstants } from "@consts";
 import PostsSchema from "@seo/PostsSchema.astro";
 import { getCurrentLocale } from "@utils/localeUtils";
+import { getEnglishTag } from "@utils/tagMapping";
 
 export const getStaticPaths = (async () => {
   const posts = await getCollection("posts", ({ id }) => id.startsWith("zh/"));
@@ -30,7 +31,6 @@ const { Content } = await post.render();
 const currentLocale: SupportedLocale = getCurrentLocale(Astro.url.pathname);
 const constants = getConstants(currentLocale);
 ---
-
 <BaseLayout
   title={post.data.title}
   description={post.data.description}
@@ -45,31 +45,29 @@ const constants = getConstants(currentLocale);
         <h1>{post.data.title}</h1>
       </div>
       <div>
-        {
-          post.data.cover && (
-            <OptimizedCover
-              src={post.data.cover}
-              alt={post.data.coverAlt || ""}
-            />
-          )
-        }
+        {post.data.cover && (
+          <OptimizedCover
+            src={post.data.cover}
+            alt={post.data.coverAlt || ""}
+          />
+        )}
       </div>
       <div class="text-justify">
         <Content />
       </div>
       <div class="mx-auto flex max-w-3xl flex-col items-start justify-between sm:flex-row sm:items-center">
         <div class="flex items-center mb-4 sm:mb-0">
-          <a href="/zh/" aria-label="Go to homepage">
+          <a href="/zh/author/" aria-label="Go to homepage">
             <img
               class="h-16 w-16 rounded-full"
               src="/dimi.avif"
-              alt={post.data.author || "DiMi"}
+              alt={post.data.author || "Astroverse"}
               loading="lazy"
             />
           </a>
           <div class="ml-3">
             <p class="mb-1 text-sm font-medium text-gray-800 dark:text-neutral-500">
-              {post.data.author || "DiMi"}
+              {post.data.author || "Astroverse"}
             </p>
             <p class="mb-1 text-sm text-gray-400 dark:text-neutral-500">
               {constants.PUBLISHED_ON}
@@ -78,16 +76,17 @@ const constants = getConstants(currentLocale);
             </p>
           </div>
         </div>
-      
-        <div class="w-full sm:w-auto sm:flex sm:flex-col sm:items-end">
-          <div class="mb-2 flex flex-wrap justify-start sm:justify-end prose-a:no-underline">
-            {
-              post.data.tags.map((tag) => (
+
+        <div class="w-full flex justify-between items-center sm:w-auto sm:flex sm:flex-col sm:items-end">
+          <div class="mb-2 flex flex-wrap justify-start prose-a:no-underline">
+            {post.data.tags.map((tag) => {
+              const commonTag = getEnglishTag(tag, "zh");
+              return (
                 <span class="mb-2 mr-2 rounded-full bg-neutral-200 px-3 py-1 text-sm hover:bg-neutral-500 dark:bg-neutral-600">
-                  <a href={`/zh/tags/${tag}/1/`}>{tag}</a>
+                  <a href={`/zh/tags/${commonTag}/1/`}>{tag}</a>
                 </span>
-              ))
-            }
+              );
+            })}
           </div>
           <div class="flex items-center text-gray-500 dark:text-gray-400">
             <Icon name="tabler:eye" class="icon-base" />

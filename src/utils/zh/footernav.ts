@@ -1,23 +1,24 @@
 export const life = [
-  { text: "沉思", href: "https://idimi.com/" },
-  { text: "观阅", href: "https://idimi.com/" },
-  { text: "行走", href: "https://idimi.com/" },
+  { text: "甲戌", href: "/tags/reflect/1/" },
+  { text: "乙丑", href: "/tags/media/1/" },
+  { text: "丙子", href: "/tags/roam/1/" },
 ];
 
 export const invest = [
-  { text: "风险", href: "https://idimi.com/" },
-  { text: "策略", href: "https://idimi.com/" },
-  { text: "配置", href: "https://idimi.com/" },
+  { text: "甲戌", href: "/tags/reflect/1/" },
+  { text: "乙丑", href: "/tags/media/1/" },
+  { text: "丙子", href: "/tags/roam/1/" },
 ];
 
 export const build = [
-  { text: "创新", href: "https://idimi.com/" },
-  { text: "模式", href: "https://idimi.com/" },
-  { text: "管理", href: "https://idimi.com/" },
+  { text: "甲戌", href: "/tags/reflect/1/" },
+  { text: "乙丑", href: "/tags/media/1/" },
+  { text: "丙子", href: "/tags/roam/1/" },
 ];
 
 export const more = [
-  { text: "About", href: "https://idimi.com/about/" },
-  { text: "Links", href: "https://idimi.com/" },
-  { text: "Navigation", href: "https://idimi.com/zh/" },
+  { text: "甲戌", href: "/tags/reflect/1/" },
+  { text: "乙丑", href: "/tags/media/1/" },
+  { text: "丙子", href: "/tags/roam/1/" },
 ];
+

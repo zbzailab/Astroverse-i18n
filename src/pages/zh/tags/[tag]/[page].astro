@@ -6,7 +6,7 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import PostCard from "@components/CommonCard.astro";
 import Pagination from "@components/Pagination.astro";
 import { getTagMetadata } from "@consts";
-import { getEnglishTag } from "@utils/tagMapping";
+import { getEnglishTag, getTagByLanguage } from "@utils/tagMapping";
 import TagsSchema from "@seo/TagsSchema.astro";
 
 type Post = CollectionEntry<"posts">;
@@ -21,13 +21,23 @@ export const getStaticPaths = (async () => {
   const allPosts = await getCollection("posts", ({ id }) =>
     id.startsWith("zh/"),
   );
-  const uniqueTags = [...new Set(allPosts.flatMap((post) => post.data.tags))];
+
+  const allCommonTags = allPosts.flatMap((post) =>
+    post.data.tags.map((tag) => getEnglishTag(tag, "zh")),
+  );
+  const uniqueTags = [...new Set(allCommonTags)];
 
   return uniqueTags.flatMap((tag) => {
-    const englishTag = getEnglishTag(tag, "zh");
-    const filteredPosts = allPosts.filter(
-      (post) =>
-        post.data.tags.includes(tag) || post.data.tags.includes(englishTag),
+    const filteredPosts = allPosts.filter((post) => {
+      const postCommonTags = post.data.tags.map((tag) =>
+        getEnglishTag(tag, "zh"),
+      );
+      return postCommonTags.includes(tag);
+    });
+
+    filteredPosts.sort(
+      (a, b) =>
+        new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf(),
     );
 
     const pageSize = 12;
@@ -58,12 +68,12 @@ if (typeof tag !== "string") {
 }
 
 const currentLocale = "zh";
-const { title, description } = getTagMetadata(tag, currentLocale);
+const localizedTag = getTagByLanguage(tag, "en", "zh");
+const { title, description } = getTagMetadata(localizedTag, currentLocale);
 ---
-
 <BaseLayout title={title} description={description}>
-  <TagsSchema tag={tag} page={page} locale="zh" />
-  <h1 class="sr-only">标签 "{tag}" 下的所有文章</h1>
+  <TagsSchema tag={localizedTag} page={page} locale="zh" />
+  <h1 class="sr-only">标签 "{localizedTag}" 下的所有文章</h1>
   <h2 class="sr-only">文章列表</h2>
 
   <div class="mx-auto max-w-4xl px-4 py-8">
@@ -74,12 +84,16 @@ const { title, description } = getTagMetadata(tag, currentLocale);
     <Pagination
       currentPage={page.currentPage}
       lastPage={page.lastPage}
-      urlPrev={page.currentPage > 1
-        ? `/zh/tags/${tag}/${page.currentPage - 1}`
-        : null}
-      urlNext={page.currentPage < page.lastPage
-        ? `/zh/tags/${tag}/${page.currentPage + 1}`
-        : null}
+      urlPrev={
+        page.currentPage > 1
+          ? `/zh/tags/${tag}/${page.currentPage - 1}`
+          : null
+      }
+      urlNext={
+        page.currentPage < page.lastPage
+          ? `/zh/tags/${tag}/${page.currentPage + 1}`
+          : null
+      }
       basePath={`/zh/tags/${tag}`}
       maxDisplayedPages={5}
     />

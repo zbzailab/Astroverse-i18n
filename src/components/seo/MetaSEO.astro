@@ -14,13 +14,15 @@ interface Props {
       title: string;
       type: string;
       image: string;
-      url: string;
+      url?: string | URL;
     };
     optional?: {
-      siteName: string;
-      locale: string;
-      description: string;
-      localeAlternate?: string[];
+      audio?: string;
+      description?: string;
+      determiner?: string;
+      locale?: string;
+      siteName?: string;
+      video?: string;
     };
   };
   twitter?: {
@@ -36,6 +38,9 @@ interface Props {
     link?: Array<{ rel: string; href: string; hreflang?: string }>;
     meta?: Array<{ name?: string; content: string; property?: string }>;
   };
+  currentLocale: string;
+  localeAlternate: string[];
+  defaultImage: string;
 }
 
 const {
@@ -49,9 +54,15 @@ const {
   openGraph,
   twitter,
   extend = { link: [], meta: [] },
+  currentLocale,
+  localeAlternate,
+  defaultImage,
 } = Astro.props as Props;
----
 
+// 确保 openGraph.basic.image 和 twitter.image 有默认值
+const ogImage = openGraph?.basic?.image || defaultImage;
+const twitterImage = twitter?.image || defaultImage;
+---
 <SEO
   title={title}
   description={description}
@@ -60,7 +71,32 @@ const {
   nofollow={nofollow}
   charset={charset}
   languageAlternates={languageAlternates}
-  openGraph={openGraph}
-  twitter={twitter}
-  extend={extend}
+  openGraph={{
+    basic: {
+      title: openGraph?.basic?.title ?? title,
+      type: openGraph?.basic?.type ?? 'website',
+      image: ogImage,
+      url: openGraph?.basic?.url ?? canonical,
+    },
+    optional: {
+      ...(openGraph?.optional || {}),
+    },
+  }}
+  twitter={{
+    ...twitter,
+    image: twitterImage,
+  }}
+  extend={{
+    ...extend,
+    meta: [
+      ...(extend.meta || []),
+      { property: "og:locale", content: currentLocale },
+      ...localeAlternate
+        .filter((locale) => locale !== currentLocale)
+        .map((locale) => ({
+          property: "og:locale:alternate",
+          content: locale,
+        })),
+    ],
+  }}
 />

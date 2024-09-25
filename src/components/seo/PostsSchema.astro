@@ -31,7 +31,7 @@ const postUrl = `${siteUrl}${locale}/posts/${slug}/`;
 const logoPath = import.meta.env.LOGO_PATH || "/logo.ico";
 const logoUrl = new URL(logoPath, siteUrl).toString();
 
-const authorName = post.data.author || "DiMi Author";
+const authorName = post.data.author || "Astroverse Author";
 
 const imageUrl = post.data.cover
   ? new URL(post.data.cover, siteUrl).toString()
@@ -113,7 +113,7 @@ const breadcrumbs: Array<{
       name: authorName,
       image: {
         "@type": "ImageObject",
-        url: `${siteUrl}dimi.webp`,
+        url: `${siteUrl}Astroverse.webp`,
         width: {
           "@type": "QuantitativeValue",
           value: 400,

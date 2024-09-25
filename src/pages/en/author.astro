@@ -1,0 +1,84 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { Icon } from "astro-icon/components";
+import LatestPosts from "@components/LatestPosts.astro";
+import { getConstants } from "@consts";
+
+const currentLocale = "en";
+const constants = getConstants(currentLocale);
+
+const title = `${constants.SITE_TITLE}-Author`;
+const description = constants.SITE_DESCRIPTION;
+---
+<BaseLayout title={title} description={description}>
+  <h1 class="sr-only">{constants.SITE_TITLE} Author</h1>
+  <main id="content">
+    <div class="w-full max-w-2xl mx-auto pt-10 md:pt-16 px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-x-3">
+        <div class="shrink-0">
+          <a href="/en/" aria-label="Go to homepage">
+            <img
+              class="shrink-0 w-16 h-16 rounded-full"
+              src="/dimi.avif"
+              alt="Astroverse"
+              loading="lazy"
+            />
+          </a>
+        </div>
+        <div class="grow">
+          <h2 class="text-lg font-medium text-gray-800 dark:text-neutral-200">
+            Astroverse
+          </h2>
+          <p class="text-sm text-gray-600 dark:text-neutral-400">
+            keep dancing, keep singing.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <p class="text-sm text-gray-600 dark:text-neutral-400">
+          I am an entrepreneur who is dedicated to achieving sustainability through intelligent technology. 
+        </p>
+        <ul class="mt-5 flex flex-col gap-y-3">
+          <li class="flex items-center gap-x-2.5">
+            <div class="flex items-center text-gray-500 dark:text-gray-400">
+              <Icon name="tabler:mail" class="icon-base" />
+            </div>
+            <a class="text-[13px] text-gray-500 underline hover:text-gray-800 hover:decoration-2 focus:outline-none focus:decoration-2 dark:text-neutral-400 dark:hover:text-neutral-200" href="#">
+              hi@mail.idimi.com
+            </a>
+          </li>
+
+          <li class="flex items-center gap-x-2.5">
+            <div class="flex items-center text-gray-500 dark:text-gray-400">
+              <Icon name="tabler:brand-x" class="icon-base" />
+            </div>
+            <a class="text-[13px] text-gray-500 underline hover:text-gray-800 hover:decoration-2 focus:outline-none focus:decoration-2 dark:text-neutral-400 dark:hover:text-neutral-200" href="#">
+              @idimilab
+            </a>
+          </li>
+
+          <li class="flex items-center gap-x-2.5">
+            <div class="flex items-center text-gray-500 dark:text-gray-400">
+              <Icon name="tabler:brand-github" class="icon-base" />
+            </div>
+            <a class="text-[13px] text-gray-500 underline hover:text-gray-800 hover:decoration-2 focus:outline-none focus:decoration-2 dark:text-neutral-400 dark:hover:text-neutral-200" href="#">
+              https://idimi.com
+            </a>
+          </li>
+
+          <li class="flex items-center gap-x-2.5">
+            <div class="flex items-center text-gray-500 dark:text-gray-400">
+              <Icon name="tabler:world-www" class="icon-base" />
+            </div>
+            <a class="text-[13px] text-gray-500 underline hover:text-gray-800 hover:decoration-2 focus:outline-none focus:decoration-2 dark:text-neutral-400 dark:hover:text-neutral-200" href="#">
+              https://idimi.com
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </main>
+  <h2 class="sr-only">Latest Posts</h2>
+  <LatestPosts currentLocale={currentLocale} />
+</BaseLayout>

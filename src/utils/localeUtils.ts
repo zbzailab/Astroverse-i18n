@@ -22,8 +22,8 @@ export function getCurrentLocale(pathname: string): SupportedLocale {
 
 export function getBrandName(lang: SupportedLocale): string {
   const brandNames: Record<SupportedLocale, string> = {
-    en: "DiMi",
-    zh: "DiMi",
+    en: "Astroverse",
+    zh: "Astroverse",
   };
   return brandNames[lang];
 }

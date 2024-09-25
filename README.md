@@ -45,7 +45,7 @@ Experience [**astroVerse-i18n**](https://verse-i18n.vercel.app) in action.
 
 Share your project built with astroVerse-i18n! Open an issue titled "Showcase Submission" with your project's details to be featured in our Showcase.
 
-- [**DiMi**](https://idimi.com)
+- [**Astroverse**](https://idimi.com)
 
 ## 💻 Running Locally
 

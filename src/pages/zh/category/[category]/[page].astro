@@ -7,19 +7,26 @@ import PostCard from "@components/CommonCard.astro";
 import Pagination from "@components/Pagination.astro";
 import { getCategoryMetadata } from "@consts";
 import CategorySchema from "@seo/CategorySchema.astro";
+import { getEnglishCategory, getCategoryByLanguage } from "@utils/categoryMapping";
 
 export const getStaticPaths = (async () => {
   const allPosts = await getCollection("posts", ({ id }) =>
     id.startsWith("zh/"),
   );
-  const uniqueCategories = [
-    ...new Set(allPosts.flatMap((post) => post.data.category)),
-  ];
+
+  const allCommonCategories = allPosts.flatMap((post) =>
+    post.data.category.map((cat) => getEnglishCategory(cat, "zh")),
+  );
+  const uniqueCategories = [...new Set(allCommonCategories)];
 
   return uniqueCategories.flatMap((category) => {
-    const filteredPosts = allPosts.filter((post) =>
-      post.data.category.includes(category),
-    );
+    const filteredPosts = allPosts.filter((post) => {
+      const postCommonCategories = post.data.category.map((cat) =>
+        getEnglishCategory(cat, "zh"),
+      );
+      return postCommonCategories.includes(category);
+    });
+
     filteredPosts.sort(
       (a, b) =>
         new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf(),
@@ -59,12 +66,13 @@ if (typeof category !== "string") {
 }
 
 const currentLocale = "zh";
-const { title, description } = getCategoryMetadata(category, currentLocale);
+const localizedCategory = getCategoryByLanguage(category, "en", currentLocale);
+const { title, description } = getCategoryMetadata(localizedCategory, currentLocale);
 ---
 
 <BaseLayout title={title} description={description}>
-  <CategorySchema category={category} page={page} locale="zh" />
-  <h1 class="sr-only">分类 "{category}" 下的所有文章</h1>
+  <CategorySchema category={localizedCategory} page={page} locale="zh" />
+  <h1 class="sr-only">分类 "{localizedCategory}" 下的所有文章</h1>
   <h2 class="sr-only">文章列表</h2>
 
   <div class="mx-auto max-w-4xl px-4 py-8">
@@ -75,12 +83,16 @@ const { title, description } = getCategoryMetadata(category, currentLocale);
     <Pagination
       currentPage={page.currentPage}
       lastPage={page.lastPage}
-      urlPrev={page.currentPage > 1
-        ? `/zh/category/${category}/${page.currentPage - 1}`
-        : null}
-      urlNext={page.currentPage < page.lastPage
-        ? `/zh/category/${category}/${page.currentPage + 1}`
-        : null}
+      urlPrev={
+        page.currentPage > 1
+          ? `/zh/category/${category}/${page.currentPage - 1}`
+          : null
+      }
+      urlNext={
+        page.currentPage < page.lastPage
+          ? `/zh/category/${category}/${page.currentPage + 1}`
+          : null
+      }
       basePath={`/zh/category/${category}`}
       maxDisplayedPages={5}
     />

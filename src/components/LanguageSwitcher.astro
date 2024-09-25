@@ -1,91 +1,46 @@
 ---
 import { Icon } from "astro-icon/components";
-import { getTagByLanguage } from "@utils/tagMapping";
-import { getCategoryByLanguage } from "@utils/categoryMapping";
 import { getLanguageNames } from "@utils/localeUtils";
 
 const currentLocale = Astro.currentLocale ?? "en";
 const currentPath = Astro.url.pathname;
 let localeUrls: Record<string, string> = {};
 
-const supportedLanguages = ["en", "zh"];
+const supportedLanguages = [
+  "en",
+  "zh",
+  "fr",
+  "es",
+  "ru",
+  "ar",
+  "ja",
+  "ko",
+  "pt",
+  "de",
+  "id",
+  "hi",
+];
 
-
-const currentLangPrefix = currentPath.split("/")[1];
-
-if (currentPath === "/" || !supportedLanguages.includes(currentLangPrefix)) {
-  supportedLanguages.forEach((locale) => {
-    localeUrls[locale] = `/${locale}/`;
-  });
-} else if (currentPath.includes("/posts/")) {
-  const pathParts = currentPath.split("/").filter(Boolean);
-  const slug = pathParts[pathParts.length - 1];
-
-  supportedLanguages.forEach((locale) => {
-    const newPath = currentPath.replace(
-      `/${currentLangPrefix}/`,
-      `/${locale}/`,
-    );
-    localeUrls[locale] = `${newPath.split("/posts/")[0]}/posts/${slug}/`;
-  });
-} else if (currentPath.includes("/category/")) {
-  const pathParts = currentPath.split("/").filter(Boolean);
-  const category = decodeURIComponent(pathParts[pathParts.length - 2]);
-  const page = pathParts[pathParts.length - 1];
-
-  supportedLanguages.forEach((locale) => {
-    const translatedCategory = getCategoryByLanguage(
-      category,
-      currentLocale,
-      locale,
-    );
-    const newPath = currentPath.replace(
-      `/${currentLangPrefix}/`,
-      `/${locale}/`,
-    );
-    localeUrls[locale] =
-      `${newPath.split("/category/")[0]}/category/${encodeURIComponent(translatedCategory)}/${page}/`;
-  });
-} else if (currentPath.includes("/tags/")) {
-  const pathParts = currentPath.split("/").filter(Boolean);
-
-  if (pathParts.length === 2) {
-    supportedLanguages.forEach((locale) => {
-      const newPath = currentPath.replace(
-        `/${currentLangPrefix}/`,
-        `/${locale}/`,
-      );
-      localeUrls[locale] = `${newPath}`;
-    });
+function replaceLocaleInPath(path: string, newLocale: string): string {
+  const parts = path.split("/").filter(Boolean);
+  if (supportedLanguages.includes(parts[0])) {
+    parts[0] = newLocale;
   } else {
-    const tag = decodeURIComponent(pathParts[pathParts.length - 2]);
-    const page = pathParts[pathParts.length - 1];
-
-    supportedLanguages.forEach((locale) => {
-      const translatedTag = getTagByLanguage(tag, currentLocale, locale);
-      const newPath = currentPath.replace(
-        `/${currentLangPrefix}/`,
-        `/${locale}/`,
-      );
-      localeUrls[locale] =
-        `${newPath.split("/tags/")[0]}/tags/${encodeURIComponent(translatedTag)}/${page}/`;
-    });
+    parts.unshift(newLocale);
   }
-} else {
-  supportedLanguages.forEach((locale) => {
-    const newPath = currentPath.replace(
-      `/${currentLangPrefix}/`,
-      `/${locale}/`,
-    );
-    localeUrls[locale] = newPath;
-  });
+  const newPath = "/" + parts.join("/") + "/";
+  return newPath.replace(/\/+$/, "/");
 }
+
+supportedLanguages.forEach((locale) => {
+  const newPath = replaceLocaleInPath(currentPath, locale);
+  localeUrls[locale] = newPath;
+});
 
 localeUrls[currentLocale] = currentPath;
 
 const languageNames = getLanguageNames();
 ---
-
 <div class="hs-dropdown relative inline-flex [--placement:top-left]">
   <button
     id="footer-language-dropdown"
@@ -102,18 +57,16 @@ const languageNames = getLanguageNames();
     class="hs-dropdown-menu duration z-10 hidden w-40 rounded-lg bg-white p-2 opacity-0 shadow-md transition-[opacity,margin] hs-dropdown-open:opacity-100 dark:divide-neutral-700 dark:border dark:border-neutral-700 dark:bg-neutral-800"
     aria-labelledby="footer-language-dropdown"
   >
-    {
-      supportedLanguages.map(
-        (locale) =>
-          locale !== currentLocale && (
-            <a
-              class="flex items-center gap-x-2 rounded-lg px-3 py-2 text-sm text-neutral-800 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300"
-              href={localeUrls[locale]}
-            >
-              {languageNames[locale]}
-            </a>
-          ),
-      )
-    }
+    {supportedLanguages.map(
+      (locale) =>
+        locale !== currentLocale && (
+          <a
+            class="flex items-center gap-x-2 rounded-lg px-3 py-2 text-sm text-neutral-800 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300"
+            href={localeUrls[locale]}
+          >
+            {languageNames[locale]}
+          </a>
+        ),
+    )}
   </div>
 </div>

@@ -10,7 +10,6 @@ const zhTranslations: TranslationMap = {
   blog: "文章",
 };
 
-
 const translationMappings: Record<string, TranslationMap> = {
   en: enTranslations,
   zh: zhTranslations,

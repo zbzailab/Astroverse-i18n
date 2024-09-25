@@ -28,8 +28,11 @@ const safeGetRelativeLocaleUrl = (path: string) =>
       latestPosts.map((post) => {
         const cleanSlug = post.slug.replace(/^[a-z]{2}\//, "");
         return (
-          <div class="relative mb-4 overflow-hidden rounded-xl bg-white transition-transform duration-500 hover:-translate-y-1 hover:scale-105 dark:bg-neutral-900">
-            <a href={safeGetRelativeLocaleUrl(`posts/${cleanSlug}`)}>
+          <a
+            href={safeGetRelativeLocaleUrl(`posts/${cleanSlug}`)}
+            class="block"
+          >
+            <div class="relative mb-4 overflow-hidden rounded-xl bg-white transition-transform duration-500 hover:-translate-y-1 hover:scale-105 dark:bg-neutral-900">
               <OptimizedCover src={post.data.cover} alt={post.data.coverAlt} />
               <div class="absolute bottom-0 end-0 start-0 bg-gradient-to-t from-black p-4 md:p-5">
                 <div class="mt-16 flex items-center gap-4 text-xs text-white">
@@ -40,8 +43,8 @@ const safeGetRelativeLocaleUrl = (path: string) =>
                   {post.data.title}
                 </h3>
               </div>
-            </a>
-          </div>
+            </div>
+          </a>
         );
       })
     }

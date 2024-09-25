@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { getConstants } from "@consts";
 import TagsIndexSchema from "@seo/TagsIndexSchema.astro";
+import { getEnglishTag, getTagByLanguage } from "@utils/tagMapping";
 
 const currentLocale = "zh";
 const constants = getConstants(currentLocale);
@@ -10,12 +11,14 @@ const constants = getConstants(currentLocale);
 const allPosts = await getCollection("posts", ({ id }) => id.startsWith("zh/"));
 
 let tagCounts: { [key: string]: number } = {};
+
 allPosts.forEach((post) => {
   (post.data.tags || []).forEach((tag) => {
-    if (tag in tagCounts) {
-      tagCounts[tag] += 1;
+    const commonTag = getEnglishTag(tag, currentLocale);
+    if (commonTag in tagCounts) {
+      tagCounts[commonTag] += 1;
     } else {
-      tagCounts[tag] = 1;
+      tagCounts[commonTag] = 1;
     }
   });
 });
@@ -31,16 +34,19 @@ const tags = Object.keys(tagCounts);
   <h1 class="sr-only">所有标签</h1>
   <h2 class="sr-only">标签列表</h2>
   <div class="prose prose-lg mx-auto p-6">
-    <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+    <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-3">
       {
-        tags.map((tag) => (
-          <a
-            href={`/zh/tags/${tag}/1/`}
-            class="rounded-full bg-neutral-200 px-3 py-2 text-center text-sm font-semibold no-underline hover:bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600"
-          >
-            {tag} <span>({tagCounts[tag]})</span>
-          </a>
-        ))
+        tags.map((commonTag) => {
+          const localizedTag = getTagByLanguage(commonTag, "en", currentLocale);
+          return (
+            <a
+              href={`/zh/tags/${commonTag}/1/`}
+              class="rounded-full bg-neutral-200 px-3 py-2 text-center text-sm font-semibold no-underline hover:bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600"
+            >
+              {localizedTag} <span>({tagCounts[commonTag]})</span>
+            </a>
+          );
+        })
       }
     </div>
   </div>

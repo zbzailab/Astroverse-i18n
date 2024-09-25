@@ -6,7 +6,6 @@ import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
 import rehypeExternalLinks from "rehype-external-links";
 import partytown from "@astrojs/partytown";
-
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({

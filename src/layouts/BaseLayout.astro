@@ -3,6 +3,7 @@ import BaseHead from "@components/BaseHead.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import { getCurrentLocale } from "@utils/localeUtils";
+import { ViewTransitions } from 'astro:transitions';
 
 const { title, description, image } = Astro.props;
 const lang = getCurrentLocale(Astro.url.pathname);
@@ -11,6 +12,7 @@ const lang = getCurrentLocale(Astro.url.pathname);
 <!doctype html>
 <html lang={lang}>
   <head>
+    <ViewTransitions />
     <BaseHead title={title} description={description} image={image} />
   </head>
   <body
@@ -24,5 +26,12 @@ const lang = getCurrentLocale(Astro.url.pathname);
     </main>
 
     <Footer />
+
+    <script>
+      document.addEventListener('astro:page-load', async () => {
+        const preline: any = await import('preline/dist/preline.js');
+        preline.HSStaticMethods.autoInit();
+      });
+    </script>
   </body>
 </html>

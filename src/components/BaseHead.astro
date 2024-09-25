@@ -18,7 +18,7 @@ interface Props {
 const {
   title,
   description,
-  image = "/background.avif",
+  image,
   canonical,
   noindex = false,
   nofollow = false,
@@ -48,12 +48,27 @@ function getAlternateLocaleUrl(targetLocale: string): string {
   return new URL("/" + pathParts.join("/"), Astro.site).toString();
 }
 
-const alternateUrls = {
-  zh: getAlternateLocaleUrl("zh"),
-  en: getAlternateLocaleUrl("en"),
+const supportedLocales: string[] = ["zh", "en", "ja", "ko", "pt", "de", "id", "hi", "fr", "es", "ru", "ar"];
+
+const alternateUrls: Record<string, string> = supportedLocales.reduce(
+  (acc: Record<string, string>, locale: string) => {
+    acc[locale] = getAlternateLocaleUrl(locale);
+    return acc;
+  },
+  {}
+);
+
+const localeAlternateMap: Record<string, string> = {
+  zh: "zh_CN",
+  en: "en_US",
 };
+
+const localeAlternate: string[] = supportedLocales.map((locale: string) => localeAlternateMap[locale]);
+
+const defaultImage = new URL("/Astroverse-background.avif", Astro.site).toString();
 ---
 <meta charset={charset} />
+
 
 <GlobalSchema />
 
@@ -66,24 +81,22 @@ const alternateUrls = {
   charset={charset}
   languageAlternates={[
     ...languageAlternates,
-    { href: alternateUrls.en, hrefLang: "en" },
-    { href: alternateUrls.zh, hrefLang: "zh" },
+    ...supportedLocales.map((locale) => ({
+      href: alternateUrls[locale],
+      hrefLang: locale,
+    })),
   ]}
   openGraph={{
     basic: {
       title: formattedTitle,
       type: "website",
-      image: new URL(image, Astro.site).toString(),
+      image: image ? new URL(image, Astro.site).toString() : defaultImage,
       url: canonicalURL,
     },
     optional: {
       siteName: brandName,
-      locale: currentLocale,
+      locale: localeAlternateMap[currentLocale] || currentLocale,
       description: description,
-      localeAlternate: [
-        "zh_CN",
-        "en_US",
-      ],
     },
   }}
   twitter={{
@@ -92,12 +105,18 @@ const alternateUrls = {
     creator: "@idimilab",
     title: formattedTitle,
     description: description,
-    image: new URL(image, Astro.site).toString(),
+    image: image ? new URL(image, Astro.site).toString() : defaultImage,
     imageAlt: `${brandName} - ${title}`,
   }}
   extend={{
     link: [
       { rel: "icon", href: "/favicon.ico" },
+      { rel: "sitemap", href: "/sitemap-index.xml" },
+      ...languageAlternates.map(({ href, hrefLang }) => ({
+        rel: "alternate",
+        href,
+        hreflang: hrefLang,
+      })),
     ],
     meta: [
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -106,21 +125,22 @@ const alternateUrls = {
       { property: "og:url", content: canonicalURL },
       { property: "og:title", content: formattedTitle },
       { property: "og:description", content: description },
-      { property: "og:image", content: new URL(image, Astro.site).href },
+      { property: "og:image", content: image ? new URL(image, Astro.site).href : defaultImage },
       { property: "twitter:card", content: "summary_large_image" },
       { property: "twitter:url", content: canonicalURL },
       { property: "twitter:title", content: formattedTitle },
       { property: "twitter:description", content: description },
-      { property: "twitter:image", content: new URL(image, Astro.site).href },
+      { property: "twitter:image", content: image ? new URL(image, Astro.site).href : defaultImage },
     ],
   }}
+  currentLocale={localeAlternateMap[currentLocale] || currentLocale}
+  localeAlternate={localeAlternate}
+  defaultImage={defaultImage}
 />
 
-<link rel="sitemap" href="/sitemap-index.xml" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-
 
 <link
   rel="alternate"
@@ -128,7 +148,3 @@ const alternateUrls = {
   title={brandName}
   href={new URL("rss.xml", Astro.site)}
 />
-
-<script>
-  import "preline/dist/preline.js";
-</script>

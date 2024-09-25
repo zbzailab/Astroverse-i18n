@@ -25,13 +25,13 @@ export interface LanguageConstants {
 }
 
 const zhConstants: LanguageConstants = {
-  BrandName: "DiMi",
-  SITE_TITLE: "DiMi",
-  SITE_DESCRIPTION: "在生活的海洋，创业的波涛和投资的迷雾中前行。",
+  BrandName: "Astroverse",
+  SITE_TITLE: "Astroverse",
+  SITE_DESCRIPTION: "一款用于视觉叙事的Astro主题。",
   TAGS_TITLE: "所有标签",
-  TAGS_DESCRIPTION: "在生活的海洋，创业的波涛和投资的迷雾中前行。",
+  TAGS_DESCRIPTION: "一款用于视觉叙事的Astro主题。",
   SEARCH_PAGE_TITLE: "站内搜索",
-  SEARCH_PAGE_DESCRIPTION: "搜索DiMi全站内容",
+  SEARCH_PAGE_DESCRIPTION: "搜索Astroverse全站内容",
   GO_TO_HOMEPAGE: "返回首页",
   ERROR_404_SUBMESSAGE: "您查找的页面不存在或已被移动。",
   ERROR_404_MESSAGE: "页面未找到",
@@ -41,21 +41,21 @@ const zhConstants: LanguageConstants = {
   PUBLISHED_ON: "发布于",
   TAGS_HEADING: "标签",
   FOOTER_ABOUT: "关于我们",
-  FOOTER_BUILD: "创业",
-  FOOTER_INVEST: "投资",
-  FOOTER_LIFE: "生活",
+  FOOTER_BUILD: "五行",
+  FOOTER_INVEST: "地支",
+  FOOTER_LIFE: "天干",
 };
 
 const enConstants: LanguageConstants = {
-  BrandName: "DiMi",
-  SITE_TITLE: "DiMi",
+  BrandName: "Astroverse",
+  SITE_TITLE: "Astroverse",
   SITE_DESCRIPTION:
-    "Navigating through the ocean of life, amidst the waves of entrepreneurship and the fog of investment.",
+    "An Astro Theme for Visual Storytelling",
   TAGS_TITLE: "All Tags",
   TAGS_DESCRIPTION:
-    "Navigating through the ocean of life, amidst the waves of entrepreneurship and the fog of investment.",
+    "An Astro Theme for Visual Storytelling",
   SEARCH_PAGE_TITLE: "Site Search",
-  SEARCH_PAGE_DESCRIPTION: "Search all content on DiMi",
+  SEARCH_PAGE_DESCRIPTION: "Search all content on Astroverse",
   GO_TO_HOMEPAGE: "Go to Homepage",
   ERROR_404_SUBMESSAGE:
     "The page you're looking for doesn't exist or has been moved.",
@@ -70,7 +70,6 @@ const enConstants: LanguageConstants = {
   FOOTER_INVEST: "Invest",
   FOOTER_LIFE: "Life",
 };
-
 
 
 export function getConstants(lang: SupportedLocale): LanguageConstants {
