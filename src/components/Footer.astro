@@ -15,39 +15,11 @@ switch (currentLocale) {
   case "zh":
     navData = await import("@utils/zh/footernav");
     break;
-  case "fr":
-    navData = await import("@utils/fr/footernav");
-    break;
-  case "es":
-    navData = await import("@utils/es/footernav");
-    break;
-  case "ru":
-    navData = await import("@utils/ru/footernav");
-    break;
-  case "ar":
-    navData = await import("@utils/ar/footernav");
-    break;
   default:
     navData = await import("@utils/en/footernav");
     break;
-  case "pt":
-    navData = await import("@utils/pt/footernav");
-    break;
-  case "de":
-    navData = await import("@utils/de/footernav");
-    break;
-  case "id":
-    navData = await import("@utils/id/footernav");
-    break;
-  case "hi":
-    navData = await import("@utils/hi/footernav");
-    break;
-  case "ja":
-    navData = await import("@utils/ja/footernav");
-    break;
-  case "ko":
-    navData = await import("@utils/ko/footernav");
 }
+
 
 const { life, invest, build, more } = navData;
 
