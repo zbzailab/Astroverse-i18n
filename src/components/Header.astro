@@ -14,39 +14,11 @@ switch (currentLocale) {
   case "zh":
     navData = await import("@utils/zh/headernav");
     break;
-  case "fr":
-    navData = await import("@utils/fr/headernav");
-    break;
-  case "es":
-    navData = await import("@utils/es/headernav");
-    break;
-  case "ru":
-    navData = await import("@utils/ru/headernav");
-    break;
-  case "ar":
-    navData = await import("@utils/ar/headernav");
-    break;
   default:
     navData = await import("@utils/en/headernav");
     break;
-  case "pt":
-    navData = await import("@utils/pt/headernav");
-    break;
-  case "de":
-    navData = await import("@utils/de/headernav");
-    break;
-  case "id":
-    navData = await import("@utils/id/headernav");
-    break;
-  case "hi":
-    navData = await import("@utils/hi/headernav");
-    break;
-  case "ja":
-    navData = await import("@utils/ja/headernav");
-    break;
-  case "ko":
-    navData = await import("@utils/ko/headernav");
 }
+
 
 const { life, invest, build } = navData;
 
