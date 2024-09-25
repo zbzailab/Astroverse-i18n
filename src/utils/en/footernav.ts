@@ -18,6 +18,6 @@ export const build = [
 
 export const more = [
   { text: "About", href: "/about/" },
-  { text: "Two", href: "#" },
+  { text: "Author", href: "/author/" },
   { text: "Three", href: "#" },
 ];
