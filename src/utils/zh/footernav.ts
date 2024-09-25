@@ -1,24 +1,24 @@
 export const life = [
-  { text: "甲戌", href: "/tags/reflect/1/" },
-  { text: "乙丑", href: "/tags/media/1/" },
-  { text: "丙子", href: "/tags/roam/1/" },
+  { text: "甲戌", href: "#" },
+  { text: "乙丑", href: "#" },
+  { text: "丙子", href: "#" },
 ];
 
 export const invest = [
-  { text: "甲戌", href: "/tags/reflect/1/" },
-  { text: "乙丑", href: "/tags/media/1/" },
-  { text: "丙子", href: "/tags/roam/1/" },
+  { text: "甲戌", href: "#" },
+  { text: "乙丑", href: "#" },
+  { text: "丙子", href: "#" },
 ];
 
 export const build = [
-  { text: "甲戌", href: "/tags/reflect/1/" },
-  { text: "乙丑", href: "/tags/media/1/" },
-  { text: "丙子", href: "/tags/roam/1/" },
+  { text: "甲戌", href: "#" },
+  { text: "乙丑", href: "#" },
+  { text: "丙子", href: "#" },
 ];
 
 export const more = [
-  { text: "甲戌", href: "/tags/reflect/1/" },
-  { text: "乙丑", href: "/tags/media/1/" },
-  { text: "丙子", href: "/tags/roam/1/" },
+  { text: "关于", href: "/about/" },
+  { text: "乙丑", href: "#" },
+  { text: "丙子", href: "#" },
 ];
 
