@@ -18,7 +18,7 @@
     "@astrojs/sitemap": "^3.1.6",
     "@astrojs/tailwind": "^5.1.1",
     "@waline/client": "^3.3.0",
-    "astro": "4.15.7",
+    "astro": "4.16.1",
     "astro-icon": "^1.1.0",
     "astro-pagefind": "^1.5.0",
     "astro-seo": "^0.8.4",
